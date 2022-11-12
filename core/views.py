@@ -973,3 +973,8 @@ def criandoevento(request):
              'sessao': sessao}
 
     return render(request,'criarevento.html', dados)
+
+@login_required(login_url='/login/')
+def semlink(request):
+
+    return redirect('/principal/')
