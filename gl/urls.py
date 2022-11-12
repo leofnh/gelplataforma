@@ -34,7 +34,7 @@ urlpatterns = [
     path('principal/', views.principal),
     path('submissoes/', views.submissoes),
     path('criandoevento/', views.criandoevento),
-    path('semlink/', views.semlink)
+    path('', views.semlink)
 
 ]
 
