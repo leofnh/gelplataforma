@@ -1,3 +1,158 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+
+<div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4" style="color:#4B5F83;">Gerenciar Eventos</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="#" style="text-decoration:none;">Eventos</a></li>
+                            <li class="breadcrumb-item active">Avaliações</li>
+                        </ol>
+
+                                <p class="mb-0">
+
+                                 <div class="col-md-8">
+              <div class="card mb-3">
+                <div class="card-body">
+                     {% for usuarios in usuarios %}
+                     <form method="POST" action="/attperfil/?id={{usuarios.id}}" enctype="multipart/form-data">{% csrf_token %}
+                     {% endfor %}
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Nome Completo</h6>
+                    {% for usuarios in usuarios %}
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      <input class="form-control col-6" value="{{usuarios.nome}}" name="nome">
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Email</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      <input class="form-control col-6" type="email" value="{{usuarios.email}}" name="email">
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Contato</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      <input class="form-control col-6" type="tel" value="{{usuarios.contato}}" name="contato">
+                    </div>
+                  </div>
+                  <hr>
+
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Endereço</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                     <input class="form-control col-6" type="text" value="{{usuarios.endereco}}" name="endereco">
+
+                    </div>
+                  </div>
+
+                   <hr>
+
+
+                         <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Foto de Perfil</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                     <input type="file" name="fotoperfil">
+                    </div>
+                  </div>
+
+                   <hr>
+
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Instituição</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                     <input class="form-control col-6" value="{{usuarios.instituicao}}" name="instituicao">
+
+                    </div>
+
+
+
+                  </div>
+
+                           <div align="right">
+
+                          <input type="submit" value="Atualizar" class="mt-4 btn text-white" style="background:#4B5F83;">
+
+                      </div>
+                    </div>
+
+                  </form>
+              </div>
+
+                   {% endfor %}
+
+
+
+                                </p>
+
+
+                        <div style="height: 100vh"></div>
+                    </div>
+                </main>
+
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Desenvolvido por G&L Plataformas</div>
+                            <div>
+                                <a href="#">Politica de Privacidade</a>
+                                &middot;
+                                <a href="#">Termos e Condições</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+
+
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
 {% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -52,17 +207,7 @@
                     </div>
                   </div>
                   <hr>
-                  <!--
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Data de Nascimento</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                     <input class="form-control col-6" type="date" value="{{usuarios.nascimento}}" name="nascimento" >
-                    </div>
-                  </div>
-                  <hr>
-                    -->
+
                   <div class="row">
                     <div class="col-sm-3">
                       <h6 class="mb-0">Endereço</h6>
@@ -95,7 +240,7 @@
                      <input class="form-control col-6" value="{{usuarios.instituicao}}" name="instituicao">
 
                     </div>
-                   <!-- fim aqui -->
+
 
 
                   </div>
@@ -122,3 +267,5 @@
 </body>
 
 </html>
+
+-->
