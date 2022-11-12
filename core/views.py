@@ -21,7 +21,7 @@ def logar(request):
         user = authenticate(username=usuario, password=senha)
         if user:
             login(request,user)
-            return redirect('/home/')
+            return redirect('/principal/')
         else:
             data['msg'] = 'CPF ou SENHA inválido'
             return render(request,'login.html', data)
