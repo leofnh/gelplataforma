@@ -255,36 +255,23 @@ def criarevento(request):
 
 def submetertrabalho(request):
 
-    id = request.GET.get('id')
-
-    sessao_id_evento = Sessoes.objects.filter(id=id)
-    for s in sessao_id_evento:
-        id_do_evento = s.id_evento
+    id_da_sessao = request.POST['sessao']
+    id_evento = request.GET.get('id')
+    print(id_da_sessao)
+    print(id_evento)
+    id = id_evento
     #sessao = Sessoes.objects.filter(id_evento=id)
     eventos = Evento.objects.all()
-    sessaoid = Sessoes.objects.filter(id=id)
     meuid = User.objects.filter(username=request.user)
     for m in meuid:
         id_usuario = m.id
-    for s in sessaoid:
-        id_evento = s.id_evento
-    #verificar = Submissao.objects.filter(id=id, id_usuario=id_usuario)
-    #if verificar:
-     #   msg = 'Você já enviou um trabalho para esta sessão!'
-     #   sessao = Sessoes.objects.filter(id=id)
-     #   evento = Evento.objects.filter(id=id_do_evento)
-     #   dados = {'id': id,
-     #            'msg': msg,
-     #            'evento': evento,
-     #            'sessao': sessao}
-     #   return render(request,'submeter.html', dados)
-    #else:
+
 
     if request.POST['sessao'] == 'Selecione a sessão...':
 
         msg = 'Escolha uma sessão!'
-        sessao = Sessoes.objects.filter(id=id)
-        evento = Evento.objects.filter(id=id_do_evento)
+        sessao = Sessoes.objects.filter(id=id_da_sessao)
+        evento = Evento.objects.filter(id=id_evento)
         dados = {'id':id,
                'msg':msg,
                'evento':evento,
@@ -295,9 +282,10 @@ def submetertrabalho(request):
         if request.FILES.get('trabalho'):
 
             trabalhoenviar = request.FILES.get('trabalho')
+
             Submissao.objects.create(
                     trabalho = trabalhoenviar,
-                    sessao = id,
+                    sessao = id_da_sessao,
                     id_evento = id_evento,
                     id_usuario = id_usuario,
                     status = 'avaliacao',
@@ -306,7 +294,7 @@ def submetertrabalho(request):
                 )
             msg2 = 'Você enviou seu trabalho com sucesso!'
             sessao = Sessoes.objects.filter(id=id)
-            evento = Evento.objects.filter(id=id_do_evento)
+            evento = Evento.objects.filter(id=id_evento)
             dados = {'id':id,
                          'msg2':msg2,
                          'eventos':eventos,
@@ -317,7 +305,7 @@ def submetertrabalho(request):
 
             msg = 'Selecione seu trabalho para enviar!'
             sessao = Sessoes.objects.filter(id=id)
-            evento = Evento.objects.filter(id=id_do_evento)
+            evento = Evento.objects.filter(id=id_evento)
             dados = {'id':id,
                          'msg':msg,
                          'eventos':eventos,
