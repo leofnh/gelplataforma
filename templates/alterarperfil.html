@@ -1,0 +1,124 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Alterando seu perfil - G&L Plataforma para membros</title>
+    <link href={% static "css/styles.css" %} rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+    <link href={% static "css/styles.css" %} rel="stylesheet" />
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+
+    {% include 'header.html' %}
+
+</head>
+
+<body>
+
+{% include 'capa.html' %}
+
+
+            <div class="col-md-8">
+              <div class="card mb-3">
+                <div class="card-body">
+                     {% for usuarios in usuarios %}
+                     <form method="POST" action="/attperfil/?id={{usuarios.id}}" enctype="multipart/form-data">{% csrf_token %}
+                     {% endfor %}
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Nome Completo</h6>
+                    {% for usuarios in usuarios %}
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      <input class="form-control col-6" value="{{usuarios.nome}}" name="nome">
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Email</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      <input class="form-control col-6" type="email" value="{{usuarios.email}}" name="email">
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Contato</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      <input class="form-control col-6" type="tel" value="{{usuarios.contato}}" name="contato">
+                    </div>
+                  </div>
+                  <hr>
+                  <!--
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Data de Nascimento</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                     <input class="form-control col-6" type="date" value="{{usuarios.nascimento}}" name="nascimento" >
+                    </div>
+                  </div>
+                  <hr>
+                    -->
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Endereço</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                     <input class="form-control col-6" type="text" value="{{usuarios.endereco}}" name="endereco">
+
+                    </div>
+                  </div>
+
+                   <hr>
+
+
+                         <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Foto de Perfil</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                     <input type="file" name="fotoperfil">
+                    </div>
+                  </div>
+
+                   <hr>
+
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Instituição</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                     <input class="form-control col-6" value="{{usuarios.instituicao}}" name="instituicao">
+
+                    </div>
+                   <!-- fim aqui -->
+
+
+                  </div>
+
+                           <div align="right">
+
+                          <input type="submit" value="Atualizar" class="btn btn-primary">
+
+                      </div>
+
+                </div>
+
+
+
+
+                  </form>
+              </div>
+                   {% endfor %}
+
+
+
+{% include 'footer.html' %}
+
+</body>
+
+</html>

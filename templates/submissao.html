@@ -1,0 +1,161 @@
+
+<body>
+
+            {% include 'capa.html' %}
+            <div class="col-md-8">
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <form method="POST" action="/submetertrabalho/?id=novasubmissao" enctype="multipart/form-data"> {% csrf_token %}
+
+                      <h6 class="mb-0">Nome do Evento</h6>
+                    </div>
+                    <div class="col-sm-6">
+                      <select class="form-control" name="subevento">
+                         {% for eventos in eventos %}
+                         <option selected>Selecione o Evento</option>
+                         <option value="{{eventos.id}}">{{eventos.nome}} </option>
+                         {% endfor %}
+                      </select>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Cidade</h6>
+                    </div>
+                    <div class="col-sm-6 text-secondary">
+                      Irá aparecer a cidade do evento selecionado aqui
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Modalidade</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                     Modalidade aqui
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Data Evento</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      data aqui
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Arquivo</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      <input type="file"  name="subtrabalho" >
+                    </div>
+
+
+                  </div>
+
+                   <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0"><input type="submit" class="btn btn-primary" value="Enviar Trabalho"></h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                    {% if msg %} {{msg}} {% endif %}
+                    </div>
+
+                  </div>
+
+
+                </div>
+
+              </div>
+
+
+
+              <div class="row gutters-sm">
+                <div class="col-sm-4 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h6 class="d-flex align-items-center mb-3">Inscrições</h6>
+                      <div class="mt-2">
+
+                      <div class="mt-2">
+                        Inscrição 1
+                      </div>
+                      <div class="mt-2">
+                        Inscrição 2
+                      </div>
+                      <div class="mt-2">
+                        Inscrição 3
+                      </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h6 class="d-flex align-items-center mb-3">Eventos</h6>
+
+
+                      <div class="mt-2">
+                        <a href="/olamundo/?id=novasubmissao"><button class="btn btn-outline-secondary">Nova submissão</button></a>
+                      </div>
+                      <div class="mt-2 mb-3 align-items-center">
+                        Monitorar <font color="red">5</font>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body">
+                     <h6 class="mb-0">Submissões</h6>
+
+                      <div class="mt-2">
+                       <a href="/olamundo/?id=novasubmissao" style="text-decoration:none;"><h6 class="mb-0">Nova submissão</h6></a>
+                      </div>
+                      <div class="mt-2">
+                        Monitorar <font color="red">5</font>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-4 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h6 class="d-flex align-items-center mb-3">Avaliações</h6>
+
+                      <div class="mt-2">
+                       VER <font color="red">5</font>
+                      </div>
+
+
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="col-sm-4 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h6 class="d-flex align-items-center mb-3">Premiações</h6>
+
+                      <div class="mt-2">
+                       Monitorar <font color="red">5</font>
+                      </div>
+
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+</body>

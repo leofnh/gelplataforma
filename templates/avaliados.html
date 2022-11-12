@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Trabalhos Avaliados</title>
+    {% include 'header.html' %}
+</head>
+<body>
+{% include 'capa.html' %}
+
+<div class="col-md-8" align="center">
+    {% if trabalhos %}
+              <div class="card mb-3">
+                <div class="card-body">
+
+                   {% for trabalhos in trabalhos %}
+                    {% for geral in geral %}
+                   {% if geral.id_usuario == trabalhos.id_usuario %}
+
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">{{geral.nome}} [{{geral.id_usuario}}]</h6>
+
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+
+                       {{trabalhos.av1}}
+                        {{trabalhos.av2}} [{{trabalhos.id_usuario}}]
+                        -
+                        <a href="/media/{{trabalhos.trabalho}}">
+                        <img width="20" height="20"
+                                src={% static "assets/baixar.png" %} >
+                        </a>
+                    </div>
+                  </div>
+                  <hr>
+                    {% endif %}
+                    {% endfor %}
+                    {% endfor %}
+                    {% else %}
+                    <div class="card mb-3">
+                <div class="card-body">
+                    <div class="card-header bg-danger">
+                        <div class="btn-danger text-white col-5">
+                            Não existem trabalhos avaliados!
+                        </div>
+                    </div>
+                </div>
+                        {% endif %}
+</body>
+{% include 'footer.html' %}
+</html>

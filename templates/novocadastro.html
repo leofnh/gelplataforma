@@ -1,0 +1,513 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <title>Logando...</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href={% static "assets/titleicon.png" %} />
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+</head>
+<body>
+
+<!--
+            <div class="col-auto mb-5">
+              <div class="card">
+                <div class="card-body">
+                    <div class="card-header" style="background:none;">
+                        <h6 class="mb-0">{% if msg %} {{msg}} {% endif %}</h6>
+                        {% if cadastrou %}
+                        <h6 class="mb-0">
+                            {{cadastrou}} clique em <a style="decoration:none;" href="/login/">logar</a>
+                            para entrar!
+                        </h6>
+                        {% endif %}
+                    </div>
+
+                       <form method="POST" class="form-inline" action="/novocadastrar/"> {% csrf_token %}
+                            <div class="row mt-4">
+                                <div class="col-auto">
+
+                                    <div class="form-group">
+                                        <label for="cpf">CPF</label>&nbsp;
+                                        <input class="form-control" name="cpf" id="cpf" required="required">
+                                    </div>
+
+                                </div>
+                                <div class="col-auto">
+
+                                    <div class="form-group">
+
+                                        <label for="nome">Nome</label>&nbsp;
+                                        <input class="form-control" name="nome" id="nome" required="required">
+                                    </div>
+
+
+                                </div>
+                                <div class="col-auto">
+                                    <div class="form-group">
+                                        <label for="cep">CEP</label>&nbsp;
+                                        <input class="form-control" name="cep" id="cep" required="required">
+                                    </div>
+                                </div>
+
+                                <div class="col-auto">
+                                    <div class="form-group">
+                                        <label for="nascimento">Data de Nascimento</label>&nbsp;
+                                        <input required="required" type="date" class="form-control" name="nascimento" id="nascimento">
+                                    </div>
+                                </div>
+                                </div>
+
+                                <div class="row mt-4">
+
+                                <div class="col-auto">
+                                    <div class="form-group">
+                                        <label for="email">E-mail</label>&nbsp;
+                                        <input required="required" type="email" class="form-control" name="email" id="email">
+                                    </div>
+                                </div>
+
+
+                                <div class="col-auto">
+                                    <div class="form-group">
+                                        <label for="endereco">Rua</label>&nbsp;
+                                        <input required="required" class="form-control" name="endereco" id="endereco">
+                                    </div>
+                                </div>
+
+
+                                     <div class="col-auto">
+                                    <div class="form-group">
+                                        <label for="cidade">Cidade</label>&nbsp;
+                                        <input required="required" class="form-control" name="cidade" id="cidade">
+                                    </div>
+                                </div>
+
+
+                                    <div class="col-auto">
+                                    <div class="form-group">
+                                        <label for="bairro">Bairro</label>&nbsp;
+                                        <input required="required" class="form-control" name="bairro" id="bairro">
+                                    </div>
+                                </div>
+                                </div>
+
+                                <div class="row mt-4">
+                                    <div class="col-auto">
+                                    <div class="form-group">
+                                        <label for="pais">País</label>&nbsp;
+                                        <input required="required" class="form-control" name="pais" id="pais">
+                                    </div>
+                                </div>
+
+
+
+                                    <div class="col-auto">
+                                    <div class="form-group">
+                                        <label for="inst">Instituição de Vínculo</label>&nbsp;
+                                        <input required="required" class="form-control" name="instituicao" id="inst">
+                                    </div>
+                                </div>
+
+
+                                     <div class="col-auto">
+                                    <div class="form-group">
+                                        <label for="cmp">Cadastrar como parecerista</label>&nbsp;
+                                        <select class="form-control" id="cmp" name="cmp">
+                                            <option value="Sim">Sim</option>
+                                            <option value="Nao">Não</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                </div>
+
+                                <div class="row mt-4">
+                                    <div class="col-auto">
+                                    <div class="form-group">
+                                        <label for="categ">Categoria de avaliação</label>&nbsp;
+                                        <input required="required" class="form-control" name="categoria" id="categ">
+                                    </div>
+                                </div>
+
+
+                           <div class="col-auto">
+                                    <div class="form-group">
+                                        <label for="cinfo">Autorizo compartilhar minhas informações</label>&nbsp;
+                                        <select class="form-control" id="cinfo" name="cinfo">
+                                            <option value="Sim">Sim</option>
+                                            <option value="Nao">Não</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mt-4">
+                                    <div class="col-auto">
+                                        <div class="form-group">
+                                            <label for="senha">Senha:</label>
+                                            <input type="password" name="senha" class="form-control" id="senha">
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="form-group">
+                                            <label for="senha2">Repita a senha:</label>
+                                            <input required="required" type="password" name="senha2" class="form-control" id="senha2">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                    <div class="col-auto">
+                                        <div class="form-group mt-4">
+                                            <input required="required" type="submit" class="btn btn-primary" value="Cadastrar">
+                                        </div>
+                                    </div>
+                                 </div>
+
+                       </form>
+
+                </div>
+              </div>
+
+                   <div class="card-header" style="background:none;">
+
+
+
+                           </div>
+
+            </div>
+
+-->
+
+                {% if msg %}
+                <div class="col-auto mb-4 mt-4" align="center">
+                    <div class="col-sm-4 mb-3">
+
+                     <div class="card h-100">
+                    <div class="card-body bg-danger">
+                        <font color="white"><h5>Aviso:</h5>
+                            {{msg}}
+                        </font>
+                    </div>
+                    </div>
+
+                    </div>
+                </div>
+                {% endif %}
+
+
+
+
+                  {% if cadastrou %}
+                <div class="col-auto mb-4 mt-4" align="center">
+                    <div class="col-sm-4 mb-3">
+
+                     <div class="card h-100">
+                    <div class="card-body bg-success">
+                        <font color="white"><h5>Aviso:</h5>
+                            {{cadastrou}}
+                        </font>
+                    </div>
+                    </div>
+
+                    </div>
+                </div>
+                {% endif %}
+
+
+                <div class="col-auto mb-5 mt-4">
+                <div class="row gutters-sm">
+
+                <div class="col-sm-3 mb-3">
+                   <form method="POST"  action="/novocadastrar/"> {% csrf_token %}
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h6 class="d-flex align-items-center mb-3">Dados pessoais</h6>
+                      <div class="mt-2">
+
+                        <div class="mt-2 ">
+
+                         <label for="cpf">CPF</label>&nbsp;
+                         <input class="form-control col-6" name="cpf" id="cpf" required="required">
+
+                        </div>
+
+                        <div class="mt-2">
+                         <label for="nome">NOME</label>&nbsp;
+                         <input class="form-control" name="nome" id="nome" required="required">
+                          </div>
+
+                          <div class="mt-2">
+                            <label for="cpf">E-MAIL</label>&nbsp;
+                            <input type="email" class="form-control" name="email" id="email" required="required">
+                          </div>
+
+                          <div class="mt-2">
+                              <label for="contato">Telefone:</label>
+                              <input type="tel" required="required" class="form-control col-6" name="contato" id="contato">
+                          </div>
+
+                          <div class="mt-2">
+                          <label for="nascimento">Data de Nascimento</label>&nbsp;
+                          <input required="required" type="date" class="form-control col-6" name="nascimento" id="nascimento">
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-3 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h6 class="d-flex align-items-center mb-3">Dados residenciais</h6>
+
+                      <div class="mt-2">
+
+                        <div class="mt-2">
+
+                         <label for="cep">CEP</label>&nbsp;
+                         <input type="text" class="form-control col-6" name="cep" id="cep" required="required">
+
+
+                        </div>
+
+                      <div class="mt-2">
+
+                         <label for="endereco">Rua</label>&nbsp;
+                         <input type="text" required="required" class="form-control" name="endereco" id="endereco">
+
+                      </div>
+
+                          <div class="mt-2">
+                            <label for="cidade">Cidade</label>&nbsp;
+                            <input type="text" required="required" class="form-control col-8" name="cidade" id="cidade">
+                          </div>
+
+                          <div class="mt-2">
+                             <label for="bairro">Bairro</label>&nbsp;
+                             <input required="required" class="form-control col-8" name="bairro" id="bairro">
+                          </div>
+
+                          <div class="mt-2">
+
+                              <label for="pais">País</label>&nbsp;
+                              <input required="required" class="form-control col-8" name="pais" id="pais">
+
+                          </div>
+
+
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
+                  <div class="col-sm-3 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h6 class="d-flex align-items-center mb-3">Dados institucionais</h6>
+
+                      <div class="mt-2">
+
+                        <div class="mt-2">
+                         <label for="inst">Instituição de Vínculo</label>&nbsp;
+                         <input required="required" class="form-control" name="instituicao" id="inst">
+                        </div>
+
+                      <div class="mt-2">
+
+                         <label for="categ">Categoria de avaliação</label>&nbsp;
+                         <input required="required" class="form-control" name="categ" id="categ">
+
+                      </div>
+
+                          <div class="mt-2">
+                            <label>Cadastrar como parecerista</label>
+                            <div class="form-check">
+                              <input class="form-check-input" type="radio" name="cmp" id="cmp" value="sim" checked>
+                                <label class="form-check-label" for="cmp"> Sim </label>
+                            </div>
+
+                            <div class="form-check">
+                              <input class="form-check-input" type="radio" name="cmp" id="prc" value="nao">
+                                <label class="form-check-label" for="prc"> Não </label>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
+
+
+                       <div class="col-sm-3 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h6 class="d-flex align-items-center mb-3">Dados usuário</h6>
+
+                      <div class="mt-2">
+
+                        <div class="mt-2">
+                         <label for="senha">Senha:</label>
+                         <input type="password" name="senha" class="form-control" id="senha">
+                        </div>
+
+                      <div class="mt-2">
+
+                         <label for="senha2">Repita a senha:</label>
+                         <input required="required" type="password" name="senha2" class="form-control" id="senha2">
+
+                      </div>
+
+                          <div class="mt-2">
+                            <label>Autorizo compartilhar minhas informações</label>
+                            <div class="form-check">
+                              <input class="form-check-input" type="radio" name="cinfo" id="cinfo" value="sim" checked>
+                                <label class="form-check-label" for="cinfo"> Sim </label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input" type="radio" name="cinfo" id="cinfo2" value="nao">
+                                <label class="form-check-label" for="cinfo2"> Não </label>
+                            </div>
+                          </div>
+
+                          <div class="mt-4" align="right">
+                              <input required="required" type="submit" class="btn btn-primary" value="Cadastrar">
+                          </div>
+
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
+
+    </form>
+
+                </div>
+                </div>
+
+
+
+
+
+<script type="text/javascript">
+		$("#cep").focusout(function(){
+
+			$.ajax({
+
+				url: 'https://viacep.com.br/ws/'+$(this).val()+'/json/',
+				dataType: 'json',
+				success: function(resposta){
+
+					$("#endereco").val(resposta.logradouro);
+					$("#bairro").val(resposta.bairro);
+					$("#cidade").val(resposta.localidade);
+					$("#pais").val('Brasil');
+
+				}
+			});
+		});
+	</script>
+
+
+
+<style>
+    #cade {
+  background: url("https://icones.pro/wp-content/uploads/2022/08/icone-de-cadenas-de-securite-jaune.png") no-repeat left / 1.9em;
+  padding-left: 1.9em;
+
+}
+
+
+    #perflogin {
+  background: url("https://w7.pngwing.com/pngs/355/848/png-transparent-computer-icons-user-profile-google-account-s-icon-account-miscellaneous-sphere-silhouette-thumbnail.png") no-repeat left / 1.9em;
+  padding-left: 1.9em;
+}
+</style>
+
+
+        <style type="text/css">
+body{
+    margin-top:20px;
+    color: #1a202c;
+    text-align: left;
+    background-color: #e2e8f0;
+}
+.main-body {
+    padding: 15px;
+}
+.card {
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0 solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+
+.card-body {
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1rem;
+}
+
+.gutters-sm {
+    margin-right: -8px;
+    margin-left: -8px;
+}
+
+.gutters-sm>.col, .gutters-sm>[class*=col-] {
+    padding-right: 8px;
+    padding-left: 8px;
+}
+.mb-3, .my-3 {
+    margin-bottom: 1rem!important;
+}
+
+.bg-gray-300 {
+    background-color: #e2e8f0;
+}
+.h-100 {
+    height: 100%!important;
+}
+.shadow-none {
+    box-shadow: none!important;
+}
+
+</style>
+
+
+<script type="text/javascript">
+	$("#cep").focusout(function(){
+
+		$.ajax({
+			url: 'https://viacep.com.br/ws/'+$(this).val()+'/json/unicode/',
+			dataType: 'json',
+			success: function(resposta){
+				$("#endereco").val(resposta.logradouro);
+				$("#bairro").val(resposta.bairro);
+				$("#cidade").val(resposta.localidade);
+			}
+		});
+	});
+</script>
+
+
+</body>
+</html>

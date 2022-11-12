@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4" style="color:#4B5F83;">Submissões de Trabalhos</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="#" style="text-decoration:none;">Eventos</a></li>
+                            <li class="breadcrumb-item active">Avaliações</li>
+                        </ol>
+
+                                <p class="mb-0">
+                                 <!-- tabelas iniciando aqui -->
+
+
+                                  <table class="table " id="datatablesSimple">
+                                    <thead>
+                                        <tr>
+                                             <th><font size="2px">ID</font></th>
+                                            <th><font size="2px">Sessão</font></th>
+                                            <th><font size="2px">Tema</font></th>
+                                            <th><font size="2px">Área</font></th>
+                                            <th><font size="2px">Ações</font></th>
+
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th><font size="2px">ID</font></th>
+                                            <th><font size="2px">Sessão</font></th>
+                                            <th><font size="2px">Tema</font></th>
+                                            <th><font size="2px">Modalidade</font></th>
+                                            <th><font size="2px">Ações</font></th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                            {% for eventos in eventos %}
+                                            {% for sessao in sessao %}
+                                            {% if sessao.id_evento == eventos.id %}
+                                                                                 <tr>
+                                             <td><font size="2px">{{sessao.id}}</font></td>
+                                            <td><font size="2px">{{ sessao.nome }}  </font></td>
+                                            <!--<td>{{ eventos.get_data_evento}}</td>-->
+                                            <td><font size="2px">{{sessao.tema}}</font></td>
+                                            <td><font size="2px">{{eventos.modalidade}}  </font></td>
+                                            <td align="center"><font size="2px">
+
+
+
+                                        <!--
+                                        <div class="dropdown">
+                                          <a type="button" id="dropdownMenuButton"
+                                                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <img width="15" height="15"
+                                                    src={% static "assets/img/engrenagem.png" %} />
+                                          </a>
+
+
+                                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="/submeter/?id={{eventos.id}}">Submeter um Trabalho</a>
+                                            <a class="dropdown-item" href="/addsessao/?id={{eventos.id}}">Adicionar sessão à este evento {{eventos.nome}}</a>
+                                            <a class="dropdown-item" href="/submetidos/">Trabalhos que foram submetidos</a>
+                                            <a class="dropdown-item" href="#">?</a>
+
+                                          </div>
+                                        </div>
+                                        -->
+
+                                                <a type="button"
+                                                  data-toggle="modal"
+                                                  data-target="#modalacao{{sessao.id}}"
+                                                  >
+                                              <img width="15" height="15"
+                                                    src={% static "assets/img/engrenagem.png" %} />
+
+                                                </a>
+
+
+
+     <div class="col-sm-12 modal fade" id="modalacao{{sessao.id}}"
+     tabindex="-1" role="dialog"
+     aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-white" style="background:#4B5F83;">
+
+        <h5 class="modal-title"
+            id="TituloModalCentralizado">
+            Ações
+        </h5>
+        <a type="button" class="close" data-dismiss="modal" aria-label="Fechar" style="background:#4B5F83;">
+          <span  aria-hidden="true" class="text-white">&times;</span>
+        </a>
+      </div>
+      <div class="modal-body">
+           <div class="container-fluid" align="center">
+
+               <a class="modal-item" href="/submeter/?id={{eventos.id}}">Submeter um Trabalho</a>
+               <a class="dropdown-item" href="/addsessao/?id={{eventos.id}}">Adicionar sessão à este evento {{eventos.nome}}</a>
+               <a class="dropdown-item" href="/submetidos/">Trabalhos que foram submetidos</a>
+               <a class="dropdown-item" href="#">Criar formulário</a>
+
+          </div>
+           <div align="left" class="mt-2 text-secondary mb-0">
+
+              <font size="2px">Evento:</font> <font size="1px">{{eventos.nome}} / {{sessao.tema}}</font>
+
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <input type="submit" class="btn text-white" style="background:#4B5F83;" value="Adicionar">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+                                            </font></td>
+
+                                        </tr>
+                                                 {% endif %}
+                                            {% endfor %}
+                                                {% endfor %}
+                                    </tbody>
+                                </table>
+
+
+
+                                <!-- tabela terminando aqui -->
+                                </p>
+
+
+                        <div style="height: 100vh"></div>
+                  <!--      <div class="card mb-4">
+                            <div class="card-body">
+                                When scrolling, the navigation stays at the top of the page. This is the end of the static navigation demo.
+                            </div>
+                        </div> -->
+                    </div>
+                </main>
+
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Desenvolvido por G&L Plataformas</div>
+                            <div>
+                                <a href="#">Politica de Privacidade</a>
+                                &middot;
+                                <a href="#">Termos e Condições</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+
+
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+{% endblock %}

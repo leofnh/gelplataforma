@@ -1,0 +1,48 @@
+
+<div class="container">
+    <div class="main-body">
+          <nav aria-label="breadcrumb" class="main-breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/meuperfil/">Meu Perfil</a></li>
+              <li class="breadcrumb-item"><a href="/home/">Home</a></li>
+            </ol>
+          </nav>
+
+
+          <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex flex-column align-items-center text-center">
+                    {% for evento in evento %}
+                    <img src="/media/{{evento.logo}}" alt="Admin" class="rounded-circle" width="150" height="140">
+                    {% endfor %}
+                    <div class="mt-3">
+                      <!--<h4>Senhor Freitas</h4> -->
+                      <p class="text-secondary mb-1">
+                        {% for evento in evento %}
+                        Evento: {{evento.nome}}
+                        {% endfor %}
+                      </p>
+                      <hr>
+                      <p class="text-muted font-size-sm">{% for evento in evento %}
+                      Modalidade: {{evento.modalidade}}
+                      {% endfor %}</p>
+                      <!-- <button class="btn btn-primary">?</button> -->
+                      <hr>
+                      <p class="text-secondary mb-1">
+                      {% for evento in evento %}
+                      {{evento.get_data_evento}}
+                      {% endfor %}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+
+
+
+            </div>

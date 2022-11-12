@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Gerenciando evento</title>
+    <link href={% static "css/styles.css" %} rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+    <link href={% static "css/styles.css" %} rel="stylesheet" />
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+
+    {% include 'header.html' %}
+</head>
+<body>
+
+{% include 'capa.html' %}
+
+  <div class="col-md-8">
+   <!--
+   <div class="card mb-3">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-12">
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+    -->
+       <div class="card mb-4 ">
+                    <div class="card-header"> <!--style="background:#F5FFFA;"-->
+                                <i class="fas fa-table me-1"></i>
+                                Eventos
+                            </div>
+                            <div class="card-body ">
+                                <table class="table " id="datatablesSimple">
+                                    <thead>
+                                        <tr>
+                                             <th><font size="2px">ID</font></th>
+                                            <th><font size="2px">Nome</font></th>
+                                            <th><font size="2px">Local</font></th>
+                                            <th><font size="2px">Área</font></th>
+                                            <th><font size="2px">Ações</font></th>
+
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th><font size="2px">ID</font></th>
+                                            <th><font size="2px">Nome</font></th>
+                                            <th><font size="2px">Local</font></th>
+                                            <th><font size="2px">Modalidade</font></th>
+                                            <th><font size="2px">Ações</font></th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                            {% for eventos in eventos %}
+                                                                                 <tr>
+                                             <td><font size="2px">{{eventos.id}}</font></td>
+                                            <td><font size="2px">{{ eventos.nome }}  </font></td>
+                                            <!--<td>{{ eventos.get_data_evento}}</td>-->
+                                            <td><font size="2px">{{eventos.cidade}}-{{eventos.estado}} </font></td>
+                                            <td><font size="2px">{{eventos.modalidade}}  </font></td>
+                                            <td><font size="2px">
+                                                <a href="/editarevento/?id={{eventos.id}}">
+                                                    <img src={% static "assets/lapis.png" %}
+                                                         width="15" height="15"></a>
+
+                                                <a href="/addsessao/?id={{eventos.id}}">
+                                                    <img src={% static "assets/addsessao.png" %}
+                                                         width="15" height="15">
+                                                </a>
+
+                                            </font></td>
+
+                                        </tr>
+
+                                                {% endfor %}
+                                    </tbody>
+                                </table>
+
+   </div>
+                    </div>
+       </div>
+  </div>
+
+
+
+
+</body>
+{% include 'footer.html' %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src={% static "js/scripts.js" %}> </script>
+        <script src={% static "js/datatables-simple-demo.js" %}></script>
+        <script src={% static "js/tabela.js" %} crossorigin="anonymous"></script>
+
+</html>

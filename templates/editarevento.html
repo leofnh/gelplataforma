@@ -1,0 +1,172 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Editando evento G&L Plataforma de Eventos</title>
+   {% include 'header.html' %}
+</head>
+<body>
+
+
+<div class="container">
+
+    <div class="main-body">
+          <nav aria-label="breadcrumb" class="main-breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/meuperfil/">Meu Perfil</a></li>
+              <li class="breadcrumb-item"><a href="/home/">Home</a></li>
+            </ol>
+          </nav>
+         {% if msg %}
+          <div class="mt-4">
+           <h6 class="mb-0">{{msg}}</h6>
+          </div>
+        {% endif %}
+         <div class="row gutters-sm mt-4">
+         <div class="col-md-6">
+              <div class="card mb-3">
+                <div class="card-body">
+                 <div class="row" >
+                    <div class="col-sm-12 text-center">
+                      <h6 class="mb-0" >Alterando Eventos</h6>
+                    </div>
+                  </div>
+
+                  <div class="row mt-4">
+                    <div class="col-sm-3" >
+                    {% for evento in evento %}
+                     <form method="post" action="/alterarevento/?id={{evento.id}}"> {% csrf_token %}
+                      <h6 class="mb-0">Nome</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                    <input class="form-control"
+                           name="nome"
+                           value="{{evento.nome}}">
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Cidade</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                    <input type="text"
+                           name="cidade"
+                           value="{{evento.cidade}}" class="form-control">
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Estado</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                    <input class="form-control"
+                           name="estado"
+                           value="{{evento.estado}}" type="text">
+
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Modalidade</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                     <input type="text" name="modalidade"
+                            value="{{evento.modalidade}}"
+                            class="form-control">
+                    </div>
+                  </div>
+
+                  <hr>
+
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Data e Hora</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                    {{evento.get_data_evento}} <input class="form-control col-5"
+                                                      name="datahora"
+                                                      type="datetime-local">
+                    </div>
+                  </div>
+
+                   <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Status</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        {{evento.status}}
+                     </div>
+                    </div>
+                    <hr>
+
+
+                    <div class="row">
+                    <div class="col-sm-3">
+
+                    </div>
+                    <div class="col-sm-9 text-secondary" align="right">
+                          <input type="button" class="btn btn-danger" value="Deletar">
+                          <input type="submit" class="btn btn-primary" value="Alterar">
+                     </div>
+                    </div>
+
+
+
+                      {% endfor %}
+
+                </div>
+              </div>
+
+
+ </form>
+        </div>
+
+        <div class="col-md-6">
+         <div class="card mb-2 col-sm-12">
+                <div class="card-body">
+                  <div class="row" >
+                    <div class="col-sm-12 text-white card-header text-center" style="background:#836FFF;">
+                      <h6 class="mb-0" >Sessões deste Evento</h6>
+                    </div>
+                  </div>
+
+                    <hr>
+                 {% for sessao in sessao %}
+                 <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">{{sessao.tema}}</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                    {{sessao.descricao}} - <a href="/editarsessao/?id={{sessao.id}}"
+                                              style="text-decoration:none;">
+                                           <img height="12" width="12"
+                                                   src={% static "assets/lapis.png" %}
+                                           </a>
+
+
+
+                    </div>
+                  </div>
+                  <hr>
+                {% endfor %}
+
+
+         </div>
+
+     </div>
+
+    </div>
+
+</div>
+
+
+
+
+</body>
+{% include 'footer.html' %}
+</html>

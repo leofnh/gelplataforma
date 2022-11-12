@@ -1,0 +1,226 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>G&L Plataforma de Eventos</title>
+        <link href={% static "css/styles.css" %} rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <nav class="sb-topnav navbar navbar-expand navbar-dark" style="background:#e2e8f0;">
+            <!-- Navbar Brand-->
+            <a class="navbar-brand ps-3" href="#" style="color:#4B5F83;">
+                {% for usuarios in usuarios %}
+                <img src="/media/{{usuarios.perfil}}"
+                     alt="Admin"
+                     class="rounded-circle"
+                     width="35" height="35"> G&L Plataformas
+                {% endfor %}
+            </a>
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars" style="color:#4B5F83;"></i></button>
+            <!-- Navbar Search-->
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+              <!--  <div class="input-group"> -->
+                  <!--  <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>-->
+                <a href="#" style="text-decoration:none; color:#4B5F83;">
+                        Home /
+                </a>
+
+                <a href="#" style="text-decoration:none; color:#4B5F83;">
+                        Eventos /
+                </a>
+
+                <a href="#" style="text-decoration:none; color:#4B5F83;">
+                        Submissões
+                </a>
+
+              <!--  </div> -->
+
+            </form>
+
+            <!-- Navbar-->
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:#4B5F83;"><i class="fas fa-user fa-fw"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#">Alterar Senha</a></li>
+                        <li><a class="dropdown-item" href="#">Alterar Perfil</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="#">Deslogar</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav" >
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion" >
+                    <div class="sb-sidenav-menu" style="background:#e2e8f0;">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading" style="color:#4B5F83;">Core</div>
+                            <a class="nav-link" href="index.html">
+                                <div class="sb-nav-link-icon" style="color:#4B5F83;">
+                                    <i class="fas fa-tachometer-alt" style="color:#4B5F83;"></i></div>
+                                <div style="color:#4B5F83;">Dashboard</div>
+                            </a>
+                            <div class="sb-sidenav-menu-heading" style="color:#4B5F83;">Interface</div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon" style="color:#4B5F83;"><i class="fas fa-columns"></i></div>
+                               <div style="color:#4B5F83;">Layouts </div>
+                                <div class="sb-sidenav-collapse-arrow" style="color:#4B5F83;"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="#" style="color:#4B5F83;">Static Navigation</a>
+                                    <a class="nav-link" href="#" style="color:#4B5F83;">Light Sidenav</a>
+                                </nav>
+                            </div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                                <div class="sb-nav-link-icon" style="color:#4B5F83;"><i class="fas fa-book-open"></i></div>
+                                <div style="color:#4B5F83;">Pages</div>
+                                <div class="sb-sidenav-collapse-arrow" style="color:#4B5F83;"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                        <div style="color:#4B5F83;">Authentication</div>
+                                        <div class="sb-sidenav-collapse-arrow" style="color:#4B5F83;"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="#" style="color:#4B5F83;">Login</a>
+                                            <a class="nav-link" href="#" style="color:#4B5F83;">Register</a>
+                                            <a class="nav-link" href="#" style="color:#4B5F83;">Forgot Password</a>
+                                        </nav>
+                                    </div>
+                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
+                                        Error
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="401.html">401 Page</a>
+                                            <a class="nav-link" href="404.html">404 Page</a>
+                                            <a class="nav-link" href="500.html">500 Page</a>
+                                        </nav>
+                                    </div>
+                                </nav>
+                            </div>
+                            <div class="sb-sidenav-menu-heading">Addons</div>
+                            <a class="nav-link" href="charts.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                Charts
+                            </a>
+                            <a class="nav-link" href="tables.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Tables
+                            </a>
+                        </div>
+                    </div>
+                    <div class="sb-sidenav-footer">
+                        <div class="small">Logged in as:</div>
+                        Start Bootstrap
+                    </div>
+                </nav>
+            </div>
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4" style="color:#4B5F83;">Gerenciar Eventos</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="#" style="text-decoration:none;">Eventos</a></li>
+                            <li class="breadcrumb-item active">Avaliações</li>
+                        </ol>
+
+                                <p class="mb-0">
+                                 <!-- tabelas iniciando aqui -->
+
+
+                                  <table class="table " id="datatablesSimple">
+                                    <thead>
+                                        <tr>
+                                             <th><font size="2px">ID</font></th>
+                                            <th><font size="2px">Nome</font></th>
+                                            <th><font size="2px">Local</font></th>
+                                            <th><font size="2px">Área</font></th>
+                                            <th><font size="2px">Ações</font></th>
+
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th><font size="2px">ID</font></th>
+                                            <th><font size="2px">Nome</font></th>
+                                            <th><font size="2px">Local</font></th>
+                                            <th><font size="2px">Modalidade</font></th>
+                                            <th><font size="2px">Ações</font></th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                            {% for eventos in eventos %}
+                                                                                 <tr>
+                                             <td><font size="2px">{{eventos.id}}</font></td>
+                                            <td><font size="2px">{{ eventos.nome }}  </font></td>
+                                            <!--<td>{{ eventos.get_data_evento}}</td>-->
+                                            <td><font size="2px">{{eventos.cidade}}-{{eventos.estado}} </font></td>
+                                            <td><font size="2px">{{eventos.modalidade}}  </font></td>
+                                            <td><font size="2px">
+                                                <a href="/editarevento/?id={{eventos.id}}">
+                                                    <img src={% static "assets/lapis.png" %}
+                                                         width="15" height="15"></a>
+
+                                                <a href="/addsessao/?id={{eventos.id}}">
+                                                    <img src={% static "assets/addsessao.png" %}
+                                                         width="15" height="15">
+                                                </a>
+
+                                            </font></td>
+
+                                        </tr>
+
+                                                {% endfor %}
+                                    </tbody>
+                                </table>
+
+
+
+                                <!-- tabela terminando aqui -->
+                                </p>
+
+
+                        <div style="height: 100vh"></div>
+                  <!--      <div class="card mb-4">
+                            <div class="card-body">
+                                When scrolling, the navigation stays at the top of the page. This is the end of the static navigation demo.
+                            </div>
+                        </div> -->
+                    </div>
+                </main>
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Desenvolvido por G&L Plataformas</div>
+                            <div>
+                                <a href="#">Politica de Privacidade</a>
+                                &middot;
+                                <a href="#">Termos e Condições</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src={% static "js/scripts.js" %}></script>
+        <script src={% static "js/tabela.js" %} ></script>
+        <script src={% static "js/datatables-simple-demo.js" %} ></script>
+    </body>
+
+</html>

@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Inscreva-se em algum Evento!</title>
+    {% include 'header.html' %}
+</head>
+<body>
+
+{% include 'capa.html' %}
+
+ <div class="col-md-8">
+              <div class="card mb-3">
+
+                  <div class="card-header text-center text-white" style="background:#4B5F83;>
+                      <h6 class="mb-0"> Eventos em andamento </h6>
+                  </div>
+                  <hr>
+
+                <div class="card-body">
+                {% if msg %}
+                    <div class="col-12" align="center">
+                     <div class="btn-danger text-center text-white col-6" >
+                         {{msg}}
+                      </div>
+
+                    </div>
+                     <hr>
+                {% endif %}
+
+                 {% if msg2 %}
+                    <div class="col-12" align="center">
+                     <div class="btn-success text-center text-white col-6" >
+                         {{msg2}}
+                      </div>
+
+                    </div>
+                     <hr>
+                {% endif %}
+
+               <div class="row">
+
+               </div>
+
+                  {% for eventos in eventos %}
+                  <div class="row">
+                    <div class="col-sm-5">
+                      <h6 class="mb-0">{{eventos.nome}}</h6>
+                    </div>
+                    <div class="col-sm-6 text-secondary">
+                    Modalidade: {{eventos.modalidade}}
+                    </div>
+
+                      <a href="/inscricao/?id={{eventos.id}}"
+                      style="text-decoration:none;">
+                          <img width="25" height="25"
+                               src={% static "assets/inscrever.png" %} >
+                      </a>
+
+
+                     <a href="#"
+                        style="text-decoration:none;">
+                           <img width="25" height="25"
+                                src={% static "assets/sessao2.png" %} >
+                     </a>
+
+
+
+
+                  </div>
+                  <hr>
+                  {% endfor %}
+
+
+
+
+
+                </div>
+              </div>
+ </div>
+
+
+</body>
+
+{% include 'footer.html' %}
+</html>

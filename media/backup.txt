@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="main-body">
+          <nav aria-label="breadcrumb" class="main-breadcrumb">
+            <ol class="breadcrumb">
+              {% for usuarios in usuarios %}
+              <li class="breadcrumb-item"><a href="/meuperfil/?id={{usuarios.id}}">Meu Perfil</a></li>
+              {% endfor %}
+              <li class="breadcrumb-item"><a href="javascript:void(0)">User</a></li>
+              <li class="breadcrumb-item active" aria-current="page">User Profile</li>
+            </ol>
+          </nav>
+
+    
+          <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex flex-column align-items-center text-center">
+                    <img src="https://scontent.fipn7-1.fna.fbcdn.net/v/t1.6435-9/115862974_3142191722529977_6066559632115944465_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=8H1g8OOrfTQAX_btvWB&_nc_ht=scontent.fipn7-1.fna&oh=00_AfD-dCZ-EzjwlMdTqtjLAIBxDpeXsRq6nUewj2JH_rtsjA&oe=638461EF" alt="Admin" class="rounded-circle" width="150">
+                    <div class="mt-3">
+                      <!--<h4>Senhor Freitas</h4> -->
+                      <p class="text-secondary mb-1">
+                        Membro{% for usuarios in usuarios %}{% if usuarios.autor == 'sim' %}, Autor{% endif %}{% if usuarios.avaliador == 'sim' %}, Avaliador{% endif %}{% if usuarios.gestor_plataforma == 'sim' %}, Gestor {% endif %}
+                        {% endfor %}
+                      </p>
+                      <hr>
+                      <p class="text-muted font-size-sm">{% for usuarios in usuarios %}
+                      {{usuarios.instituicao}}
+                      {% endfor %}</p>
+                      <!-- <button class="btn btn-primary">?</button> -->
+                      <hr>
+                      <button class="btn btn-outline-secondary">Cartão Filiado</button>
+                    </div>
+                  </div>
+                </div>
+              </div>

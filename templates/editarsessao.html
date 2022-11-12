@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Editando sessão G&L Plataforma de Eventos</title>
+    {% include 'header.html' %}
+</head>
+<body>
+
+{% include 'capaevento.html' %}
+
+<div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-header text-white"
+                     align="center"
+                style="background:#4B5F83;">
+                    {% for sessao in sessao %}
+                    {{sessao.nome}}
+                    {% endfor %}
+                    </div>
+                <div class="card-body">
+                  <div class="d-flex flex-column align-items-center text-center">
+                     {% if msg %}
+                    <div class="btn-danger col-12">
+                        {{msg}}
+                    </div>
+                     {% endif %}
+                    {% if msg2 %}
+                    <div class="btn-success col-12">
+                        {{msg2}}
+                    </div>
+                     {% endif %}
+                    <div class="mt-3">
+                      <!--<h4>Senhor Freitas</h4> -->
+                      <p class="text-secondary mb-1">
+                          <button class="btn text-white"
+                                  style="background:#4B5F83;"
+                                  data-toggle="modal"
+                                  data-target="#modalavaliador">
+                              Adicionar Avaliadores
+                          </button>
+
+                      </p>
+                      <hr>
+                      <p class="text-muted font-size-sm">
+                      <p class="text-secondary mb-1">
+
+                          <button class="btn text-white"
+                                  data-toggle="modal"
+                                  data-target="#modalcriterio"
+                                  style="background:#4B5F83;">
+                              Adicionar Critério
+                          </button>
+                      </p>
+                      <!-- <button class="btn btn-primary">?</button> -->
+                      <hr>
+                      <p class="text-secondary mb-1">
+                      Trabalhos submetidos:
+                          <font style="color:#4B5F83;">{{total_submetidos.sum_total}}</font>
+                      </p>
+                      <p class="text-secondary mb-1">
+                      Critérios avaliativos:
+                          <font style="color:#4B5F83;">{{total_criterios.total_sum}}</font>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                </div>
+
+
+            </div>
+<!-- ao lado começa aqui -->
+
+
+
+
+
+
+            {% if avaliadores %}
+
+            <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-header text-white text-center"
+                style="background:#4B5F83;">
+                    Informações
+                    </div>
+
+                <div class="card-body">
+                    {% if msgc2 %}
+                    <div class="btn-danger col-12 text-center" align="center">
+                        {{msgc2}}
+                        </div>
+                    {% endif %}
+                    {% if msgc %}
+                    <div
+                            class="btn-success col-12 text-center"
+                            align="center">
+                        {{msgc}}
+                        </div>
+                    {% endif %}
+                  <div class="d-flex flex-column align-items-center text-center">
+
+                    <div class="mt-3" align="left">
+                      <!--<h4>Senhor Freitas</h4> -->
+                      <p class="text-secondary mb-1">
+                         {% for acharav1 in acharav1 %}
+                            1º Avaliador(a): {{acharav1.nome}}
+                        {% endfor %}
+                      </p>
+                       <p class="text-secondary mb-1">
+                         {% for acharav2 in acharav2 %}
+                            2º Avaliador(a): {{acharav2.nome}}
+                        {% endfor %}
+                      </p>
+                      <p class="text-secondary mb-1">
+                         {% for acharav3 in acharav3 %}
+                            3º Avaliador(a): {{acharav3.nome}}
+                        {% endfor %}
+                      </p>
+                      <hr>
+                      <div class="text-secondary mb-1" align="center">Formulário</div>
+                      <hr>
+
+                      {% for criterios in criterios %}
+                        <p class="text-muted font-size-sm text-center">
+                        {{criterios.criterio}}
+                        </p>
+                        <hr>
+                      {% endfor %}
+
+
+
+                    </div>
+                  </div>
+                </div>
+                </div>
+
+
+            </div>
+
+
+{% endif %}
+
+
+<!-- MODAL ABAIXO -->
+
+
+</div>
+<form action="/addavaliadores/?id={{id}}" method="post">{% csrf_token %}
+<div class="col-sm-12 modal fade" id="modalavaliador"
+     tabindex="-1" role="dialog"
+     aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-white" style="background:#4B5F83;">
+
+        <h5 class="modal-title"
+            id="TituloModalCentralizado">
+            Adicionando Avaliadores
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+          <span aria-hidden="true" class="text-white">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+           <div class="container-fluid" align="center">
+              <select class="form-control col-6" name="av1">
+              <option value="Escolha o Avaliador 1">Escolha o Avaliador 1</option>
+                  {% for candidato in candidato %}
+              <option value="{{candidato.id_usuario}}">{{candidato.nome}} ({{candidato.instituicao}})</option>
+                  {% endfor %}
+              </select>
+
+              <select class="form-control col-6 mt-2" name="av2">
+              <option value="Escolha o Avaliador 2">Escolha o Avaliador 2</option>
+                   {% for candidato in candidato %}
+              <option value="{{candidato.id_usuario}}">{{candidato.nome}} ({{candidato.instituicao}})</option>
+                  {% endfor %}
+              </select>
+
+              <select class="form-control col-6 mt-2" name="av3">
+              <option value="Escolha o Avaliador 3">Escolha o Avaliador 3</option>
+                   {% for candidato in candidato %}
+              <option value="{{candidato.id_usuario}}">{{candidato.nome}} ({{candidato.instituicao}})</option>
+                  {% endfor %}
+              </select>
+          </div>
+           <div align="left" class="mt-2 text-secondary mb-0">
+              {% for sessao in sessao %}
+              <font size="2px">Sessao:</font> <font size="1px">{{sessao.nome}}</font>
+              {% endfor %}
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <input type="submit" class="btn text-white" style="background:#4B5F83;" value="Adicionar">
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+
+<!-- modal criterio abaixo -->
+
+<form action="/addcriterio/?id={{id}}" method="post">{% csrf_token %}
+<div class="col-sm-12 modal fade" id="modalcriterio"
+     tabindex="-1" role="dialog"
+     aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-white" style="background:#4B5F83;">
+
+        <h5 class="modal-title"
+            >
+            Formulário de critérios
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+          <span aria-hidden="true" class="text-white">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+           <div class="container-fluid" align="center">
+
+
+              <div class="text-secondary mb-1">
+                  <h6 class="mb-3">Formule um critério</h6>
+                  <font size="2px">Cada critério equivale à 10 pontos</font>
+              </div>
+          </div>
+          <div align="center">
+              <input class="form-control col-8 mt-3" placeholder="Critério" name="criterio">
+          </div>
+
+          <div align="left" class="mt-2 text-secondary mb-0">
+              {% for sessao in sessao %}
+              <font size="2px">Sessao:</font> <font size="1px">{{sessao.nome}}</font>
+              {% endfor %}
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <input type="submit" class="btn text-white" style="background:#4B5F83;" value="Adicionar">
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+
+</body>
+{% include 'footer.html' %}
+</html>
