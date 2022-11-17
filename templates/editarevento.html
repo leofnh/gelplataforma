@@ -1,35 +1,28 @@
+{% extends 'base.html' %}
+
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Editando evento G&L Plataforma de Eventos</title>
-   {% include 'header.html' %}
-</head>
-<body>
 
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"></script>
+<div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4" style="color:#4B5F83;">Gerenciar Eventos</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="#" style="text-decoration:none;">Eventos</a></li>
+                            <li class="breadcrumb-item active">Avaliações</li>
+                        </ol>
 
-<div class="container">
-
-    <div class="main-body">
-          <nav aria-label="breadcrumb" class="main-breadcrumb">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="/meuperfil/">Meu Perfil</a></li>
-              <li class="breadcrumb-item"><a href="/home/">Home</a></li>
-            </ol>
-          </nav>
-         {% if msg %}
-          <div class="mt-4">
-           <h6 class="mb-0">{{msg}}</h6>
-          </div>
-        {% endif %}
-         <div class="row gutters-sm mt-4">
+                                <p class="mb-0">
+                                <div class="row gutters-sm mt-4">
          <div class="col-md-6">
               <div class="card mb-3">
                 <div class="card-body">
                  <div class="row" >
-                    <div class="col-sm-12 text-center">
-                      <h6 class="mb-0" >Alterando Eventos</h6>
+                    <div class="col-sm-12 text-center card-header text-center text-white"
+                    style="background:#4B5F83;">
+
+                      <h6 class="mb-0" >Alterando Evento</h6>
                     </div>
                   </div>
 
@@ -110,31 +103,37 @@
 
                     </div>
                     <div class="col-sm-9 text-secondary" align="right">
-                          <input type="button" class="btn btn-danger" value="Deletar">
-                          <input type="submit" class="btn btn-primary" value="Alterar">
+                          <a class="btn btn-warning text-white" href="#"
+                                 data-toggle="modal"
+                                  data-target="#modalcriterio">
+                                 Criar Formulário
+                          </a>
+                          <input type="submit" class="btn btn-primary" value="Salvar">
                      </div>
                     </div>
-
-
-
                       {% endfor %}
-
                 </div>
               </div>
 
 
  </form>
+
+
+
+
         </div>
 
-        <div class="col-md-6">
+
+
+                         <div class="col-md-6">
          <div class="card mb-2 col-sm-12">
                 <div class="card-body">
                   <div class="row" >
-                    <div class="col-sm-12 text-white card-header text-center" style="background:#836FFF;">
+                    <div class="col-sm-12 text-white card-header text-center"
+                         style="background:#4B5F83;">
                       <h6 class="mb-0" >Sessões deste Evento</h6>
                     </div>
                   </div>
-
                     <hr>
                  {% for sessao in sessao %}
                  <div class="row">
@@ -142,24 +141,19 @@
                       <h6 class="mb-0">{{sessao.tema}}</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                    {{sessao.descricao}} - <a href="/editarsessao/?id={{sessao.id}}"
+
+                    {{sessao.descricao}}
+                        <!-- - <a href="/editarsessao/?id={{sessao.id}}"
                                               style="text-decoration:none;">
                                            <img height="12" width="12"
-                                                   src={% static "assets/lapis.png" %}
-                                           </a>
-
-
-
+                                                   src={% static "assets/lapis.png" %} />
+                                           </a> -->
                     </div>
                   </div>
                   <hr>
                 {% endfor %}
-
-
          </div>
-
      </div>
-
     </div>
 
 </div>
@@ -167,6 +161,185 @@
 
 
 
+<form action="/addcriterio/?id={{id}}" method="post">{% csrf_token %}
+<div class="col-sm-12 modal fade" id="modalcriterio"
+     tabindex="-1" role="dialog"
+     aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-white" style="background:#4B5F83;">
+
+        <h5 class="modal-title"
+            >
+           Criando Formulário
+        </h5>
+        <a type="button" class="close" data-dismiss="modal" aria-label="Fechar"
+        style="text-decoration:none;">
+          <span aria-hidden="true" class="text-white">&times;</span>
+        </a>
+      </div>
+      <div class="modal-body">
+           <div class="container-fluid" align="center">
+
+
+              <div class="text-secondary mb-1">
+                  <h6 class="mb-3">Formule 10 Critérios</h6>
+                  <font size="2px">Cada critério equivale à 10 pontos</font>
+              </div>
+          </div>
+          <div align="center">
+              <input class="form-control col-8 mt-3" placeholder="Nome do Formulário"
+                     name="nomeformulario" required>
+          </div>
+          <div align="center">
+              <input class="form-control col-8 mt-3" placeholder="Critério" name="criterio" required>
+          </div>
+
+          <div align="center">
+              <input class="form-control col-8 mt-3" placeholder="Critério" name="criterio1" required>
+          </div>
+
+          <div align="center">
+              <input class="form-control col-8 mt-3" placeholder="Critério" name="criterio2" required>
+          </div>
+
+          <div align="center">
+              <input class="form-control col-8 mt-3" placeholder="Critério" name="criterio3" required>
+          </div>
+
+          <div align="center">
+              <input class="form-control col-8 mt-3" placeholder="Critério" name="criterio4" required>
+          </div>
+          <div align="center">
+              <input class="form-control col-8 mt-3" placeholder="Critério" name="criterio5" required>
+          </div>
+
+          <div align="center">
+              <input class="form-control col-8 mt-3" placeholder="Critério" name="criterio6" required>
+          </div>
+
+          <div align="center">
+              <input class="form-control col-8 mt-3" placeholder="Critério" name="criterio7" required>
+          </div>
+
+          <div align="center">
+              <input class="form-control col-8 mt-3" placeholder="Critério" name="criterio8" required>
+          </div>
+
+          <div align="center">
+              <input class="form-control col-8 mt-3" placeholder="Critério" name="criterio9" required>
+          </div>
+          <input type="hidden" class="form-control col-8 mt-3" name="idevento" value="{{id}}">
+
+
+          <div align="left" class="mt-2 text-secondary mb-0">
+              {% for evento in evento %}
+              <font size="2px">Evento:</font> <font size="1px">{{evento.nome}}
+          - {{evento.get_data_evento}}</font>
+              {% endfor %}
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <input type="submit" class="btn text-white" style="background:#4B5F83;" value="Adicionar">
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+
+                                </p>
+
+
+                        <div style="height: 100vh"></div>
+                                     </div>
+                </main>
+
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Desenvolvido por G&L Plataformas</div>
+                            <div>
+                                <a href="#">Politica de Privacidade</a>
+                                &middot;
+                                <a href="#">Termos e Condições</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Editando evento G&L Plataforma de Eventos</title>
+   {% include 'header.html' %}
+</head>
+<body>
+
+
+<div class="container">
+    <div class="main-body">
+          <nav aria-label="breadcrumb" class="main-breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/meuperfil/">Meu Perfil</a></li>
+              <li class="breadcrumb-item"><a href="/home/">Home</a></li>
+            </ol>
+          </nav>
+         {% if msg %}
+          <div class="mt-4">
+           <h6 class="mb-0">{{msg}}</h6>
+          </div>
+        {% endif %}
+
+
+
+         PAREI AQUI
+
+
+
+
+
 </body>
 {% include 'footer.html' %}
 </html>
+
+-->

@@ -17,10 +17,11 @@
                                 <p class="mb-0">
 
                                  <div class="col-md-8">
+
               <div class="card mb-3">
                 <div class="card-body">
                      {% for usuarios in usuarios %}
-                     <form method="POST" action="/attperfil/?id={{usuarios.id}}" enctype="multipart/form-data">{% csrf_token %}
+                     <form method="POST" action="/attperfil/?id={{usuarios.id_usuario}}" enctype="multipart/form-data">{% csrf_token %}
                      {% endfor %}
                   <div class="row">
                     <div class="col-sm-3">

@@ -257,8 +257,7 @@ def submetertrabalho(request):
 
     id_da_sessao = request.POST['sessao']
     id_evento = request.GET.get('id')
-    print(id_da_sessao)
-    print(id_evento)
+
     id = id_evento
     #sessao = Sessoes.objects.filter(id_evento=id)
     eventos = Evento.objects.all()
@@ -386,7 +385,8 @@ def meuperfil(request):
 
     dados = {'usuarios': usuarios,
              'id': id,
-             'eventos': eventos}
+             'eventos': eventos,
+             'mid':mid}
     return render(request, 'alterarperfil.html', dados)
 
 
@@ -441,10 +441,20 @@ def editarevento(request):
 
     id = request.GET.get('id')
     # verificar se é gestor
+    meuid = User.objects.filter(username=request.user)
+    for m in meuid:
+        mid = m.id
+    usuarios = Usuariocd.objects.filter(id_usuario=mid)
+    eventos = Evento.objects.filter(status='andamento')
+
     evento = Evento.objects.filter(id=id)
     sessao = Sessoes.objects.filter(id_evento=id)
     dados = {'evento':evento,
-             'sessao':sessao}
+             'sessao':sessao,
+             'eventos': eventos,
+             'usuarios': usuarios,
+             'id':id
+             }
 
     return render(request, 'editarevento.html', dados)
 
@@ -489,19 +499,24 @@ def alterarevento(request):
 
 @login_required(login_url='/login/')
 def addsessao(request):
+
     id = request.GET.get('id')
     candidato = Usuariocd.objects.all()
     meuid = User.objects.filter(username=request.user)
     for m in meuid:
         mid = m.id
     usuarios = Usuariocd.objects.filter(id_usuario=mid)
+    formulario = Formulario.objects.filter(id_evento=id)
+    contar_formulario = Formulario.objects.filter(id_evento=id).aggregate(sum_total=Count('id'))
 
     # filter lider = sim
     evento = Evento.objects.filter(id=id)
     dados = {'id':id,
              'evento':evento,
              'candidato':candidato,
-             'usuarios':usuarios}
+             'usuarios':usuarios,
+             'formulario':formulario,
+             'contar_formulario':contar_formulario}
 
     return render(request,'addsessao.html', dados)
 
@@ -521,7 +536,8 @@ def criarsessao(request):
             descricao=request.POST['descricao'],
             id_evento = id,
             lider = request.POST['lider'],
-            tema = request.POST['tema']
+            tema = request.POST['tema'],
+            formulario = request.POST['formulario']
         )
         msg = 'Você criou uma sessão com sucesso!'
         dados  = {'id':id,
@@ -780,64 +796,42 @@ def addavaliadores(request):
 
 @login_required(login_url='/login/')
 def addcriterio(request):
-
     id = request.GET.get('id')
-    acharevento = Sessoes.objects.filter(id=id)
-    for a in acharevento:
-        id_evento = a.id_evento
-    evento = Evento.objects.filter(id=id_evento)
-    sessao = Sessoes.objects.filter(id=id)
-    total_submetidos = Submissao.objects.filter(sessao=id).aggregate(sum_total=Count('id'))
-    candidato = Usuariocd.objects.all()
-    avaliadores = Avaliadores.objects.filter(id_sessao=id)
-    for av in avaliadores:
-        nome1 = av.av1
-        nome2 = av.av2
-        nome3 = av.av3
-    #acharav1 = Usuariocd.objects.filter(id_usuario=nome1)
-    #acharav2 = Usuariocd.objects.filter(id_usuario=nome2)
-    #acharav3 = Usuariocd.objects.filter(id_usuario=nome3)
-    criterios = Criterios.objects.filter(id_sessao=id)
-    total_criterios = Criterios.objects.filter(id_sessao=id).aggregate(total_sum=Count('id'))
+    if request.POST['nomeformulario'] and request.POST['criterio'] and request.POST['criterio1'] and request.POST['criterio2'] and request.POST['criterio3'] and request.POST['criterio4'] and request.POST['criterio5'] and request.POST['criterio6'] and request.POST['criterio7'] and request.POST['criterio8'] and request.POST['criterio9']:
+        c1 = request.POST['criterio']
+        c2 = request.POST['criterio1']
+        c3 = request.POST['criterio2']
+        c4 = request.POST['criterio3']
+        c5 = request.POST['criterio4']
+        c6 = request.POST['criterio5']
+        c7 = request.POST['criterio6']
+        c8 = request.POST['criterio7']
+        c9 = request.POST['criterio8']
+        c10 = request.POST['criterio9']
+        nome_formulario = request.POST['nomeformulario']
+        Formulario.objects.create(
 
-    if request.POST['criterio']:
-
-        criterio = request.POST['criterio']
-        Criterios.objects.create(
-            criterio = criterio,
-            id_sessao = id,
+            nome_formulario=nome_formulario,
+            c1=c1,
+            c2=c2,
+            c3=c3,
+            c4=c4,
+            c5=c5,
+            c6=c6,
+            c7=c7,
+            c8=c8,
+            c9=c9,
+            c10=c10,
+            id_evento = id
         )
-        msgc = 'Critério adicionado com sucesso!'
-        dados = {'id': id,
-                 'evento': evento,
-                 'sessao': sessao,
-                 'total_submetidos': total_submetidos,
-                 'candidato': candidato,
-                 'msgc': msgc,
-                 'avaliadores': avaliadores,
-              #   'acharav1': acharav1,
-               #  'acharav2': acharav2,
-                # 'acharav3': acharav3,
-                 'criterios':criterios,
-                 'total_criterios':total_criterios
-                 }
-        return render(request,'editarsessao.html', dados)
+        return redirect('/editarevento/?id={}'.format(id))
     else:
-        msgc2 = 'Formule o critério para cria-lo'
-        dados = {'id': id,
-                 'evento': evento,
-                 'sessao': sessao,
-                 'total_submetidos': total_submetidos,
-                 'candidato': candidato,
-                 'msgc2': msgc2,
-                 'avaliadores': avaliadores,
-                 'acharav1': acharav1,
-                 'acharav2': acharav2,
-                 'acharav3': acharav3,
-                 'criterios':criterios,
-                 'total_criterios':total_criterios
-                 }
-        return render(request, 'editarsessao.html', dados)
+        msg = 'Aconteceu algum erro e não cadastrou seu formulário!'
+        dados = {'id':id,
+                 'msg':msg}
+        return render(request,'editarevento.html', dados)
+
+
 
 @login_required(login_url='/login/')
 def avaliartrabalho(request):
@@ -966,3 +960,18 @@ def criandoevento(request):
 def semlink(request):
 
     return redirect('/principal/')
+
+@login_required(login_url='/login/')
+def formulario(request):
+    id = request.GET.get('id')
+    meuid = User.objects.filter(username=request.user)
+    for m in meuid:
+        mid = m.id
+    usuarios = Usuariocd.objects.filter(id_usuario=mid)
+    eventos = Evento.objects.filter(status='andamento')
+    sessao = Sessoes.objects.all()
+    dados = {'eventos': eventos,
+             'usuarios': usuarios,
+             'sessao': sessao}
+
+    return render(request, 'formularios.html', dados)

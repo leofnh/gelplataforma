@@ -30,13 +30,19 @@ class Evento(models.Model):
 
 class Formulario(models.Model):
 
-    p1 = models.CharField(max_length=500)
-    p2 = models.CharField(max_length=500)
-    p3 = models.CharField(max_length=500)
-    v1 = models.BigIntegerField()
-    v2 = models.BigIntegerField()
-    v3 = models.BigIntegerField()
+    c1 = models.CharField(max_length=500)
+    c2 = models.CharField(max_length=500)
+    c3 = models.CharField(max_length=500)
+    c4 = models.CharField(max_length=500)
+    c5 = models.CharField(max_length=500)
+    c6 = models.CharField(max_length=500)
+    c7 = models.CharField(max_length=500)
+    c8 = models.CharField(max_length=500)
+    c9 = models.CharField(max_length=500)
+    c10 = models.CharField(max_length=500)
     id_evento = models.BigIntegerField()
+    nome_formulario = models.CharField(max_length=150)
+    data_cadastro = models.DateTimeField(auto_now=True)
 
 class Submissao(models.Model):
 
@@ -97,6 +103,7 @@ class Sessoes(models.Model):
     descricao = models.CharField(max_length=150)
     lider = models.CharField(max_length=150)
     tema = models.CharField(max_length=150)
+    formulario = models.BigIntegerField()
     id_evento= models.BigIntegerField()
 
 class Inscritos(models.Model):
@@ -118,3 +125,7 @@ class Criterios(models.Model):
     criterio = models.CharField(max_length=500)
     id_sessao = models.BigIntegerField()
     data_criacao = models.DateTimeField(auto_now=True)
+
+
+
+

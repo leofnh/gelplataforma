@@ -34,7 +34,8 @@ urlpatterns = [
     path('principal/', views.principal),
     path('submissoes/', views.submissoes),
     path('criandoevento/', views.criandoevento),
-    path('', views.semlink)
+    path('', views.semlink),
+    path('formularios/', views.formulario)
 
 ]
 

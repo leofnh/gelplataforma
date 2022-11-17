@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<div id="layoutSidenav_content">
+
+                <main>
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4" style="color:#4B5F83;">Gerenciar Eventos</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="#" style="text-decoration:none;">Formulários</a></li>
+                            <li class="breadcrumb-item text-secondary">
+                                <a href="#" style="text-decoration:none;">
+                                <font color="black"> Eventos
+                                </font>
+                                </a></li>
+                            <li class="breadcrumb-item active"><a href="#" style="text-decoration:none;">
+                               <font color="black"> Avaliações </font>
+                            </a> </li>
+                        </ol>
+
+                                <p class="mb-0">
+                                 <!-- tabelas iniciando aqui -->
+
+
+                                  <table class="table " id="datatablesSimple">
+                                    <thead>
+                                        <tr>
+                                             <th><font size="2px">ID</font></th>
+                                            <th><font size="2px">Evento</font></th>
+                                            <th><font size="2px">Local</font></th>
+                                            <th><font size="2px">Área</font></th>
+                                            <th><font size="2px">Ações</font></th>
+
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th><font size="2px">ID</font></th>
+                                            <th><font size="2px">Evento</font></th>
+                                            <th><font size="2px">Local</font></th>
+                                            <th><font size="2px">Modalidade</font></th>
+                                            <th><font size="2px">Ações</font></th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                            {% for eventos in eventos %}
+                                                                                 <tr>
+                                             <td><font size="2px">{{eventos.id}}</font></td>
+                                            <td><font size="2px">{{ eventos.nome }}  </font></td>
+                                            <!--<td>{{ eventos.get_data_evento}}</td>-->
+                                            <td><font size="2px">{{eventos.cidade}}-{{eventos.estado}} </font></td>
+                                            <td><font size="2px">{{eventos.modalidade}}  </font></td>
+                                            <td><font size="2px">
+
+                                                <div align="center">
+
+                                                     <a href="/editarevento/?id={{eventos.id}}">
+                                                    <img src={% static "assets/lapis.png" %}
+                                                         width="15" height="15"></a>
+
+                                                </div>
+
+
+
+
+                                            </font></td>
+
+                                        </tr>
+
+                                                {% endfor %}
+                                    </tbody>
+                                </table>
+
+
+
+                                <!-- tabela terminando aqui -->
+                                </p>
+
+
+                        <div style="height: 100vh"></div>
+                    </div>
+                </main>
+
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Desenvolvido por G&L Plataformas</div>
+                            <div>
+                                <a href="#">Politica de Privacidade</a>
+                                &middot;
+                                <a href="#">Termos e Condições</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+
+
+{% endblock %}
