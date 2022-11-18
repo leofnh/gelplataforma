@@ -392,14 +392,14 @@ def attperfil(request):
     for u in usuario:
         meuid = u.id
 
-    vuser = Usuariocd.objects.filter(id_usuario=id, cpf=request.user)
+    vuser = Usuariocd.objects.filter(id_usuario=meuid, cpf=request.user)
 
     if vuser:
 
         if request.FILES.get('fotoperfil'):
-            Submissao.objects.create(trabalho=request.FILES.get('fotoperfil'), id_evento=0)
+            #Submissao.objects.create(trabalho=request.FILES.get('fotoperfil'), id_evento=0)
             Usuariocd.objects.filter(id_usuario=meuid).update(perfil=request.FILES.get('fotoperfil'))
-            return redirect('/home/')
+            return redirect('/meuperfil/')
 
         else:
             return redirect('/meuperfil/')
