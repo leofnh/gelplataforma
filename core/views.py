@@ -257,19 +257,16 @@ def submetertrabalho(request):
 
     id_da_sessao = request.POST['sessao']
     id_evento = request.GET.get('id')
-
     id = id_evento
     #sessao = Sessoes.objects.filter(id_evento=id)
     eventos = Evento.objects.all()
     meuid = User.objects.filter(username=request.user)
     for m in meuid:
         id_usuario = m.id
-
-
     if request.POST['sessao'] == 'Selecione a sessão...':
 
         msg = 'Escolha uma sessão!'
-        sessao = Sessoes.objects.filter(id=id_da_sessao)
+        sessao = Sessoes.objects.filter(id_evento=id_evento)
         evento = Evento.objects.filter(id=id_evento)
         dados = {'id':id,
                'msg':msg,
@@ -279,9 +276,7 @@ def submetertrabalho(request):
     else:
 
         if request.FILES.get('trabalho'):
-
             trabalhoenviar = request.FILES.get('trabalho')
-
             Submissao.objects.create(
                     trabalho = trabalhoenviar,
                     sessao = id_da_sessao,
@@ -292,7 +287,7 @@ def submetertrabalho(request):
                     av2 = 'aguardando'
                 )
             msg2 = 'Você enviou seu trabalho com sucesso!'
-            sessao = Sessoes.objects.filter(id=id)
+            sessao = Sessoes.objects.filter(id_evento=id_evento)
             evento = Evento.objects.filter(id=id_evento)
             dados = {'id':id,
                          'msg2':msg2,
@@ -301,9 +296,8 @@ def submetertrabalho(request):
                          'sessao':sessao}
             return render(request,'submeter.html', dados)
         else:
-
             msg = 'Selecione seu trabalho para enviar!'
-            sessao = Sessoes.objects.filter(id=id)
+            sessao = Sessoes.objects.filter(id_evento=id_evento)
             evento = Evento.objects.filter(id=id_evento)
             dados = {'id':id,
                          'msg':msg,
@@ -392,7 +386,6 @@ def meuperfil(request):
 
 @login_required(login_url='/login/')
 def attperfil(request):
-
     id = request.GET.get('id')
     usuario = User.objects.filter(username=request.user)
     data = {}
@@ -633,6 +626,7 @@ def submetidos(request):
     eventos = Evento.objects.all()
     sessao = Sessoes.objects.all()
     trabalho = Submissao.objects.all()
+    avaliadores = Usuariocd.objects.all()
     for m in meuid:
         mid = m.id
     usuarios = Usuariocd.objects.filter(id_usuario=mid)
@@ -640,7 +634,8 @@ def submetidos(request):
              'usuarios':usuarios,
              'eventos':eventos,
              'sessao':sessao,
-             'trabalho':trabalho}
+             'trabalho':trabalho,
+             'avaliadores':avaliadores}
     return render(request,'submetidos.html', dados)
 
 @login_required(login_url='/login/')
@@ -835,21 +830,43 @@ def addcriterio(request):
 
 @login_required(login_url='/login/')
 def avaliartrabalho(request):
-    id = request.GET.get('id')
-    acharevento = Submissao.objects.filter(id=id)
-    for a in acharevento:
-        id_evento = a.id_evento
-        id_sessao = a.sessao
-    evento = Evento.objects.filter(id=id_evento)
-    criterios = Criterios.objects.filter(id_sessao=id_sessao)
-    sessao = Sessoes.objects.filter(id=id_sessao)
-    submetidos = Submissao.objects.filter(id=id)
-    dados = {'id':id,
-             'evento':evento,
-             'criterios':criterios,
-             'sessao':sessao,
-             'submetidos':submetidos}
-    return render(request,'avaliartrabalho.html', dados)
+
+    #id = request.GET.get('id')
+    #acharevento = Submissao.objects.filter(id=id)
+    #for a in acharevento:
+    #    id_evento = a.id_evento
+    #    id_sessao = a.sessao
+    #evento = Evento.objects.filter(id=id_evento)
+    #criterios = Criterios.objects.filter(id_sessao=id_sessao)
+    #sessao = Sessoes.objects.filter(id=id_sessao)
+    #submetidos = Submissao.objects.filter(id=id)
+    #dados = {'id':id,
+    #         'evento':evento,
+    #         'criterios':criterios,
+    #         'sessao':sessao,
+    #         'submetidos':submetidos}
+
+    meuid = User.objects.filter(username=request.user)
+    for m in meuid:
+        mid = m.id
+
+    usuarios = Usuariocd.objects.filter(id_usuario=mid)
+    eventos = Evento.objects.filter(status='andamento')
+    sessao = Sessoes.objects.all()
+    formulario = Formulario.objects.all()
+
+    avaliacao = Submissao.objects.filter(av1=mid)
+    avaliacao2 = Submissao.objects.filter(av2=mid)
+    avaliacao3 = Submissao.objects.filter(av3=mid)
+
+    dados = {'eventos': eventos,
+             'usuarios': usuarios,
+             'sessao': sessao,
+             'formulario': formulario,
+             'avaliacao':avaliacao,
+             'avaliacao2':avaliacao2,
+             'avaliacao3':avaliacao3}
+    return render(request,'avaliartrabalho.html',dados)
 
 @login_required(login_url='/login/')
 def enviaravaliacao(request):
@@ -970,8 +987,82 @@ def formulario(request):
     usuarios = Usuariocd.objects.filter(id_usuario=mid)
     eventos = Evento.objects.filter(status='andamento')
     sessao = Sessoes.objects.all()
+    formulario = Formulario.objects.all()
     dados = {'eventos': eventos,
              'usuarios': usuarios,
-             'sessao': sessao}
+             'sessao': sessao,
+             'formulario':formulario}
 
     return render(request, 'formularios.html', dados)
+
+@login_required(login_url='/login/')
+def enviaravaliador(request):
+
+    id = request.POST['id_trabalho']
+
+    if request.POST['av3']:
+        av3 = request.POST['av3']
+        Submissao.objects.filter(id=id).update(
+            av3=av3
+        )
+    else:
+
+        if request.POST['av1'] or request.POST['av2']:
+            if request.POST['av1']:
+                av1 = request.POST['av1']
+                Submissao.objects.filter(id=id).update(
+                    av1=av1
+                )
+
+            if request.POST['av2']:
+                av2 = request.POST['av2']
+                Submissao.objects.filter(id=id).update(
+                    av2=av2
+                )
+            return redirect('/submetidos/')
+
+        else:
+            msg = 'Houve algum erro, por favor selecione o avaliador!'
+            submetidos = Submissao.objects.filter(status='avaliacao')
+            meuid = User.objects.filter(username=request.user)
+            eventos = Evento.objects.all()
+            sessao = Sessoes.objects.all()
+            trabalho = Submissao.objects.all()
+            avaliadores = Usuariocd.objects.all()
+            for m in meuid:
+                mid = m.id
+
+            usuarios = Usuariocd.objects.filter(id_usuario=mid)
+            dados = {'submetidos': submetidos,
+                     'usuarios': usuarios,
+                     'eventos': eventos,
+                     'sessao': sessao,
+                     'trabalho': trabalho,
+                     'avaliadores': avaliadores,
+                     'msg':msg}
+
+            return render(request, 'submetidos.html', dados)
+
+@login_required(login_url='/login/')
+def pontuartrabalho(request):
+
+    id = request.GET.get('id')
+    meuid = User.objects.filter(username=request.user)
+    for m in meuid:
+        mid = m.id
+    usuarios = Usuariocd.objects.filter(id_usuario=mid)
+    eventos = Evento.objects.filter(status='andamento')
+    sessao = Sessoes.objects.all()
+    formulario = Formulario.objects.all()
+    trabalho = Submissao.objects.filter(id=id)
+    dados = {'eventos': eventos,
+             'usuarios': usuarios,
+             'sessao': sessao,
+             'formulario': formulario,
+             'id':id,
+             'trabalho':trabalho}
+
+    return render(request,'pontuartrabalho.html', dados)
+
+
+

@@ -4,8 +4,7 @@
 {% block content %}
 
 
-<div id="layoutSidenav_content">
-
+<div id="layoutSidenav_content" style="background:#e2e8f0;">
                 <main>
                     <div class="container-fluid px-4">
                         <h1 class="mt-4" style="color:#4B5F83;">Gerenciar Eventos</h1>
@@ -23,9 +22,13 @@
 
                                 <p class="mb-0">
                                  <!-- tabelas iniciando aqui -->
+                                  <div class="card">
 
-
-                                  <table class="table " id="datatablesSimple">
+                                      <div class="card-header" style="background:#4B5F83;color:#e2e8f0;">
+                                          Eventos
+                                      </div>
+                                <div class="card-body">
+                                  <table class="table" id="datatablesSimple">
                                     <thead>
                                         <tr>
                                              <th><font size="2px">ID</font></th>
@@ -54,26 +57,74 @@
                                             <td><font size="2px">{{eventos.cidade}}-{{eventos.estado}} </font></td>
                                             <td><font size="2px">{{eventos.modalidade}}  </font></td>
                                             <td><font size="2px">
-
                                                 <div align="center">
-
                                                      <a href="/editarevento/?id={{eventos.id}}">
                                                     <img src={% static "assets/lapis.png" %}
-                                                         width="15" height="15"></a>
+                                                         width="15" height="15" /></a>
+
+                                                    <a type="button"
+                                                       data-toggle="modal"
+                                                       data-target="#modalacao{{eventos.id}}">
+                                                    <img src={% static "assets/editartrabalho.png" %}
+                                                         width="15" height="15" />
+                                                    </a>
+
+      <div class="col-sm-12 modal fade" id="modalacao{{eventos.id}}"
+     tabindex="-1" role="dialog"
+     aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-white" style="background:#4B5F83;">
+
+        <h5 class="modal-title"
+            id="TituloModalCentralizado">
+            Ações
+        </h5>
+        <a type="button" class="close" data-dismiss="modal" aria-label="Fechar"
+           style="background:#4B5F83;text-decoration:none;">
+          <span  aria-hidden="true" class="text-white">&times;</span>
+        </a>
+      </div>
+      <div class="modal-body">
+           <div class="container-fluid" align="center">
+
+               {% for formulario in formulario %}
+               {% if formulario.id_evento == eventos.id %}
+               <div class="mt-1" align="left">
+                {{formulario.nome_formulario}} -
+                   <a href="#" style="text-decoration:none;">
+                       Editar
+                   </a>
+               </div>
+               {% endif %}
+               {% endfor %}
+
+          </div>
+           <div align="left" class="mt-2 text-secondary mb-0">
+
+              <font size="2px">Evento:</font> <font size="1px">{{eventos.nome}} / {{sessao.tema}}</font>
+
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <input type="submit" class="btn text-white" style="background:#4B5F83;" value="Adicionar">
+      </div>
+    </div>
+  </div>
+</div>
+
 
                                                 </div>
-
-
-
-
                                             </font></td>
-
                                         </tr>
 
                                                 {% endfor %}
                                     </tbody>
                                 </table>
-
+                                </div>
+                        </div>
 
 
                                 <!-- tabela terminando aqui -->

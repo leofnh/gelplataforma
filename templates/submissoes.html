@@ -4,19 +4,22 @@
 
 {% block content %}
 
-<div id="layoutSidenav_content">
+<div id="layoutSidenav_content" style="background:#e2e8f0;">
                 <main>
                     <div class="container-fluid px-4">
                         <h1 class="mt-4" style="color:#4B5F83;">Submissões de Trabalhos</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="#" style="text-decoration:none;">Eventos</a></li>
+                            <li class="breadcrumb-item">
+                                <a href="#" style="text-decoration:none;">Eventos</a></li>
                             <li class="breadcrumb-item active">Avaliações</li>
                         </ol>
 
                                 <p class="mb-0">
-                                 <!-- tabelas iniciando aqui -->
-
-
+                                  <div class="card">
+                                 <div class="card-header" style="background:#4B5F83;color:#e2e8f0;">
+                                     Submeter trabalhos
+                                 </div>
+                                <div class="card-body">
                                   <table class="table " id="datatablesSimple">
                                     <thead>
                                         <tr>
@@ -92,7 +95,8 @@
             id="TituloModalCentralizado">
             Ações
         </h5>
-        <a type="button" class="close" data-dismiss="modal" aria-label="Fechar" style="background:#4B5F83;">
+        <a type="button" class="close" data-dismiss="modal" aria-label="Fechar"
+           style="background:#4B5F83;text-decoration:none;">
           <span  aria-hidden="true" class="text-white">&times;</span>
         </a>
       </div>
@@ -103,6 +107,8 @@
                <a class="dropdown-item" href="/addsessao/?id={{eventos.id}}">Adicionar sessão à este evento {{eventos.nome}}</a>
                <a class="dropdown-item" href="/submetidos/">Trabalhos que foram submetidos</a>
                <a class="dropdown-item" href="#">Criar formulário</a>
+
+
 
           </div>
            <div align="left" class="mt-2 text-secondary mb-0">
@@ -131,6 +137,8 @@
                                                 {% endfor %}
                                     </tbody>
                                 </table>
+                                    </div>
+                        </div>
 
 
 

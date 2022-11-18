@@ -9,6 +9,9 @@
                 <main>
                     <div class="container-fluid px-4">
                         <h1 class="mt-4" style="color:#4B5F83;">Trabalhos submetidos</h1>
+                        {% if msg %}
+                        <font color="red">Alerta:</font>{{msg}}
+                        {% endif %}
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="#" style="text-decoration:none;">Eventos</a></li>
                             <li class="breadcrumb-item active">Avaliações</li>
@@ -26,6 +29,7 @@
                                             <th><font size="2px">Tema</font></th>
                                             <th><font size="2px">Evento</font></th>
                                             <th><font size="2px">Trabalho</font></th>
+                                            <th><font size="2px">Ações</font></th>
 
                                         </tr>
                                     </thead>
@@ -36,12 +40,12 @@
                                             <th><font size="2px">Tema</font></th>
                                             <th><font size="2px">Evento</font></th>
                                             <th><font size="2px">Trabalho</font></th>
+                                            <th><font size="2px">Ações</font></th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
 
                                             {% for trabalho in trabalho %}
-
                                                                                  <tr>
                                              <td><font size="2px">{{trabalho.id}}</font></td>
 
@@ -103,10 +107,22 @@
                                                     src={% static "assets/img/engrenagem.png" %} />
 
                                                 </a>
+                                                -->
 
+                                            </font></td>
+                                            <td align="center">
 
+                                               <a type="button"
+                                                  data-toggle="modal"
+                                                  data-target="#modalacao{{trabalho.id}}"
+                                                  >
+                                              <img width="15" height="15"
+                                                    src={% static "assets/img/engrenagem.png" %} />
+                                                </a>
+                                                </a>
 
-     <div class="col-sm-12 modal fade" id="modalacao{{sessao.id}}"
+<form method="POST" action="/enviaravaliador/">{% csrf_token %}
+     <div class="col-sm-12 modal fade" id="modalacao{{trabalho.id}}"
      tabindex="-1" role="dialog"
      aria-labelledby="TituloModalCentralizado" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -117,17 +133,58 @@
             id="TituloModalCentralizado">
             Ações
         </h5>
-        <a type="button" class="close" data-dismiss="modal" aria-label="Fechar" style="background:#4B5F83;">
+        <a type="button" class="close" data-dismiss="modal" aria-label="Fechar"
+           style="background:#4B5F83;text-decoration:none;">
           <span  aria-hidden="true" class="text-white">&times;</span>
         </a>
       </div>
       <div class="modal-body">
            <div class="container-fluid" align="center">
 
-               <a class="modal-item" href="/submeter/?id={{eventos.id}}">Submeter um Trabalho</a>
-               <a class="dropdown-item" href="/addsessao/?id={{eventos.id}}">Adicionar sessão à este evento {{eventos.nome}}</a>
-               <a class="dropdown-item" href="/submetidos/">Trabalhos que foram submetidos</a>
-               <a class="dropdown-item" href="#">Criar formulário</a>
+               {% if trabalho.av1 == 'aguardando' %}
+                Escolher Avaliador
+                <input name="av3" type="hidden">
+                <select class="form-control mt-2" name="av1" required>
+                    {% for avaliadores in avaliadores %}
+                    <option value="{{avaliadores.id_usuario}}">{{avaliadores.nome}}({{avaliadores.id}})</option>
+                    {% endfor %}
+                </select>
+               <br>
+               {% endif %}
+               {% if trabalho.av2 == 'aguardando' %}
+               Escolher segundo avaliador
+               <select class="form-control mt-2" name="av2">
+                    {% for avaliadores in avaliadores %}
+                    <option value="{{avaliadores.id_usuario}}">{{avaliadores.nome}} ({{avaliadores.id}})</option>
+                    {% endfor %}
+                </select>
+               {% endif %}
+               {% if trabalho.av1 != 'aguardando' and trabalho.av2 != 'aguardando' %}
+               {% if trabalho.av1 == 'aprovado' and trabalho.av2 == 'aprovado' %}
+               Este trabalho foi aprovado!
+               {% endif %}
+               {% if trabalho.av1 == 'reprovado' and trabalho.av2 == 'reprovado' %}
+               Este trabalho foi reprovado!
+               {% endif %}
+               {% if trabalho.av1 == 'reprovado' and trabalho.av2 == 'aprovado' %}
+               Escolher terceiro avaliador
+               <select class="form-control mt-2" name="av3">
+
+                    {% for avaliadores in avaliadores %}
+                    <option value="{{avaliadores.id_usuario}}">{{avaliadores.nome}}</option>
+                    {% endfor %}
+                </select>
+               {% endif %}
+               {% if trabalho.av1 == 'aprovado' and trabalho.av2 == 'reprovado' %}
+                Escolher terceiro avaliador
+               <select class="form-control mt-2" name="av3">
+                    {% for avaliadores in avaliadores %}
+                    <option value="{{avaliadores.id_usuario}}">{{avaliadores.nome}}</option>
+                    {% endfor %}
+                </select>
+               {% endif %}
+               {% endif %}
+               <input type="hidden" value="{{trabalho.id}}" name="id_trabalho">
 
           </div>
            <div align="left" class="mt-2 text-secondary mb-0">
@@ -139,16 +196,19 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-        <input type="submit" class="btn text-white" style="background:#4B5F83;" value="Adicionar">
+
+          {% if trabalho.status == 'avaliacao' or trabalho.status == 'aguardando' %}
+        <input type="submit" class="btn text-white" style="background:#4B5F83;" value="Enviar">
+          {% endif %}
+
       </div>
     </div>
   </div>
 </div>
+</form>
 
+                                            </td>
 
--->
-
-                                            </font></td>
 
                                         </tr>
 

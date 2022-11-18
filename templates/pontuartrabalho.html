@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div id="layoutSidenav_content" style="background:#e2e8f0;">
+                <main>
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4" style="color:#4B5F83;">Gerenciar Eventos</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="#" style="text-decoration:none;">Formulários</a></li>
+                            <li class="breadcrumb-item text-secondary">
+                                <a href="#" style="text-decoration:none;">
+                                <font color="black"> Eventos
+                                </font>
+                                </a></li>
+                            <li class="breadcrumb-item active"><a href="#" style="text-decoration:none;">
+                               <font color="black"> Avaliações </font>
+                            </a> </li>
+                        </ol>
+
+                                <p class="mb-0">
+                                  <div class="card col-4">
+                                      <div class="card-header text-center"
+                                           style="background:#4B5F83;color:#e2e8f0;">
+                                          Trabalho
+                                      </div>
+                                <div class="card-body">
+
+                                    {% for trabalho in trabalho %}
+
+                                    ID - {{trabalho.id}}
+                                    <a href="/media/{{trabalho.trabalho}}"
+                                                style="text-decoration:none;"
+                                                target="_blank" rel="noopener noreferrer">
+                                                    <img height="25" width="25"
+                                                            src={% static "assets/baixar.png" %}>
+                                                </a>
+
+                                    {% endfor %}
+
+                                </div>
+                        </div>
+
+
+                                <!-- tabela terminando aqui -->
+                                </p>
+
+
+                        <div style="height: 100vh"></div>
+                    </div>
+                </main>
+
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Desenvolvido por G&L Plataformas</div>
+                            <div>
+                                <a href="#">Politica de Privacidade</a>
+                                &middot;
+                                <a href="#">Termos e Condições</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+
+{% endblock %}

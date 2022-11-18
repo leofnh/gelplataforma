@@ -1,4 +1,252 @@
+{% extends 'base.html' %}
 {% load static %}
+{% block content %}
+
+<div id="layoutSidenav_content" style="background:#e2e8f0;">
+                <main>
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4" style="color:#4B5F83;">Gerenciar Eventos</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="#" style="text-decoration:none;">Formulários</a></li>
+                            <li class="breadcrumb-item text-secondary">
+                                <a href="#" style="text-decoration:none;">
+                                <font color="black"> Eventos
+                                </font>
+                                </a></li>
+                            <li class="breadcrumb-item active"><a href="#" style="text-decoration:none;">
+                               <font color="black"> Avaliações </font>
+                            </a> </li>
+                        </ol>
+
+                                <p class="mb-0">
+                                 <!-- tabelas iniciando aqui -->
+                                  <div class="card">
+
+                                      <div class="card-header" style="background:#4B5F83;color:#e2e8f0;">
+                                          Trabalhos para sua avaliação
+                                      </div>
+                                <div class="card-body">
+                                  <table class="table" id="datatablesSimple">
+                                    <thead>
+                                        <tr>
+                                             <th><font size="2px">ID</font></th>
+                                            <th><font size="2px">Evento</font></th>
+                                            <th><font size="2px">Local</font></th>
+                                            <th><font size="2px">Área</font></th>
+                                            <th><font size="2px">Ações</font></th>
+
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th><font size="2px">ID</font></th>
+                                            <th><font size="2px">Evento</font></th>
+                                            <th><font size="2px">Local</font></th>
+                                            <th><font size="2px">Modalidade</font></th>
+                                            <th><font size="2px">Ações</font></th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                            {% for avaliacao in avaliacao %}
+                                                                                 <tr>
+                                             <td><font size="2px">{{avaliacao.id}}</font></td>
+                                            <td align="center"><font size="2px">
+                                                <a href="/media/{{avaliacao.trabalho}}"
+                                                style="text-decoration:none;"
+                                                target="_blank" rel="noopener noreferrer">
+                                                    <img height="25" width="25"
+                                                            src={% static "assets/baixar.png" %}>
+                                                </a>
+
+                                            </font></td>
+                                            <td><font size="2px">{{eventos.cidade}}-{{eventos.estado}} </font></td>
+                                            <td><font size="2px">{{eventos.modalidade}}</font></td>
+                                            <td><font size="2px">
+                                                <div align="center">
+
+
+                                                    <a type="button" href="/pontuartrabalho/?id={{avaliacao.id}}">
+                                                     <!--  data-toggle="modal"
+                                                       data-target="#modalacao{{avaliacao.id}}"> -->
+                                                    <img src={% static "assets/editartrabalho.png" %}
+                                                         width="15" height="15" />
+                                                    </a>
+
+      <div class="col-sm-12 modal fade" id="modalacao{{avaliacao.id}}"
+     tabindex="-1" role="dialog"
+     aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-white" style="background:#4B5F83;">
+
+        <h5 class="modal-title"
+            id="TituloModalCentralizado">
+            Ações
+        </h5>
+        <a type="button" class="close" data-dismiss="modal" aria-label="Fechar"
+           style="background:#4B5F83;text-decoration:none;">
+          <span  aria-hidden="true" class="text-white">&times;</span>
+        </a>
+      </div>
+      <div class="modal-body">
+           <div class="container-fluid" align="center">
+
+               {% for formulario in formulario %}
+               {% if formulario.id_evento == eventos.id %}
+               <div class="mt-1" align="left">
+                {{formulario.nome_formulario}} -
+                   <a href="#" style="text-decoration:none;">
+                       Editar
+                   </a>
+               </div>
+               {% endif %}
+               {% endfor %}
+
+          </div>
+           <div align="left" class="mt-2 text-secondary mb-0">
+
+              <font size="2px">Evento:</font> <font size="1px">{{eventos.nome}} / {{sessao.tema}}</font>
+
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <input type="submit" class="btn text-white" style="background:#4B5F83;" value="Adicionar">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+                                                </div>
+                                            </font></td>
+                                        </tr>
+
+                                                {% endfor %}
+
+
+
+  <!-- INICIANDO SEGUNDA PARTE -->
+
+                                    {% for avaliacao2 in avaliacao2 %}
+                                                                                 <tr>
+                                             <td><font size="2px">{{avaliacao2.id}}</font></td>
+                                            <td align="center"><font size="2px" >
+                                                 <a href="/media/{{avaliacao2.trabalho}}"
+                                                style="text-decoration:none;"
+                                                target="_blank" rel="noopener noreferrer">
+                                                    <img height="25" width="25"
+                                                            src={% static "assets/baixar.png" %}>
+                                                </a>
+
+                                            </font></td>
+                                            <td><font size="2px">{{eventos.cidade}}-{{eventos.estado}} </font></td>
+                                            <td><font size="2px">{{eventos.modalidade}}</font></td>
+                                            <td><font size="2px">
+                                                <div align="center">
+                                                    <a type="button" href="/pontuartrabalho/?id={{avaliacao2.id}}"
+                                                       <!--data-toggle="modal"
+                                                       data-target="#modalacao{{avaliacao2.id}}"-->
+                                                    <img src={% static "assets/editartrabalho.png" %}
+                                                         width="15" height="15" />
+                                                    </a>
+
+      <div class="col-sm-12 modal fade" id="modalacao{{avaliacao2.id}}"
+     tabindex="-1" role="dialog"
+     aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-white" style="background:#4B5F83;">
+
+        <h5 class="modal-title"
+            id="TituloModalCentralizado">
+            Ações
+        </h5>
+        <a type="button" class="close" data-dismiss="modal" aria-label="Fechar"
+           style="background:#4B5F83;text-decoration:none;">
+          <span  aria-hidden="true" class="text-white">&times;</span>
+        </a>
+      </div>
+      <div class="modal-body">
+           <div class="container-fluid" align="center">
+               {% for formulario in formulario %}
+               {% if formulario.id_evento == eventos.id %}
+               <div class="mt-1" align="left">
+                {{formulario.nome_formulario}} -
+                   <a href="#" style="text-decoration:none;">
+                       Editar
+                   </a>
+               </div>
+               {% endif %}
+               {% endfor %}
+
+          </div>
+           <div align="left" class="mt-2 text-secondary mb-0">
+
+              <font size="2px">Evento:</font> <font size="1px">{{eventos.nome}} / {{sessao.tema}}</font>
+
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <input type="submit" class="btn text-white" style="background:#4B5F83;" value="Adicionar">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+                                                </div>
+                                            </font></td>
+                                        </tr>
+
+                                                {% endfor %}
+
+
+
+
+                                    </tbody>
+                                </table>
+                                </div>
+                        </div>
+
+
+                                <!-- tabela terminando aqui -->
+                                </p>
+
+
+                        <div style="height: 100vh"></div>
+                    </div>
+                </main>
+
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Desenvolvido por G&L Plataformas</div>
+                            <div>
+                                <a href="#">Politica de Privacidade</a>
+                                &middot;
+                                <a href="#">Termos e Condições</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+<!--
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -31,7 +279,7 @@
                          class="rounded-circle" width="150" height="140">
                     {% endfor %}
                     <div class="mt-3">
-                      <!--<h4>Senhor Freitas</h4> -->
+                      <h4>Senhor Freitas</h4>
                       <p class="text-secondary mb-1">
                         {% for evento in evento %}
                         {{evento.nome}}
@@ -141,3 +389,4 @@
 </body>
 {% include 'footer.html' %}
 </html>
+-->

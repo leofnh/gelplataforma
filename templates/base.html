@@ -16,9 +16,9 @@
 
     </head>
     <body>
-        <nav class="sb-topnav navbar navbar-expand navbar-dark" style="background:#e2e8f0;">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark" style="background:#4B5F83;">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="#" style="color:#4B5F83;">
+            <a class="navbar-brand ps-3" href="#" style="color:#e2e8f0;">
                 {% for usuarios in usuarios %}
                 <img src="/media/{{usuarios.perfil}}"
                      alt="Admin"
@@ -27,7 +27,7 @@
                 {% endfor %}
             </a>
             <!-- Sidebar Toggle-->
-            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars" style="color:#4B5F83;"></i></button>
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars" style="color:#e2e8f0;"></i></button>
             <!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
               <!--  <div class="input-group"> -->
@@ -52,7 +52,7 @@
             <!-- Navbar-->
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:#4B5F83;"><i class="fas fa-user fa-fw"></i></a>
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:#e2e8f0;"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="#">Alterar Senha</a></li>
                         <li><a class="dropdown-item" href="#">Alterar Perfil</a></li>
@@ -66,45 +66,45 @@
         <div id="layoutSidenav">
             <div id="layoutSidenav_nav" >
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion" >
-                    <div class="sb-sidenav-menu" style="background:#e2e8f0;">
+                    <div class="sb-sidenav-menu" style="background:#4B5F83;">
                         <div class="nav">
-                            <div class="sb-sidenav-menu-heading" style="color:#4B5F83;">Core</div>
+                            <div class="sb-sidenav-menu-heading" style="color:#e2e8f0;">Core</div>
                             <a class="nav-link" href="#">
                                 <div class="sb-nav-link-icon" style="color:#4B5F83;">
-                                    <i class="fas fa-tachometer-alt" style="color:#4B5F83;"></i></div>
-                                <div style="color:#4B5F83;">Dashboard</div>
+                                    <i class="fas fa-tachometer-alt" style="color:#e2e8f0;"></i></div>
+                                <div style="color:#e2e8f0;">Dashboard</div>
                             </a>
-                            <div class="sb-sidenav-menu-heading" style="color:#4B5F83;">Interface</div>
+                            <div class="sb-sidenav-menu-heading" style="color:#e2e8f0;">Interface</div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                                <div class="sb-nav-link-icon" style="color:#4B5F83;"><i class="fas fa-columns"></i></div>
-                               <div style="color:#4B5F83;">Ações</div>
-                                <div class="sb-sidenav-collapse-arrow" style="color:#4B5F83;"><i class="fas fa-angle-down"></i></div>
+                                <div class="sb-nav-link-icon" style="color:#e2e8f0;"><i class="fas fa-columns"></i></div>
+                               <div style="color:#e2e8f0;">Ações</div>
+                                <div class="sb-sidenav-collapse-arrow" style="color:#e2e8f0;"><i class="fas fa-angle-down"></i></div>
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="/submissoes/" style="color:#4B5F83;">Submissões</a>
-                                    <a class="nav-link" href="/criandoevento/" style="color:#4B5F83;">Criar Evento</a>
+                                    <a class="nav-link" href="/submissoes/" style="color:#e2e8f0;">Submissões</a>
+                                    <a class="nav-link" href="/criandoevento/" style="color:#e2e8f0;">Criar Evento</a>
                                 </nav>
                             </div>
 
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                                <div class="sb-nav-link-icon" style="color:#4B5F83;"><i class="fas fa-book-open"></i></div>
-                                <div style="color:#4B5F83;">Edições</div>
-                                <div class="sb-sidenav-collapse-arrow" style="color:#4B5F83;"><i class="fas fa-angle-down"></i></div>
+                                <div class="sb-nav-link-icon" style="color:#e2e8f0;"><i class="fas fa-book-open"></i></div>
+                                <div style="color:#e2e8f0;">Edições</div>
+                                <div class="sb-sidenav-collapse-arrow" style="color:#e2e8f0;"><i class="fas fa-angle-down"></i></div>
 
                             </a>
 
                             <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                        <div style="color:#4B5F83;">Editar Perfil</div>
-                                        <div class="sb-sidenav-collapse-arrow" style="color:#4B5F83;"><i class="fas fa-angle-down"></i></div>
+                                        <div style="color:#e2e8f0;">Editar Perfil</div>
+                                        <div class="sb-sidenav-collapse-arrow" style="color:#e2e8f0;"><i class="fas fa-angle-down"></i></div>
                                     </a>
                                     <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
                                         <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="#" style="color:#4B5F83;">Alterar Avatar</a>
-                                            <a class="nav-link" href="/meuperfil/" style="color:#4B5F83;">Dados Cadastrais</a>
-                                            <a class="nav-link" href="#" style="color:#4B5F83;">Alterar Senha</a>
+                                            <a class="nav-link" href="#" style="color:#e2e8f0;">Alterar Avatar</a>
+                                            <a class="nav-link" href="/meuperfil/" style="color:#e2e8f0;">Dados Cadastrais</a>
+                                            <a class="nav-link" href="#" style="color:#e2e8f0;">Alterar Senha</a>
                                         </nav>
                                     </div>
 
@@ -124,10 +124,11 @@
 
                                 </nav>
                             </div>
-                             <div class="sb-sidenav-menu-heading" style="color:#4B5F83;">
+                             <div class="sb-sidenav-menu-heading" style="color:#e2e8f0;">
                                 GESTÃO
                             </div>
-                            <a class="nav-link" href="/formularios/" style="color:#4B5F83;">Formulários</a>
+                            <a class="nav-link" href="/formularios/" style="color:#e2e8f0;">Formulários</a>
+                            <a class="nav-link" href="/avaliartrabalho/" style="color:#e2e8f0;">Avaliações</a>
                             <!-- ADICIONAR MAIS LINKS
                             <a class="nav-link" href="charts.html">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
@@ -152,7 +153,7 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4" style="color:#4B5F83;">Gerenciar Eventos</h1>
+                        <h1 class="mt-4" style="color:#e2e8f0;">Gerenciar Eventos</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="#" style="text-decoration:none;">Eventos</a></li>
                             <li class="breadcrumb-item active">Avaliações</li>
