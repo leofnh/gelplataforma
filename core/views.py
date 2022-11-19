@@ -258,31 +258,34 @@ def criarevento(request):
 def submetertrabalho(request):
 
     id_da_sessao = request.POST['sessao']
-    id_evento = request.GET.get('id')
-    id = id_evento
+    acharevento = Sessoes.objects.filter(id=id_da_sessao)
+    for i in acharevento:
+        id_evento = i.id_evento
+    #id_evento = request.GET.get('id')
+    #id = id_evento
     #sessao = Sessoes.objects.filter(id_evento=id)
     eventos = Evento.objects.all()
     meuid = User.objects.filter(username=request.user)
     for m in meuid:
         id_usuario = m.id
     if request.POST['sessao'] == 'Selecione a sessão...':
-
         msg = 'Escolha uma sessão!'
         #sessao = Sessoes.objects.filter(id_evento=id_evento)
         sessao = Sessoes.objects.all()
-        evento = Evento.objects.filter(id=id_evento)
+        evento = Evento.objects.all(id=id_evento)
         dados = {'id':id,
                'msg':msg,
                'evento':evento,
               'sessao':sessao}
         return render(request,'submeter.html', dados)
     else:
-
         if request.FILES.get('trabalho'):
             trabalhoenviar = request.FILES.get('trabalho')
-            chave = request.POST['chave']
+            chave = request.POST['palavrachave']
             resumo = request.POST['resumo']
             titulo = request.POST['titulo']
+            autor1 = request.POST['autor1']
+            print(chave)
             Submissao.objects.create(
                     trabalho = trabalhoenviar,
                     sessao = id_da_sessao,
@@ -292,8 +295,9 @@ def submetertrabalho(request):
                     av1 = 'aguardando',
                     av2 = 'aguardando',
                     titulo=titulo,
-                    palavrachave=chave,
-                    resumo=resumo
+                    chave=chave,
+                    resumo=resumo,
+                    autor=autor1
                 )
             msg2 = 'Você enviou seu trabalho com sucesso!'
             sessao = Sessoes.objects.filter(id_evento=id_evento)
@@ -1015,6 +1019,7 @@ def enviaravaliador(request):
         Submissao.objects.filter(id=id).update(
             av3=av3
         )
+        return redirect('/submetidos/')
     else:
 
         if request.POST['av1'] or request.POST['av2']:

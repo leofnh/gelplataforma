@@ -109,10 +109,15 @@
                    <div class="row">
                        <div class="col-12 text-center">
                            <label>Autor:</label>
+                           {% if usuarios %}
                            {% for usuarios in usuarios %}
                            <input class="mt-2 form-control" name="autor1"
                                   placeholder="Autor" value="{{usuarios.nome}}">
                            {% endfor %}
+                           {% else %}
+                           <input class="mt-2 form-control" name="autor1"
+                                  placeholder="Autor" aria-placeholder="Preencha um nome!" required>
+                           {% endif %}
                        </div>
                    </div>
 
