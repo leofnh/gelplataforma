@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div id="layoutSidenav_content" style="background:#e2e8f0;">
+                <main>
+
+<div class="container-fluid">
+   <div class="row">
+     <div class="col-sm-12 mb-3 mt-4">
+       <div class="card h-100">
+                  <div class="card-header text-center text-white" style="background:#4B5F83;">
+                        Formulário {% for formulario in formulario %}{{formulario.nome_formulario}} {% endfor %}
+                    </div>
+               <form method="POST" action="/salvarformulario/?id={{id}}">{% csrf_token %}
+
+                <div class="card-body">
+                  <div class="d-flex flex-column align-items-center text-center col-12">
+
+                        <p class="text-secondary col-12">
+
+                                                {% for formulario in formulario %}
+                                                <label>Nome do Formulário</label>
+                                                <input name="nome" class="form-control col-12" value="{{formulario.nome_formulario}}">
+                                                <hr>
+                                                <label class="text-secondary">Critérios</label>
+                                                <input name="c1" class="form-control col-12 mt-2" value="{{formulario.c1}}">
+                                                <input name="c2" class="form-control col-12 mt-2" value="{{formulario.c2}}">
+                                                <input name="c3" class="form-control col-12 mt-2" value="{{formulario.c3}}">
+                                                <input name="c4" class="form-control col-12 mt-2" value="{{formulario.c4}}">
+                                                <input name="c5" class="form-control col-12 mt-2" value="{{formulario.c5}}">
+                                                <input name="c6" class="form-control col-12 mt-2" value="{{formulario.c6}}">
+                                                <input name="c7" class="form-control col-12 mt-2" value="{{formulario.c7}}">
+                                                <input name="c8" class="form-control col-12 mt-2" value="{{formulario.c8}}">
+                                                <input name="c9" class="form-control col-12 mt-2" value="{{formulario.c9}}">
+                                                <input name="c10" class="form-control col-12 mt-2" value="{{formulario.c10}}">
+                                                {% endfor %}
+
+
+
+                        </p>
+                  </div>
+                </div>
+                   <div class="card-footer" align="right" style="background:#e2e8f0;">
+                       <input type="submit"
+                              class="btn text-white"
+                              value="Salvar Alterações"
+                       style="background:#4B5F83;">
+                   </div>
+
+                     </form>
+              </div>
+      </div>
+
+                </div>
+            </div>
+             </form>
+                </main>
+
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Desenvolvido por G&L Plataformas</div>
+                            <div>
+                                <a href="#">Politica de Privacidade</a>
+                                &middot;
+                                <a href="#">Termos e Condições</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+
+{% endblock %}

@@ -1,3 +1,5 @@
+import datetime
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
@@ -266,7 +268,8 @@ def submetertrabalho(request):
     if request.POST['sessao'] == 'Selecione a sessão...':
 
         msg = 'Escolha uma sessão!'
-        sessao = Sessoes.objects.filter(id_evento=id_evento)
+        #sessao = Sessoes.objects.filter(id_evento=id_evento)
+        sessao = Sessoes.objects.all()
         evento = Evento.objects.filter(id=id_evento)
         dados = {'id':id,
                'msg':msg,
@@ -277,6 +280,9 @@ def submetertrabalho(request):
 
         if request.FILES.get('trabalho'):
             trabalhoenviar = request.FILES.get('trabalho')
+            chave = request.POST['chave']
+            resumo = request.POST['resumo']
+            titulo = request.POST['titulo']
             Submissao.objects.create(
                     trabalho = trabalhoenviar,
                     sessao = id_da_sessao,
@@ -284,7 +290,10 @@ def submetertrabalho(request):
                     id_usuario = id_usuario,
                     status = 'avaliacao',
                     av1 = 'aguardando',
-                    av2 = 'aguardando'
+                    av2 = 'aguardando',
+                    titulo=titulo,
+                    palavrachave=chave,
+                    resumo=resumo
                 )
             msg2 = 'Você enviou seu trabalho com sucesso!'
             sessao = Sessoes.objects.filter(id_evento=id_evento)
@@ -609,13 +618,14 @@ def submeter(request):
     for m in meuid:
         mid = m.id
     usuarios = Usuariocd.objects.filter(id_usuario=mid)
-    eventos = Evento.objects.filter(id=id)
-    sessao = Sessoes.objects.filter(id_evento=id)
+    #eventos = Evento.objects.filter(id=id)
+    #sessao = Sessoes.objects.filter(id_evento=id)
+    eventos = Evento.objects.filter(status='andamento')
+    sessao = Sessoes.objects.all()
     dados = {'id':id,
-             'evento':eventos,
+             'eventos':eventos,
              'sessao':sessao,
              'usuarios':usuarios}
-
     return render(request,'submeter.html', dados)
 
 @login_required(login_url='/login/')
@@ -1076,6 +1086,8 @@ def pontuartrabalho(request):
 @login_required(login_url='/login/')
 def avaliarformulario(request):
     id = request.GET.get('id')
+    #hoje = datetime.today()
+    hoje = datetime.datetime.now()
     if request.POST['av1'] != 'n' and request.POST['av2'] != 'n' and request.POST['av3'] != 'n'and request.POST['av4'] != 'n' and request.POST['av5'] != 'n' and request.POST['av6'] != 'n' and request.POST['av7'] != 'n'and request.POST['av8'] != 'n'and request.POST['av9'] != 'n'and request.POST['av10'] != 'n':
         meuid = User.objects.filter(username=request.user)
         av1 = int(request.POST['av1'])
@@ -1098,10 +1110,14 @@ def avaliarformulario(request):
             resultado = nota / 10
             print(nota)
             print(resultado)
-            if resultado >= 5:
+            if resultado >= 3:
+
                 vstatusaprovado = Submissao.objects.filter(id=id, av2='aprovado')
                 Submissao.objects.filter(id=id).update(
-                    av1='aprovado'
+
+                    av1='aprovado',
+                    data_av1=hoje,
+                    nota1=resultado
                 )
                 if vstatusaprovado:
                     Submissao.objects.filter(id=id).update(
@@ -1111,7 +1127,9 @@ def avaliarformulario(request):
             else:
                 reprovou = Submissao.objects.filter(id=id, av2='reprovado')
                 Submissao.objects.filter(id=id).update(
-                    av1='reprovado'
+                    av1='reprovado',
+                    data_av1=hoje,
+                    nota1=resultado
                 )
                 if reprovou:
                     Submissao.objects.filter(id=id, status='reprovado')
@@ -1120,9 +1138,12 @@ def avaliarformulario(request):
 
             nota = av1 + av2 + av3 + av4 + av5 + av6 + av7 + av8 + av9 + av10
             resultado = nota / 10
-            if resultado >= 5:
+
+            if resultado >= 3:
                 Submissao.objects.filter(id=id).update(
-                    av2='aprovado'
+                    av2='aprovado',
+                    data_av2=hoje,
+                    nota2=resultado
                 )
                 vstatusaprovado = Submissao.objects.filter(id=id, av1='aprovado')
                 if vstatusaprovado:
@@ -1133,16 +1154,15 @@ def avaliarformulario(request):
             else:
                 reprovou = Submissao.objects.filter(id=id, av1='reprovado')
                 Submissao.objects.filter(id=id).update(
-                    av2='reprovado'
+                    av2='reprovado',
+                    data_av2=hoje,
+                    nota2=resultado
                 )
                 if reprovou:
                     Submissao.objects.filter(id=id).update(
                         status='reprovado'
                     )
                 return redirect('/avaliartrabalho/')
-
-
-
 
     else:
         msg = 'Preencha as notas corretamente!'
@@ -1155,7 +1175,6 @@ def avaliarformulario(request):
         meuid = User.objects.filter(username=request.user)
         for m in meuid:
             mid = m.id
-
         usuarios = Usuariocd.objects.filter(id_usuario=mid)
         eventos = Evento.objects.filter(status='andamento')
         sessao = Sessoes.objects.all()
@@ -1169,3 +1188,41 @@ def avaliarformulario(request):
                  'trabalho': trabalho,
                  'msg':msg}
         return render(request,'pontuartrabalho.html', dados)
+
+@login_required(login_url='/login/')
+def editarformulario(request):
+    id = request.GET.get('id')
+    meuid = User.objects.filter(username=request.user)
+    for m in meuid:
+        mid = m.id
+    usuarios = Usuariocd.objects.filter(id_usuario=mid)
+    formulario = Formulario.objects.filter(id=id)
+
+
+
+    dados = {'usuarios': usuarios,
+             'id': id,
+             'formulario':formulario
+             }
+    return render(request, 'editarformulario.html', dados)
+
+@login_required(login_url='/login/')
+def salvarformulario(request):
+    id = request.GET.get('id')
+
+    Formulario.objects.filter(id=id).update(
+        c1=request.POST['c1'],
+        c2=request.POST['c2'],
+        c3=request.POST['c3'],
+        c4=request.POST['c4'],
+        c5=request.POST['c5'],
+        c6=request.POST['c6'],
+        c7=request.POST['c7'],
+        c8=request.POST['c8'],
+        c9=request.POST['c9'],
+        c10=request.POST['c10'],
+        nome_formulario=request.POST['nome']
+
+    )
+
+    return redirect('/editarformulario/?id={}'.format(id))

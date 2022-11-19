@@ -18,9 +18,7 @@
                         </ol>
 
                                 <p class="mb-0">
-                                    <div align="right">
-                                    <button class="btn btn-success text-white">Submeter</button>
-                                    </div>
+
                                  <!-- tabelas iniciando aqui -->
                                 <div class="card">
                                 <div class="card-header text-white" style="background:#4B5F83;">
@@ -28,17 +26,28 @@
                                 </div>
                         <div class="card-body">
 
+                              <div class="mt-2" align="right">
+
+                                   <a href="/submeter/">
+                                       <button class="btn text-white mt-4" style="background:#4B5F83;">Submeter</button>
+                                    </a>
+
+                              </div>
+                        </div>
+
+                        <div class="card-body">
+
 
                                   <table class="table " id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                             <th><font size="2px">ID</font></th>
-                                            <th><font size="2px">Titulo</font></th>
-                                            <th><font size="2px">Autores</font></th>
-                                            <th><font size="2px">Sessão</font></th>
-                                            <th><font size="2px">Trabalho</font></th>
-                                            <th><font size="2px">Nota</font></th>
-                                            <th><font size="2px">Ações</font></th>
+                                             <th class="text-center"><font size="2px">ID</font></th>
+                                            <th class="text-center"><font size="2px">Titulo</font></th>
+                                            <th class="text-center"><font size="2px">Autores</font></th>
+                                            <th class="text-center"><font size="2px">Sessão</font></th>
+                                            <th class="text-center"><font size="2px">Trabalho</font></th>
+                                            <th class="text-center"><font size="2px">Nota</font></th>
+                                            <th class="text-center"><font size="2px">Ações</font></th>
 
                                         </tr>
                                     </thead>
@@ -56,40 +65,52 @@
                                     <tbody>
 
                                             {% for trabalho in trabalho %}
-                                                                                 <tr>
+                                         <tr class="text-center">
                                              <td><font size="2px">{{trabalho.id}}</font></td>
 
                                             <td>
-                                                 {% for sessao in sessao %}
-                                                 {% if trabalho.sessao == sessao.id %}
-
-                                                <font size="2px">{{ sessao.nome }}  </font>
-
-                                                        {% endif %}
-                                                        {% endfor %}
+                                                <font size="2px">{{trabalho.titulo}}</font>
+                                            </td>
+                                            <!--<td>{{ eventos.get_data_evento}}</td>-->
+                                            <td>
+                                             <!-- aqui tava certo   {% for sessao in sessao %}
+                                                 {% if trabalho.sessao == sessao.id %} -->
+                                                <font size="2px">{{trabalho.autor}}</font>
+                                             <!--   {% endif %}
+                                                {% endfor %} -->
                                             </td>
 
-                                            <!--<td>{{ eventos.get_data_evento}}</td>-->
                                             <td>
                                                 {% for sessao in sessao %}
                                                  {% if trabalho.sessao == sessao.id %}
-                                                <font size="2px">{{sessao.tema}}</font>
+                                                <font size="2px">{{sessao.nome}}</font>
                                                 {% endif %}
                                                 {% endfor %}
                                             </td>
-                                            <td>{% for eventos in eventos %}
-                                                {% if trabalho.id_evento == eventos.id %}
-                                                <font size="2px">{{eventos.nome}}  </font>
-                                                {% endif %}
-                                                {% endfor %}
-                                            </td>
+
+
+
                                             <td align="center"><font size="2px">
                                             <a href="/media/{{trabalho.trabalho}}">
-                                                Trabalho
+                                                 <img width="15" height="15"
+                                                      src={% static "assets/pdficon.png" %}>
                                             </a>
 
                                             </font></td>
-                                              <td></td>
+                                              <td>
+                                                  {% if trabalho.nota1 or trabalho.nota2 %}
+                                                  {% if trabalho.nota1 %}
+                                                  {{trabalho.nota1}}
+                                                  &nbsp;
+                                                  {% endif %}
+                                                  {% if trabalho.nota2 %}
+                                                  {{trabalho.nota2}}
+                                                  {% endif %}
+
+                                                  {% endif %}
+
+
+                                              </td>
                                             <td align="center">
 
                                                <a type="button"
@@ -197,24 +218,28 @@
                                     </tbody>
                                 </table>
 
+
+
+
+                                    <div align="right">
+
+                                    <a href="/submeter/">
+                                       <button class="btn text-white mt-4" style="background:#4B5F83;">Submeter</button>
+                                    </a>
+
+                                    </div>
+
                         </div>
                     </div>
 
-                        <div align="right">
-                                    <button class="btn btn-success text-white">Submeter</button>
-                                    </div>
 
                                 <!-- tabela terminando aqui -->
                                 </p>
 
 
-                        <div style="height: 100vh"></div>
-                  <!--      <div class="card mb-4">
-                            <div class="card-body">
-                                When scrolling, the navigation stays at the top of the page. This is the end of the static navigation demo.
-                            </div>
-                        </div> -->
+
                     </div>
+
                 </main>
 
                 <footer class="py-4 bg-light mt-auto">

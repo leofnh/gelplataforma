@@ -30,14 +30,16 @@
                                           Trabalhos para sua avaliação
                                       </div>
                                 <div class="card-body">
-                                  <table class="table" id="datatablesSimple">
-                                    <thead>
-                                        <tr>
-                                             <th><font size="2px">ID</font></th>
-                                            <th><font size="2px">Titulo</font></th>
-                                            <th><font size="2px">Sessao</font></th>
-                                            <th><font size="2px">Trabalho</font></th>
-                                            <th><font size="2px">Ações</font></th>
+                                  <table  class="table" id="datatablesSimple">
+                                    <thead >
+                                        <tr >
+                                            <th class="text-center">
+                                                <font size="2px">ID</font>
+                                            </th>
+                                            <th class="text-center"><font size="2px">Titulo</font></th>
+                                            <th class="text-center"><font size="2px">Sessao</font></th>
+                                            <th class="text-center"><font size="2px">Trabalho</font></th>
+                                            <th class="text-center"><font size="2px">Ações</font></th>
 
                                         </tr>
                                     </thead>
@@ -52,26 +54,41 @@
                                     </tfoot>
                                     <tbody>
                                             {% for avaliacao in avaliacao %}
-                                                                                 <tr>
+                                             <tr class="text-center">
                                              <td><font size="2px">{{avaliacao.id}}</font></td>
-                                            <td align="center"><font size="2px">
+
+                                                 <td>
+                                                {{avaliacao.titulo}}
+                                                 </td>
+
+                                            <td>
+                                                {% for sessao in sessao %}
+                                                {% if sessao.id == avaliacao.sessao %}
+                                                <font size="2px">
+                                                {{ sessao.nome }}
+                                                </font></td>
+                                                 {% endif %}
+                                                 {% endfor %}
+
+                                            <td>
+
+                                                <font size="2px">
+                                                <font size="2px">
                                                 <a href="/media/{{avaliacao.trabalho}}"
                                                 style="text-decoration:none;"
                                                 target="_blank" rel="noopener noreferrer">
-                                                    <img height="25" width="25"
-                                                            src={% static "assets/baixar.png" %}>
+                                                    <img height="15" width="15"
+                                                            src={% static "assets/pdficon.png" %}>
                                                 </a>
+                                            </font>
 
-                                            </font></td>
-                                            <td><font size="2px">{{eventos.cidade}}-{{eventos.estado}} </font></td>
-                                            <td><font size="2px">{{eventos.modalidade}}</font></td>
-                                            <td><font size="2px">
-                                                <div align="center">
+                                                </font></td>
+
+                                                 <td><font size="2px">
 
 
-                                                    <a type="button" href="/pontuartrabalho/?id={{avaliacao.id}}">
-                                                     <!--  data-toggle="modal"
-                                                       data-target="#modalacao{{avaliacao.id}}"> -->
+                                                    <a type="button"
+                                                       href="/pontuartrabalho/?id={{avaliacao.id}}">
                                                     <img src={% static "assets/editartrabalho.png" %}
                                                          width="15" height="15" />
                                                     </a>
@@ -107,6 +124,7 @@
                {% endfor %}
 
           </div>
+
            <div align="left" class="mt-2 text-secondary mb-0">
 
               <font size="2px">Evento:</font> <font size="1px">{{eventos.nome}} / {{sessao.tema}}</font>
@@ -123,35 +141,47 @@
 </div>
 
 
-                                                </div>
                                             </font></td>
                                         </tr>
 
                                                 {% endfor %}
-
-
-
-  <!-- INICIANDO SEGUNDA PARTE -->
-
-                                    {% for avaliacao2 in avaliacao2 %}
-                                                                                 <tr>
+                                             <!-- INICIANDO SEGUNDA PARTE -->
+                                            {% for avaliacao2 in avaliacao2 %}                                                                                 <tr>
+                                              <tr class="text-center">
                                              <td><font size="2px">{{avaliacao2.id}}</font></td>
-                                            <td align="center"><font size="2px" >
-                                                 <a href="/media/{{avaliacao2.trabalho}}"
+
+                                                 <td>
+                                                {{avaliacao2.titulo}}
+                                                 </td>
+
+                                            <td>
+                                                {% for sessao in sessao %}
+                                                {% if sessao.id == avaliacao2.sessao %}
+                                                <font size="2px">
+                                                {{ sessao.nome }}
+                                                </font></td>
+                                                 {% endif %}
+                                                 {% endfor %}
+
+                                            <td>
+
+                                                <font size="2px">
+                                                <font size="2px">
+                                                <a href="/media/{{avaliacao2.trabalho}}"
                                                 style="text-decoration:none;"
                                                 target="_blank" rel="noopener noreferrer">
-                                                    <img height="25" width="25"
-                                                            src={% static "assets/baixar.png" %}>
+                                                    <img height="15" width="15"
+                                                            src={% static "assets/pdficon.png" %}>
                                                 </a>
+                                            </font>
 
-                                            </font></td>
-                                            <td><font size="2px">{{eventos.cidade}}-{{eventos.estado}} </font></td>
-                                            <td><font size="2px">{{eventos.modalidade}}</font></td>
-                                            <td><font size="2px">
-                                                <div align="center">
-                                                    <a type="button" href="/pontuartrabalho/?id={{avaliacao2.id}}"
-                                                       <!--data-toggle="modal"
-                                                       data-target="#modalacao{{avaliacao2.id}}"-->
+                                                </font></td>
+
+                                                 <td><font size="2px">
+
+
+                                                    <a type="button"
+                                                       href="/pontuartrabalho/?id={{avaliacao2.id}}">
                                                     <img src={% static "assets/editartrabalho.png" %}
                                                          width="15" height="15" />
                                                     </a>
@@ -221,7 +251,7 @@
                                 </p>
 
 
-                        <div style="height: 100vh"></div>
+
                     </div>
                 </main>
 

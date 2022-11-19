@@ -4,73 +4,40 @@
 {% block content %}
 
 
-  <div id="layoutSidenav_content" >
+  <div id="layoutSidenav_content" style="background:#e2e8f0;">
                 <main>
+             <form method="post"
+                            enctype="multipart/form-data"
+                            action="/submetertrabalho/?id={{id}}"> {% csrf_token %}
+
             <div class="container-fluid">
                 <div class="row">
             <div class="col-sm-4 mb-3 mt-4">
-              <div class="card">
+              <div class="card h-100">
+                  <div class="card-header text-center text-white" style="background:#4B5F83;">
+                        Local do trabalho
+                    </div>
                 <div class="card-body">
                   <div class="d-flex flex-column align-items-center text-center">
-                    {% for evento in evento %}
-                    <img src="/media/{{evento.logo}}" alt="Admin" class="rounded-circle" width="150" height="140">
-                    {% endfor %}
-                    <div class="mt-3">
-                      <!--<h4>Senhor Freitas</h4> -->
-                      <p class="text-secondary mb-1">
-                        {% for evento in evento %}
-                        Evento: {{evento.nome}}
-                        {% endfor %}
-                      </p>
-                      <hr>
-                      <p class="text-muted font-size-sm">{% for evento in evento %}
-                      Modalidade: {{evento.modalidade}}
-                      {% endfor %}</p>
-                      <!-- <button class="btn btn-primary">?</button> -->
-                      <hr>
-                      <p class="text-secondary mb-1">
-                      {% for evento in evento %}
-                      {{evento.get_data_evento}}
-                      {% endfor %}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-                        </div>
 
-                 <div class="col-sm-4 mb-3 mt-4">
-              <div class="card h-100">
-                <div class="card-body">
-
-                    <div class="card-header text-center text-white" style="background:#4B5F83;">
-                        Submissão do Trabalho
-                    </div>
-                    {% if msg %}
-                    <div class="mt-2" align="center">
-
-                        <div class="btn-danger col-12">{{msg}}</div>
-                    </div>
-                  {% endif %}
-                  {% if msg2 %}
-                    <div class="mt-2" align="center">
-
-                        <div class="btn-success col-12">{{msg2}}</div>
-                    </div>
-                  {% endif %}
-                  <div class="d-flex flex-column align-items-center mt-2 text-center">
 
                     <div class="mt-3">
-                      <form method="post"
-                            enctype="multipart/form-data"
-                            action="/submetertrabalho/?id={{id}}"> {% csrf_token %}
+
+
+
                       <p class="text-secondary mb-1">
-                       Escolha a Sessão que deseja submeter <select class="form-control mt-2 col-auto"
+
+                         Escolha a Sessão que deseja submeter <select class="form-control mt-2 col-auto"
                                                                     name="sessao">
                           <option value="Selecione a sessão..." selected>Selecione a sessão...</option>
+                          {% for eventos in eventos %}
                           {% for sessao in sessao %}
+                          {% if sessao.id_evento == eventos.id %}
                           <option value="{{sessao.id}}">{{sessao.nome}}</option>
+                          {% endif %}
                           {% endfor %}
+                          {% endfor %}
+
                       </select>
                       </p>
                       <hr>
@@ -87,26 +54,34 @@
                         <div align="right">
                         <input type="submit" value="Enviar" class="btn text-white" style="background:#4B5F83;">
                       </div>
-
                       </p>
-
-
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+                        </div>
 
-
-                     <div class="col-sm-4 mb-3 mt-4">
+                 <div class="col-sm-4 mb-3 mt-4">
               <div class="card h-100">
-                <div class="card-body">
-
-                    <div class="card-header text-center text-white" style="background:#4B5F83;">
-                        Informações do Trabalho
+                  <div class="card-header text-center text-white" style="background:#4B5F83;">
+                        Dados do Trabalho
                     </div>
+                <div class="card-body">
+                    {% if msg %}
+                    <div class="mt-2" align="center">
 
-                    <input class="form-control mt-2" type="text"
+                        <div class="btn-danger col-12">{{msg}}</div>
+                    </div>
+                  {% endif %}
+                  {% if msg2 %}
+                    <div class="mt-2" align="center">
+
+                        <div class="btn-success col-12">{{msg2}}</div>
+                    </div>
+                  {% endif %}
+                  <div class="d-flex flex-column align-items-center mt-2 text-center">
+
+                          <input class="form-control mt-2" type="text"
                            name="titulo"
                            placeholder="Titulo do Trabalho" required>
 
@@ -117,17 +92,49 @@
                               placeholder="Palavras chave"
                               required></textarea>
 
-                    <button class="btn mt-3 text-white"
-                            style="background:#4B5F83;">Autores</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+                     <div class="col-sm-4 mb-3 mt-4">
+              <div class="card h-100">
+
+                    <div class="card-header text-center text-white" style="background:#4B5F83;">
+                        Autores do Trabalho
+                    </div>
+                <div class="card-body">
+
+                   <div class="row">
+                       <div class="col-12 text-center">
+                           <label>Autor:</label>
+                           {% for usuarios in usuarios %}
+                           <input class="mt-2 form-control" name="autor1"
+                                  placeholder="Autor" value="{{usuarios.nome}}">
+                           {% endfor %}
+                       </div>
+                   </div>
 
 
                 </div>
+
+
+                  <div class="card-footer" align="right">
+                    <a href="#" class="btn mt-3 text-white"
+                            style="background:#4B5F83;">Adicionar Autor</a>
+                    <input type="submit" class="btn mt-3 text-white" value="Submeter"
+                            style="background:#4B5F83;">
+                    </div>
+
               </div>
                      </div>
-   </form>
+
 
         </div>
 </div>
+
+             </form>
                 </main>
 
                 <footer class="py-4 bg-light mt-auto">

@@ -38,7 +38,9 @@ urlpatterns = [
     path('formularios/', views.formulario),
     path('enviaravaliador/', views.enviaravaliador),
     path('pontuartrabalho/', views.pontuartrabalho),
-    path('avaliarformulario/', views.avaliarformulario)
+    path('avaliarformulario/', views.avaliarformulario),
+    path('editarformulario/', views.editarformulario),
+    path('salvarformulario/', views.salvarformulario)
 
 ]
 

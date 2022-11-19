@@ -58,6 +58,17 @@ class Submissao(models.Model):
     data_av1 = models.DateTimeField(null=True)
     data_av2 = models.DateTimeField(null=True)
     data_av3 = models.DateTimeField(null=True)
+    # novas tabelas
+    resumo = models.TextField()
+    chave = models.TextField()
+    titulo = models.CharField(max_length=150)
+    # novas mais
+    autor = models.CharField(max_length=150)
+    nota1 = models.BigIntegerField(null=True)
+    nota2 = models.BigIntegerField(null=True)
+    nota3 = models.BigIntegerField(null=True)
+
+
 
     def get_data_av1(self):
         return self.data_av1.strftime('%d/%m/%Y às %H:%M')
