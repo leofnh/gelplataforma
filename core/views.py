@@ -1047,13 +1047,21 @@ def enviaravaliador(request):
 def pontuartrabalho(request):
 
     id = request.GET.get('id')
+    acharsessao = Submissao.objects.filter(id=id)
+    for a in acharsessao:
+        sessaoid = a.sessao
+    acharformulario = Sessoes.objects.filter(id=sessaoid)
+    for af in acharformulario:
+        id_formulario = af.formulario
     meuid = User.objects.filter(username=request.user)
     for m in meuid:
         mid = m.id
+
+
     usuarios = Usuariocd.objects.filter(id_usuario=mid)
     eventos = Evento.objects.filter(status='andamento')
     sessao = Sessoes.objects.all()
-    formulario = Formulario.objects.all()
+    formulario = Formulario.objects.filter(id=id_formulario)
     trabalho = Submissao.objects.filter(id=id)
     dados = {'eventos': eventos,
              'usuarios': usuarios,
@@ -1065,4 +1073,99 @@ def pontuartrabalho(request):
     return render(request,'pontuartrabalho.html', dados)
 
 
+@login_required(login_url='/login/')
+def avaliarformulario(request):
+    id = request.GET.get('id')
+    if request.POST['av1'] != 'n' and request.POST['av2'] != 'n' and request.POST['av3'] != 'n'and request.POST['av4'] != 'n' and request.POST['av5'] != 'n' and request.POST['av6'] != 'n' and request.POST['av7'] != 'n'and request.POST['av8'] != 'n'and request.POST['av9'] != 'n'and request.POST['av10'] != 'n':
+        meuid = User.objects.filter(username=request.user)
+        av1 = int(request.POST['av1'])
+        av2 = int(request.POST['av2'])
+        av3 = int(request.POST['av3'])
+        av4 = int(request.POST['av4'])
+        av5 = int(request.POST['av5'])
+        av6 = int(request.POST['av6'])
+        av7 = int(request.POST['av7'])
+        av8 = int(request.POST['av8'])
+        av9 = int(request.POST['av9'])
+        av10 = int(request.POST['av10'])
+        for m in meuid:
+            mid = m.id
+        vtrabalho1 = Submissao.objects.filter(id=id, av1=mid)
+        vtrabalho2 = Submissao.objects.filter(id=id, av2=mid)
+        vtrabalho3 = Submissao.objects.filter(id=id, av3=mid)
+        if vtrabalho1:
+            nota = av1 + av2 + av3 + av4 + av5 + av6 + av7 + av8 + av9 + av10
+            resultado = nota / 10
+            print(nota)
+            print(resultado)
+            if resultado >= 5:
+                vstatusaprovado = Submissao.objects.filter(id=id, av2='aprovado')
+                Submissao.objects.filter(id=id).update(
+                    av1='aprovado'
+                )
+                if vstatusaprovado:
+                    Submissao.objects.filter(id=id).update(
+                        status='aprovado'
+                    )
+                return redirect('/avaliartrabalho/')
+            else:
+                reprovou = Submissao.objects.filter(id=id, av2='reprovado')
+                Submissao.objects.filter(id=id).update(
+                    av1='reprovado'
+                )
+                if reprovou:
+                    Submissao.objects.filter(id=id, status='reprovado')
+                return redirect('/avaliartrabalho/')
+        if vtrabalho2:
 
+            nota = av1 + av2 + av3 + av4 + av5 + av6 + av7 + av8 + av9 + av10
+            resultado = nota / 10
+            if resultado >= 5:
+                Submissao.objects.filter(id=id).update(
+                    av2='aprovado'
+                )
+                vstatusaprovado = Submissao.objects.filter(id=id, av1='aprovado')
+                if vstatusaprovado:
+                    Submissao.objects.filter(id=id).update(
+                        status='aprovado'
+                    )
+                return redirect('/avaliartrabalho/')
+            else:
+                reprovou = Submissao.objects.filter(id=id, av1='reprovado')
+                Submissao.objects.filter(id=id).update(
+                    av2='reprovado'
+                )
+                if reprovou:
+                    Submissao.objects.filter(id=id).update(
+                        status='reprovado'
+                    )
+                return redirect('/avaliartrabalho/')
+
+
+
+
+    else:
+        msg = 'Preencha as notas corretamente!'
+        acharsessao = Submissao.objects.filter(id=id)
+        for a in acharsessao:
+            sessaoid = a.sessao
+        acharformulario = Sessoes.objects.filter(id=sessaoid)
+        for af in acharformulario:
+            id_formulario = af.formulario
+        meuid = User.objects.filter(username=request.user)
+        for m in meuid:
+            mid = m.id
+
+        usuarios = Usuariocd.objects.filter(id_usuario=mid)
+        eventos = Evento.objects.filter(status='andamento')
+        sessao = Sessoes.objects.all()
+        formulario = Formulario.objects.filter(id=id_formulario)
+        trabalho = Submissao.objects.filter(id=id)
+        dados = {'eventos': eventos,
+                 'usuarios': usuarios,
+                 'sessao': sessao,
+                 'formulario': formulario,
+                 'id': id,
+                 'trabalho': trabalho,
+                 'msg':msg}
+        return render(request,'pontuartrabalho.html', dados)

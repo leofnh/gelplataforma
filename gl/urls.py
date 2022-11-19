@@ -37,7 +37,8 @@ urlpatterns = [
     path('', views.semlink),
     path('formularios/', views.formulario),
     path('enviaravaliador/', views.enviaravaliador),
-    path('pontuartrabalho/', views.pontuartrabalho)
+    path('pontuartrabalho/', views.pontuartrabalho),
+    path('avaliarformulario/', views.avaliarformulario)
 
 ]
 

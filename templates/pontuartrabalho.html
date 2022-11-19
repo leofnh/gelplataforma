@@ -17,30 +17,353 @@
                             <li class="breadcrumb-item active"><a href="#" style="text-decoration:none;">
                                <font color="black"> Avaliações </font>
                             </a> </li>
+
                         </ol>
+                        {% if msg %}
+                        <div class="btn-danger btn col-12">
+                            {{msg}}
+                        </div>
+                        {% endif %}
+
 
                                 <p class="mb-0">
-                                  <div class="card col-4">
+                                  <div class="card col-12">
                                       <div class="card-header text-center"
                                            style="background:#4B5F83;color:#e2e8f0;">
                                           Trabalho
                                       </div>
                                 <div class="card-body">
+                                    <table class="table">
+                                    <thead>
+                                        <tr>
+                                             <th class="text-center"><font size="2px">ID</font></th>
+                                            <th class="text-center"><font size="2px">Trabalho</font></th>
+                                            <th class="text-center"><font size="2px">Ações</font></th>
+                                        </tr>
+                                    </thead>
 
-                                    {% for trabalho in trabalho %}
-
-                                    ID - {{trabalho.id}}
-                                    <a href="/media/{{trabalho.trabalho}}"
+                                    <tbody>
+                                        <tr>
+                                             {% for trabalho in trabalho %}
+                                                <td class="text-center">{{trabalho.id}}</td>
+                                                <td class="text-center">
+                                                    <a href="/media/{{trabalho.trabalho}}"
                                                 style="text-decoration:none;"
                                                 target="_blank" rel="noopener noreferrer">
                                                     <img height="25" width="25"
                                                             src={% static "assets/baixar.png" %}>
                                                 </a>
+                                                </td>
+                                                <td class="text-center">
+                                                    {{trabalho.sessao}}
+                                                </td>
+                                             {% endfor %}
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                </div>
+                        </div>
 
-                                    {% endfor %}
+                        <div class="card col-12 mt-3" >
+
+                                      <div class="card-header text-center"
+                                           style="background:#4B5F83;color:#e2e8f0;">
+                                          Formulário para Avaliação
+                                      </div>
+                                <div class="card-body">
+                                    {{formulario.c1}}
+                                    <table class="table table-bordered align-items-center">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">Critério</th>
+                                        <th class="text-center">Avaliação</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                              <form method="POST" action="/avaliarformulario/?id={{id}}">{% csrf_token %}
+                                             {% for formulario in formulario %}
+                                             <tr>
+                                                <td class="text-center">{{formulario.c1}}</td>
+                                                <td class="col-2">
+                                                    <div class="col-12">
+                                                        <select name="av1" class="text-center form-control">
+                                                            <option value="n" selected>Avalie...</option>
+                                                            <option value="0">0</option>
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                            <option value="5">5</option>
+                                                            <option value="6">6</option>
+                                                            <option value="7">7</option>
+                                                            <option value="8">8</option>
+                                                            <option value="9">9</option>
+                                                            <option value="10">10</option>
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                             </tr>
+
+                                             <tr>
+                                                <td class="text-center">{{formulario.c2}}</td>
+                                                <td class="col-2">
+                                                    <div class="col-12">
+                                                        <select name="av2" class="text-center form-control">
+                                                            <option value="n" selected>Avalie...</option>
+                                                            <option value="0">0</option>
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                            <option value="5">5</option>
+                                                            <option value="6">6</option>
+                                                            <option value="7">7</option>
+                                                            <option value="8">8</option>
+                                                            <option value="9">9</option>
+                                                            <option value="10">10</option>
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                             </tr>
+
+                                             <tr>
+                                                <td class="text-center">{{formulario.c3}}</td>
+                                                <td class="col-2">
+                                                    <div class="col-12">
+                                                        <select name="av3" class="text-center form-control">
+                                                            <option value="n" selected>Avalie...</option>
+                                                            <option value="0">0</option>
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                            <option value="5">5</option>
+                                                            <option value="6">6</option>
+                                                            <option value="7">7</option>
+                                                            <option value="8">8</option>
+                                                            <option value="9">9</option>
+                                                            <option value="10">10</option>
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                             </tr>
+
+                                             <tr>
+                                                <td class="text-center">{{formulario.c4}}</td>
+                                                <td class="col-2">
+                                                    <div class="col-12">
+                                                        <select name="av4" class="text-center form-control">
+                                                            <option value="n" selected>Avalie...</option>
+                                                            <option value="0">0</option>
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                            <option value="5">5</option>
+                                                            <option value="6">6</option>
+                                                            <option value="7">7</option>
+                                                            <option value="8">8</option>
+                                                            <option value="9">9</option>
+                                                            <option value="10">10</option>
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                             </tr>
+
+                                             <tr>
+                                                <td class="text-center">{{formulario.c5}}</td>
+                                                <td class="col-2">
+                                                    <div class="col-12">
+                                                        <select name="av5" class="text-center form-control">
+                                                            <option value="n" selected>Avalie...</option>
+                                                            <option value="0">0</option>
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                            <option value="5">5</option>
+                                                            <option value="6">6</option>
+                                                            <option value="7">7</option>
+                                                            <option value="8">8</option>
+                                                            <option value="9">9</option>
+                                                            <option value="10">10</option>
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                             </tr>
+
+                                             <tr>
+                                                <td class="text-center">{{formulario.c6}}</td>
+                                                <td class="col-2">
+                                                    <div class="col-12">
+                                                        <select name="av6" class="text-center form-control">
+                                                            <option value="n" selected>Avalie...</option>
+                                                            <option value="0">0</option>
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                            <option value="5">5</option>
+                                                            <option value="6">6</option>
+                                                            <option value="7">7</option>
+                                                            <option value="8">8</option>
+                                                            <option value="9">9</option>
+                                                            <option value="10">10</option>
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                             </tr>
+
+                                             <tr>
+                                                <td class="text-center">{{formulario.c7}}</td>
+                                                <td class="col-2">
+                                                    <div class="col-12">
+                                                        <select name="av7" class="text-center form-control">
+                                                            <option value="n" selected>Avalie...</option>
+                                                            <option value="0">0</option>
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                            <option value="5">5</option>
+                                                            <option value="6">6</option>
+                                                            <option value="7">7</option>
+                                                            <option value="8">8</option>
+                                                            <option value="9">9</option>
+                                                            <option value="10">10</option>
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                             </tr>
+
+                                             <tr>
+                                                <td class="text-center">{{formulario.c8}}</td>
+                                                <td class="col-2">
+                                                    <div class="col-12">
+                                                        <select name="av8" class="text-center form-control">
+                                                            <option value="n" selected>Avalie...</option>
+                                                            <option value="0">0</option>
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                            <option value="5">5</option>
+                                                            <option value="6">6</option>
+                                                            <option value="7">7</option>
+                                                            <option value="8">8</option>
+                                                            <option value="9">9</option>
+                                                            <option value="10">10</option>
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                             </tr>
+
+
+                                             <tr>
+                                                <td class="text-center">{{formulario.c9}}</td>
+                                                <td class="col-2">
+                                                    <div class="col-12">
+                                                        <select name="av9" class="text-center form-control">
+                                                            <option value="n" selected>Avalie...</option>
+                                                            <option value="0">0</option>
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                            <option value="5">5</option>
+                                                            <option value="6">6</option>
+                                                            <option value="7">7</option>
+                                                            <option value="8">8</option>
+                                                            <option value="9">9</option>
+                                                            <option value="10">10</option>
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                             </tr>
+
+                                             <tr>
+                                                <td class="text-center">{{formulario.c10}}</td>
+                                                <td class="col-2">
+                                                    <div class="col-12">
+                                                        <select name="av10" class="text-center form-control">
+                                                            <option value="n" selected>Avalie...</option>
+                                                            <option value="0">0</option>
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                            <option value="5">5</option>
+                                                            <option value="6">6</option>
+                                                            <option value="7">7</option>
+                                                            <option value="8">8</option>
+                                                            <option value="9">9</option>
+                                                            <option value="10">10</option>
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                             </tr>
+                                                  <tr>
+                                                      <td></td>
+                                                      <td class="text-center">
+                                                          <input class="btn"
+                                                                 style="background:#4B5F83;color:#e2e8f0;"
+                                                                  type="submit" value="Avaliar">
+                                                      </td>
+                                                  </tr>
+                                             {% endfor %}
+                                                <td></td>
+
+                                                  <td align="center">
+                                                      <font size="2px" >
+
+                                                        <div class="container">
+                                                          <div class="row">
+
+                                                              <div class="col-sm-2 text-center">
+
+                                                                  <input class="form-check-input" type="radio"
+                                                                     name="cinfo" id="cinfo" value="1" >
+                                                              <label class="form-check-label " for="cinfo">&nbsp;1</label>
+                                                              </div>
+
+                                                              <div class="col-sm-2 text-center">
+                                                                  <input class="form-check-input" type="radio"
+                                                                     name="cinfo" id="cinfo2" value="2" >
+                                                                <label class="form-check-label" for="cinfo2">&nbsp;2</label>
+                                                              </div>
+
+                                                              <div class="col-sm-2 text-center">
+                                                                  <input class="form-check-input" type="radio"
+                                                                     name="cinfo" id="cinfo3" value="3" checked>
+                                                                <label class="form-check-label" for="cinfo3">&nbsp;3</label>
+                                                              </div>
+
+                                                              <div class="col-sm-2 text-center">
+                                                                  <input class="form-check-input" type="radio"
+                                                                     name="cinfo" id="cinfo4" value="4" >
+                                                                <label class="form-check-label" for="cinfo4">&nbsp;4</label>
+                                                              </div>
+
+                                                              <div class="col-sm-2 text-center">
+                                                                  <input class="form-check-input" type="radio"
+                                                                     name="cinfo" id="cinfo5" value="5" >
+                                                                <label class="form-check-label" for="cinfo5">&nbsp;5</label>
+                                                              </div>
+                                                              </div>
+                                                               </div>
+                                                  </td>
+
+                                                      </font>
+                                              </form>
+
+                                    </tbody>
+                                </table>
+
 
                                 </div>
                         </div>
+
 
 
                                 <!-- tabela terminando aqui -->

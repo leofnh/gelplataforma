@@ -5,7 +5,7 @@
 {% block content %}
 
 
-<div id="layoutSidenav_content">
+<div id="layoutSidenav_content" style="background:#e2e8f0;">
                 <main>
                     <div class="container-fluid px-4">
                         <h1 class="mt-4" style="color:#4B5F83;">Trabalhos submetidos</h1>
@@ -18,17 +18,26 @@
                         </ol>
 
                                 <p class="mb-0">
+                                    <div align="right">
+                                    <button class="btn btn-success text-white">Submeter</button>
+                                    </div>
                                  <!-- tabelas iniciando aqui -->
+                                <div class="card">
+                                <div class="card-header text-white" style="background:#4B5F83;">
+                                   Submissões conlcuidas
+                                </div>
+                        <div class="card-body">
 
 
                                   <table class="table " id="datatablesSimple">
                                     <thead>
                                         <tr>
                                              <th><font size="2px">ID</font></th>
+                                            <th><font size="2px">Titulo</font></th>
+                                            <th><font size="2px">Autores</font></th>
                                             <th><font size="2px">Sessão</font></th>
-                                            <th><font size="2px">Tema</font></th>
-                                            <th><font size="2px">Evento</font></th>
                                             <th><font size="2px">Trabalho</font></th>
+                                            <th><font size="2px">Nota</font></th>
                                             <th><font size="2px">Ações</font></th>
 
                                         </tr>
@@ -36,10 +45,11 @@
                                     <tfoot>
                                         <tr>
                                             <th><font size="2px">ID</font></th>
+                                            <th><font size="2px">Titulo</font></th>
+                                            <th><font size="2px">Autores</font></th>
                                             <th><font size="2px">Sessão</font></th>
-                                            <th><font size="2px">Tema</font></th>
-                                            <th><font size="2px">Evento</font></th>
                                             <th><font size="2px">Trabalho</font></th>
+                                            <th><font size="2px">Nota</font></th>
                                             <th><font size="2px">Ações</font></th>
                                         </tr>
                                     </tfoot>
@@ -78,38 +88,8 @@
                                                 Trabalho
                                             </a>
 
-
-                                        <!--
-                                        <div class="dropdown">
-                                          <a type="button" id="dropdownMenuButton"
-                                                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <img width="15" height="15"
-                                                    src={% static "assets/img/engrenagem.png" %} />
-                                          </a>
-
-
-                                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="/submeter/?id={{eventos.id}}">Submeter um Trabalho</a>
-                                            <a class="dropdown-item" href="/addsessao/?id={{eventos.id}}">Adicionar sessão à este evento {{eventos.nome}}</a>
-                                            <a class="dropdown-item" href="/submetidos/">Trabalhos que foram submetidos</a>
-                                            <a class="dropdown-item" href="#">?</a>
-
-                                          </div>
-                                        </div>
-                                        -->
-                                                <!--
-
-                                                <a type="button"
-                                                  data-toggle="modal"
-                                                  data-target="#modalacao{{sessao.id}}"
-                                                  >
-                                              <img width="15" height="15"
-                                                    src={% static "assets/img/engrenagem.png" %} />
-
-                                                </a>
-                                                -->
-
                                             </font></td>
+                                              <td></td>
                                             <td align="center">
 
                                                <a type="button"
@@ -217,7 +197,12 @@
                                     </tbody>
                                 </table>
 
+                        </div>
+                    </div>
 
+                        <div align="right">
+                                    <button class="btn btn-success text-white">Submeter</button>
+                                    </div>
 
                                 <!-- tabela terminando aqui -->
                                 </p>
