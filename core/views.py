@@ -291,7 +291,7 @@ def submetertrabalho(request):
                     trabalho = trabalhoenviar,
                     sessao = id_da_sessao,
                     id_evento = id_evento,
-                    id_usuario = id_usuario,
+                    id_usuario = mid,
                     status = 'avaliacao',
                     av1 = 'aguardando',
                     av2 = 'aguardando',
