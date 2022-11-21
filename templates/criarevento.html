@@ -3,9 +3,200 @@
 
 {% block content %}
 
-<div id="layoutSidenav_content">
+<div id="layoutSidenav_content" style="background:#e2e8f0;">
                 <main>
-                    <div class="container-fluid px-4">
+
+                <div class="container-fluid px-4">
+                    <h1 class="mt-4" style="color:#4B5F83;">Gerenciar Eventos</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="#" style="text-decoration:none;">Formulários</a></li>
+                            <li class="breadcrumb-item active">Sessões</li>
+                        </ol>
+
+
+<section>
+        <div class="container">
+            <div class="accordion" id="accordionExample">
+                <div class="steps">
+                    <progress id="progress" value=0 max=100 ></progress>
+                    <div class="step-item">
+                        <button class="step-button text-center" type="button" data-toggle="collapse"
+                            data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                           1
+                        </button>
+                        <div class="step-title">
+                            Eventos
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <button class="step-button text-center collapsed" type="button" data-toggle="collapse"
+                            data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            2
+                        </button>
+                        <div class="step-title">
+                            Formulários
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <button class="step-button text-center collapsed" type="button" data-toggle="collapse"
+                            data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            3
+                        </button>
+                        <div class="step-title">
+                           Sessões
+                        </div>
+                    </div>
+
+                      <div class="step-item">
+                        <button class="step-button text-center collapsed" type="button" data-toggle="collapse"
+                            data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            4
+                        </button>
+                        <div class="step-title">
+                           Líder
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div  id="headingOne">
+
+                    </div>
+
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                        data-parent="#accordionExample">
+
+
+                        <div class="card-header">
+                            <h6 class="mb-0">EVENTOS {% if msg %} <font size="3px" color="blue">
+                                <div class="mt-2">{{msg}} </div></font> {% endif %}</h6>
+                        </div>
+                        <div class="card-body">
+
+                     {% for usuarios in usuarios %}
+                     <form method="POST" action="/criarevento/" enctype="multipart/form-data">{% csrf_token %}
+                     {% endfor %}
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Nome do Evento</h6>
+                    </div>
+                    <div class="col-sm-8 text-secondary">
+                      <input class="form-control col-10" name="nomeevento">
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">CEP Evento</h6>
+                    </div>
+                    <div class="col-sm-2 text-secondary">
+                      <input class="form-control col-6"  name="cepevento" id="cep">
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Cidade</h6>
+                    </div>
+                    <div class="col-sm-2 text-secondary">
+                      <input class="form-control col-6" type="text" name="cidadeevento" id="cidade">
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Estado</h6>
+                    </div>
+                    <div class="col-sm-3 text-secondary">
+                     <input class="form-control col-6" type="text" name="estadoevento" id="estado">
+
+                    </div>
+                  </div>
+                   <hr>
+                    <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Modalidade</h6>
+                    </div>
+                    <div class="col-sm-8 text-secondary">
+                     <input class="form-control col-6" type="text" name="modalidadeevento">
+                    </div>
+                  </div>
+                   <hr>
+
+                       <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Logo</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                    <input type="file" name="logoevento">
+                    </div>
+                  </div>
+                   <hr>
+
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Inicio</h6>
+                    </div>
+
+                    <div class="col-sm-9 text-secondary">
+                     <input class="form-control col-5" type="datetime-local"  name="inicioevento">
+                        <div align="right">
+                          <input type="submit" value="Criar Evento" class="btn btn-primary mt-4">
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                     </form>
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div  id="headingTwo">
+
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                        <div class="card-body">
+                            Decidir...
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div  id="headingThree">
+
+                    </div>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
+                        data-parent="#accordionExample">
+                        <div class="card-body">
+                        Decidir...
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="card">
+                    <div  id="headingFour">
+
+                    </div>
+                    <div id="collapseFour" class="collapse" aria-labelledby="headingFour"
+                        data-parent="#accordionExample">
+                        <div class="card-body">
+                        Decidir...Denovo
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+                    </div>
+
+              <!--   <div class="container-fluid px-4">
                         <h1 class="mt-4" style="color:#4B5F83;">Gerenciar Eventos</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="#" style="text-decoration:none;">Formulários</a></li>
@@ -109,7 +300,9 @@
               </div>
             </div>
                                </div>
-                    </div>
+                    </div> -->
+
+
 
                 </main>
 

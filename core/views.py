@@ -61,7 +61,6 @@ def novocadastrar(request):
                 lista_numero = []
                 for i in cpf:
                     lista_numero.append(int(i))
-
                 if lista_numero[0] == lista_numero[1] and lista_numero[0] == lista_numero[2] and lista_numero[0] == \
                         lista_numero[3] and lista_numero[0] == lista_numero[4] and lista_numero[0] == lista_numero[
                     5] and lista_numero[0] == lista_numero[6] and lista_numero[0] == lista_numero[7]:
@@ -259,15 +258,16 @@ def submetertrabalho(request):
 
     id_da_sessao = request.POST['sessao']
     acharevento = Sessoes.objects.filter(id=id_da_sessao)
+    meuid = User.objects.filter(username=request.user)
+    for m in meuid:
+        mid = m.id
+    usuarios = Usuariocd.objects.filter(id_usuario=mid)
     for i in acharevento:
         id_evento = i.id_evento
     #id_evento = request.GET.get('id')
     #id = id_evento
     #sessao = Sessoes.objects.filter(id_evento=id)
     eventos = Evento.objects.all()
-    meuid = User.objects.filter(username=request.user)
-    for m in meuid:
-        id_usuario = m.id
     if request.POST['sessao'] == 'Selecione a sessão...':
         msg = 'Escolha uma sessão!'
         #sessao = Sessoes.objects.filter(id_evento=id_evento)
@@ -276,7 +276,8 @@ def submetertrabalho(request):
         dados = {'id':id,
                'msg':msg,
                'evento':evento,
-              'sessao':sessao}
+              'sessao':sessao,
+              'usuarios':usuarios}
         return render(request,'submeter.html', dados)
     else:
         if request.FILES.get('trabalho'):
@@ -285,7 +286,7 @@ def submetertrabalho(request):
             resumo = request.POST['resumo']
             titulo = request.POST['titulo']
             autor1 = request.POST['autor1']
-            print(chave)
+
             Submissao.objects.create(
                     trabalho = trabalhoenviar,
                     sessao = id_da_sessao,
@@ -306,7 +307,8 @@ def submetertrabalho(request):
                          'msg2':msg2,
                          'eventos':eventos,
                          'evento':evento,
-                         'sessao':sessao}
+                         'sessao':sessao,
+                     'usuarios':usuarios}
             return render(request,'submeter.html', dados)
         else:
             msg = 'Selecione seu trabalho para enviar!'
@@ -316,7 +318,8 @@ def submetertrabalho(request):
                          'msg':msg,
                          'eventos':eventos,
                          'evento':evento,
-                          'sessao':sessao }
+                          'sessao':sessao,
+                     'usuarios':usuarios}
             return render(request,'submeter.html', dados)
 
 
@@ -641,6 +644,8 @@ def submetidos(request):
     sessao = Sessoes.objects.all()
     trabalho = Submissao.objects.all()
     avaliadores = Usuariocd.objects.all()
+    teste = Submissao.objects.all()
+
     for m in meuid:
         mid = m.id
     usuarios = Usuariocd.objects.filter(id_usuario=mid)
@@ -649,7 +654,8 @@ def submetidos(request):
              'eventos':eventos,
              'sessao':sessao,
              'trabalho':trabalho,
-             'avaliadores':avaliadores}
+             'avaliadores':avaliadores,
+             'teste':teste}
     return render(request,'submetidos.html', dados)
 
 @login_required(login_url='/login/')
