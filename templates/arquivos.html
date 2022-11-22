@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div id="layoutSidenav_content" style="background:#e2e8f0;">
+                <main>
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4" style="color:#4B5F83;">Gerenciar Eventos</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="#" style="text-decoration:none;">Arquivos</a></li>
+                            <li class="breadcrumb-item text-secondary">
+                                <a href="#" style="text-decoration:none;">
+                                <font color="black"> Eventos
+                                </font>
+                                </a></li>
+                            <li class="breadcrumb-item active"><a href="/avaliartrabalho/" style="text-decoration:none;">
+                               <font color="black"> Avaliações </font>
+                            </a> </li>
+                        <!--
+                             <li class="breadcrumb-item active"><a href="/avaliartrabalho/" style="text-decoration:none;">
+                               <font color="black"></font>
+                            </a> </li> -->
+                        </ol>
+
+                                <p class="mb-0">
+                                  <div class="card">
+
+                                      <div class="card-header" style="background:#4B5F83;color:#e2e8f0;">
+                                          Suas avaliações
+                                      </div>
+                                <div class="card-body">
+                                  <table  class="table" id="datatablesSimple">
+                                    <thead >
+                                        <tr >
+                                            <th class="text-center">
+                                                <font size="2px">ID</font>
+                                            </th>
+                                            <th class="text-center"><font size="2px">Titulo</font></th>
+                                            <th class="text-center"><font size="2px">Sessao</font></th>
+                                            <th class="text-center"><font size="2px">Trabalho</font></th>
+                                            <th class="text-center"><font size="2px">Ações</font></th>
+
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th><font size="2px">ID</font></th>
+                                            <th><font size="2px">Titulo</font></th>
+                                            <th><font size="2px">Sessao</font></th>
+                                            <th><font size="2px">Trabalho</font></th>
+                                            <th><font size="2px">Ações</font></th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                            {% for arquivos in arquivos %}
+                                             <tr class="text-center">
+                                             <td><font size="2px">{{arquivos.id}}</font></td>
+
+                                                 <td>
+                                                {{arquivos.titulo}}
+                                                 </td>
+
+                                            <td>
+                                                {% for sessao in sessao %}
+                                                {% if sessao.id == arquivos.sessao %}
+                                                <font size="2px">
+                                                {{ sessao.nome }}
+                                                </font></td>
+                                                 {% endif %}
+                                                 {% endfor %}
+
+                                            <td>
+
+                                                <font size="2px">
+                                                <font size="2px">
+                                                <a href="/media/{{arquivos.trabalho}}"
+                                                style="text-decoration:none;"
+                                                target="_blank" rel="noopener noreferrer">
+                                                    <img height="15" width="15"
+                                                            src={% static "assets/pdficon.png" %}>
+                                                </a>
+                                            </font>
+
+                                                </font></td>
+                                          <td>
+                                              {% if arquivos.status == 'aprovado' %}
+                                              <img width="15" height="15"
+                                                   src={% static "assets/aprovado.png" %}>
+                                              {% elif arquivos.status == 'reprovado' %}
+                                              <img width="20" height="20"
+                                                   src={% static "assets/reprovado.png" %}>
+                                              {% elif arquivos.status == 'avaliacao' %}
+                                              <img width="15" height="15"
+                                                   src={% static "assets/ampulheta.png" %}>
+                                              {% endif %}
+                                        </td>
+
+                                        </tr>
+
+
+
+
+
+
+                                                {% endfor %}
+
+
+
+
+                                    </tbody>
+                                </table>
+                                </div>
+                        </div>
+
+
+                                <!-- tabela terminando aqui -->
+                                </p>
+
+
+
+                    </div>
+
+                </main>
+
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Desenvolvido por G&L Plataformas</div>
+                            <div>
+                                <a href="#">Politica de Privacidade</a>
+                                &middot;
+                                <a href="#">Termos e Condições</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+
+
+{% endblock %}

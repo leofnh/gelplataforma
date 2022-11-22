@@ -298,7 +298,8 @@ def submetertrabalho(request):
                     titulo=titulo,
                     chave=chave,
                     resumo=resumo,
-                    autor=autor1
+                    autor=autor1,
+                    progresso=0
                 )
             msg2 = 'Você enviou seu trabalho com sucesso!'
             sessao = Sessoes.objects.filter(id_evento=id_evento)
@@ -1097,7 +1098,6 @@ def pontuartrabalho(request):
 @login_required(login_url='/login/')
 def avaliarformulario(request):
     id = request.GET.get('id')
-    #hoje = datetime.today()
     hoje = datetime.datetime.now()
     if request.POST['av1'] != 'n' and request.POST['av2'] != 'n' and request.POST['av3'] != 'n'and request.POST['av4'] != 'n' and request.POST['av5'] != 'n' and request.POST['av6'] != 'n' and request.POST['av7'] != 'n'and request.POST['av8'] != 'n'and request.POST['av9'] != 'n'and request.POST['av10'] != 'n':
         meuid = User.objects.filter(username=request.user)
@@ -1116,23 +1116,27 @@ def avaliarformulario(request):
         vtrabalho1 = Submissao.objects.filter(id=id, av1=mid)
         vtrabalho2 = Submissao.objects.filter(id=id, av2=mid)
         vtrabalho3 = Submissao.objects.filter(id=id, av3=mid)
+        progressop = Submissao.objects.filter(id=id)
+        for p in progressop:
+            pr = int(p.progresso)
+        progresso = pr + 33
         if vtrabalho1:
             nota = av1 + av2 + av3 + av4 + av5 + av6 + av7 + av8 + av9 + av10
             resultado = nota / 10
-            print(nota)
-            print(resultado)
             if resultado >= 3:
-
                 vstatusaprovado = Submissao.objects.filter(id=id, av2='aprovado')
                 Submissao.objects.filter(id=id).update(
 
                     av1='aprovado',
                     data_av1=hoje,
-                    nota1=resultado
+                    nota1=resultado,
+                    progresso= progresso,
+                    a1=mid
                 )
                 if vstatusaprovado:
                     Submissao.objects.filter(id=id).update(
-                        status='aprovado'
+                        status='aprovado',
+                        progresso=100
                     )
                 return redirect('/avaliartrabalho/')
             else:
@@ -1140,10 +1144,12 @@ def avaliarformulario(request):
                 Submissao.objects.filter(id=id).update(
                     av1='reprovado',
                     data_av1=hoje,
-                    nota1=resultado
+                    nota1=resultado,
+                    progresso= progresso,
+                    a1=mid
                 )
                 if reprovou:
-                    Submissao.objects.filter(id=id, status='reprovado')
+                    Submissao.objects.filter(id=id, status='reprovado', progresso=100)
                 return redirect('/avaliartrabalho/')
         if vtrabalho2:
 
@@ -1154,12 +1160,15 @@ def avaliarformulario(request):
                 Submissao.objects.filter(id=id).update(
                     av2='aprovado',
                     data_av2=hoje,
-                    nota2=resultado
+                    nota2=resultado,
+                    progresso= progresso,
+                    a2 = mid
                 )
                 vstatusaprovado = Submissao.objects.filter(id=id, av1='aprovado')
                 if vstatusaprovado:
                     Submissao.objects.filter(id=id).update(
-                        status='aprovado'
+                        status='aprovado',
+                        progresso=100
                     )
                 return redirect('/avaliartrabalho/')
             else:
@@ -1167,13 +1176,43 @@ def avaliarformulario(request):
                 Submissao.objects.filter(id=id).update(
                     av2='reprovado',
                     data_av2=hoje,
-                    nota2=resultado
+                    nota2=resultado,
+                    progresso= progresso,
+                    a2 = mid
                 )
                 if reprovou:
                     Submissao.objects.filter(id=id).update(
-                        status='reprovado'
+                        status='reprovado',
+                        progresso=100
                     )
                 return redirect('/avaliartrabalho/')
+        if vtrabalho3:
+            nota = av1 + av2 + av3 + av4 + av5 + av6 + av7 + av8 + av9 + av10
+            resultado = nota / 10
+
+            if resultado >= 3:
+                Submissao.objects.filter(id=id).update(
+                    av3='aprovado',
+                    data_av3=hoje,
+                    nota3=resultado,
+                    status='aprovado',
+                    progresso=100,
+                    a3=mid
+                )
+
+                return redirect('/avaliartrabalho/')
+            else:
+
+                Submissao.objects.filter(id=id).update(
+                    av3='reprovado',
+                    data_av2=hoje,
+                    nota2=resultado,
+                    status='reprovado',
+                    progresso=100,
+                    a3=mid
+                )
+                return redirect('/avaliartrabalho/')
+
 
     else:
         msg = 'Preencha as notas corretamente!'
@@ -1210,7 +1249,6 @@ def editarformulario(request):
     formulario = Formulario.objects.filter(id=id)
 
 
-
     dados = {'usuarios': usuarios,
              'id': id,
              'formulario':formulario
@@ -1237,3 +1275,22 @@ def salvarformulario(request):
     )
 
     return redirect('/editarformulario/?id={}'.format(id))
+
+@login_required(login_url='/logi/')
+def arquivos(request):
+
+    meuid = User.objects.filter(username=request.user)
+    for m in meuid:
+        mid = m.id
+    usuarios = Usuariocd.objects.filter(id_usuario=mid)
+    avaliados = Submissao.objects.filter(a1=mid)
+    avaliados2 = Submissao.objects.filter(a2=mid)
+    avaliados3 = Submissao.objects.filter(a3=mid)
+    sessao = Sessoes.objects.all()
+    arquivos = avaliados and avaliados2 and avaliados3
+
+    dados = {'usuarios': usuarios,
+              'arquivos':arquivos,
+             'sessao':sessao
+                     }
+    return render(request, 'arquivos.html', dados)

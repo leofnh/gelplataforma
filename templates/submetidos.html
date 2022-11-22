@@ -225,49 +225,34 @@
 
                                              <td class="text-center">
 
-{% if trabalho.status != 'avaliacao' %}
-{% if trabalho.av1 == 'aprovado' and trabalho.av2 == 'aprovado' %}
+{% if trabalho.progresso == 0 %}
+<img width="15" height="15"
+     src={% static "assets/ampulheta.png" %} />
+{% else %}
+{% if trabalho.progresso == 100 %}
+{% if trabalho.status == 'aprovado' %}
 <div class="progress">
   <div class="progress-bar bg-success progress-bar-striped progress-bar-animated"
        role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-      100%</div>
+      {{trabalho.progresso}}%</div>
 </div>
 {% endif %}
-{% if trabalho.av1 == 'aprovado' and trabalho.av2 == 'reprovado'  %}
+{% if trabalho.status == 'reprovado' %}
+<div class="progress">
+  <div class="progress-bar bg-danger progress-bar-striped progress-bar-animated"
+       role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+      {{trabalho.progresso}}%</div>
+</div>
+{% endif %}
+{% else %}
 <div class="progress">
   <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated"
-       role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-      66%</div>
+       role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: {{trabalho.progresso}}%">
+      {{trabalho.progresso}}%</div>
 </div>
 {% endif %}
-{% if trabalho.av3 == 'aprovado' %}
-<div class="progress">
-  <div class="progress-bar bg-success progress-bar-striped progress-bar-animated"
-       role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-      100%</div>
-</div>
-{% endif %}
-{% if trabalho.av1 == 'reprovado' and trabalho.av2 == 'reprovado' %}
-<div class="progress">
-  <div class="progress-bar bg-danger progress-bar-striped progress-bar-animated"
-       role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-      100%</div>
-</div>
-{% endif %}
-{% if trabalho.av3 == 'reprovado' %}
-<div class="progress">
-  <div class="progress-bar bg-danger progress-bar-striped progress-bar-animated"
-       role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-      100%</div>
-</div>
 {% endif %}
 
-
-{% else %}
-
-       <img width="15" height="15" src={% static "assets/ampulheta.png" %}>
-
-{% endif %}
 
 
 
@@ -301,7 +286,7 @@
                                 </p>
                     </div>
 
-        
+
 
 
 

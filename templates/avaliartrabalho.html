@@ -17,7 +17,7 @@
                                <font color="black"> Avaliações </font>
                             </a> </li>
 
-                             <li class="breadcrumb-item active"><a href="#" style="text-decoration:none;">
+                             <li class="breadcrumb-item active"><a href="/arquivos/" style="text-decoration:none;">
                                <font color="black"> Arquivos </font>
                             </a> </li>
                         </ol>
@@ -187,6 +187,102 @@
                                                     </a>
 
       <div class="col-sm-12 modal fade" id="modalacao{{avaliacao2.id}}"
+     tabindex="-1" role="dialog"
+     aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-white" style="background:#4B5F83;">
+
+        <h5 class="modal-title"
+            id="TituloModalCentralizado">
+            Ações
+        </h5>
+        <a type="button" class="close" data-dismiss="modal" aria-label="Fechar"
+           style="background:#4B5F83;text-decoration:none;">
+          <span  aria-hidden="true" class="text-white">&times;</span>
+        </a>
+      </div>
+      <div class="modal-body">
+           <div class="container-fluid" align="center">
+               {% for formulario in formulario %}
+               {% if formulario.id_evento == eventos.id %}
+               <div class="mt-1" align="left">
+                {{formulario.nome_formulario}} -
+                   <a href="#" style="text-decoration:none;">
+                       Editar
+                   </a>
+               </div>
+               {% endif %}
+               {% endfor %}
+
+          </div>
+           <div align="left" class="mt-2 text-secondary mb-0">
+
+              <font size="2px">Evento:</font> <font size="1px">{{eventos.nome}} / {{sessao.tema}}</font>
+
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <input type="submit" class="btn text-white" style="background:#4B5F83;" value="Adicionar">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+                                                </div>
+                                            </font></td>
+                                        </tr>
+
+                                                {% endfor %}
+
+
+
+
+                         <!-- INICIANDO TERCEIRA PARTE -->
+                                            {% for avaliacao3 in avaliacao3 %}                                                                                 <tr>
+                                              <tr class="text-center">
+                                             <td><font size="2px">{{avaliacao3.id}}</font></td>
+
+                                                 <td>
+                                                {{avaliacao3.titulo}}
+                                                 </td>
+
+                                            <td>
+                                                {% for sessao in sessao %}
+                                                {% if sessao.id == avaliacao3.sessao %}
+                                                <font size="2px">
+                                                {{ sessao.nome }}
+                                                </font></td>
+                                                 {% endif %}
+                                                 {% endfor %}
+
+                                            <td>
+
+                                                <font size="2px">
+                                                <font size="2px">
+                                                <a href="/media/{{avaliacao3.trabalho}}"
+                                                style="text-decoration:none;"
+                                                target="_blank" rel="noopener noreferrer">
+                                                    <img height="15" width="15"
+                                                            src={% static "assets/pdficon.png" %}>
+                                                </a>
+                                            </font>
+
+                                                </font></td>
+
+                                                 <td><font size="2px">
+
+
+                                                    <a type="button"
+                                                       href="/pontuartrabalho/?id={{avaliacao3.id}}">
+                                                    <img src={% static "assets/editartrabalho.png" %}
+                                                         width="15" height="15" />
+                                                    </a>
+
+      <div class="col-sm-12 modal fade" id="modalacao{{avaliacao3.id}}"
      tabindex="-1" role="dialog"
      aria-labelledby="TituloModalCentralizado" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">

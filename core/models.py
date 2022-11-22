@@ -67,6 +67,11 @@ class Submissao(models.Model):
     nota1 = models.BigIntegerField(null=True)
     nota2 = models.BigIntegerField(null=True)
     nota3 = models.BigIntegerField(null=True)
+    # mais
+    progresso = models.BigIntegerField()
+    a1 = models.BigIntegerField(null=True)
+    a2 = models.BigIntegerField(null=True)
+    a3 = models.BigIntegerField(null=True)
 
 
 
