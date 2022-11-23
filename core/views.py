@@ -256,23 +256,14 @@ def criarevento(request):
 
 def submetertrabalho(request):
 
-    id_da_sessao = request.POST['sessao']
-    acharevento = Sessoes.objects.filter(id=id_da_sessao)
-    meuid = User.objects.filter(username=request.user)
-    for m in meuid:
-        mid = m.id
-    usuarios = Usuariocd.objects.filter(id_usuario=mid)
-    for i in acharevento:
-        id_evento = i.id_evento
-    #id_evento = request.GET.get('id')
-    #id = id_evento
-    #sessao = Sessoes.objects.filter(id_evento=id)
-    eventos = Evento.objects.all()
     if request.POST['sessao'] == 'Selecione a sessão...':
         msg = 'Escolha uma sessão!'
-        #sessao = Sessoes.objects.filter(id_evento=id_evento)
         sessao = Sessoes.objects.all()
-        evento = Evento.objects.all(id=id_evento)
+        evento = Evento.objects.all()
+        meuid = User.objects.filter(username=request.user)
+        for m in meuid:
+            mid = m.id
+        usuarios = Usuariocd.objects.filter(id_usuario=mid)
         dados = {'id':id,
                'msg':msg,
                'evento':evento,
@@ -280,6 +271,15 @@ def submetertrabalho(request):
               'usuarios':usuarios}
         return render(request,'submeter.html', dados)
     else:
+        id_da_sessao = request.POST['sessao']
+        acharevento = Sessoes.objects.filter(id=id_da_sessao)
+        meuid = User.objects.filter(username=request.user)
+        for m in meuid:
+            mid = m.id
+        usuarios = Usuariocd.objects.filter(id_usuario=mid)
+        for i in acharevento:
+            id_evento = i.id_evento
+        eventos = Evento.objects.all()
         if request.FILES.get('trabalho'):
             trabalhoenviar = request.FILES.get('trabalho')
             chave = request.POST['palavrachave']
