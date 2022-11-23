@@ -412,6 +412,13 @@ def attperfil(request):
     vuser = Usuariocd.objects.filter(id_usuario=meuid, cpf=request.user)
 
     if vuser:
+        Usuariocd.objects.filter(id_usuario=meuid).update(
+            nome = request.POST['nome'],
+            email = request.POST['email'],
+            cotato = request.POST['contato'],
+            endereco = request.POST['endereco'],
+            instituicao = request.POST['instituicao']
+        )
 
         if request.FILES.get('fotoperfil'):
             #Submissao.objects.create(trabalho=request.FILES.get('fotoperfil'), id_evento=0)
@@ -646,6 +653,7 @@ def submetidos(request):
     trabalho = Submissao.objects.all()
     avaliadores = Usuariocd.objects.all()
     teste = Submissao.objects.all()
+
 
     for m in meuid:
         mid = m.id
@@ -1276,7 +1284,7 @@ def salvarformulario(request):
 
     return redirect('/editarformulario/?id={}'.format(id))
 
-@login_required(login_url='/logi/')
+@login_required(login_url='/login/')
 def arquivos(request):
 
     meuid = User.objects.filter(username=request.user)
@@ -1294,3 +1302,9 @@ def arquivos(request):
              'sessao':sessao
                      }
     return render(request, 'arquivos.html', dados)
+
+@login_required(login_url='/login/')
+def deslogar(request):
+
+    logout(request)
+    return redirect('/login/')
