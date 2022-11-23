@@ -4,13 +4,32 @@
 
 
 {% block content %}
+<style>
 
+
+@keyframes gira {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.horario{
+   animation: gira 8s linear infinite;
+}
+
+.two{
+     position: relative;
+     top: -37px;
+}
+</style>
 
 
 <div id="layoutSidenav_content" style="background:#e2e8f0;">
 
                 <main>
+
                     <div class="container-fluid px-4">
+
                         <h1 class="mt-4" style="color:#4B5F83;">Trabalhos submetidos</h1>
                         {% if msg %}
                         <font color="red">Alerta:</font>{{msg}}
@@ -20,12 +39,26 @@
                             <li class="breadcrumb-item active">Avaliações</li>
                         </ol>
 
+
                                 <p class="mb-0">
+
+
+
 
                                  <!-- tabelas iniciando aqui -->
                                 <div class="card">
                                 <div class="card-header text-white" style="background:#4B5F83;">
                                    Submissões conlcuidas
+
+
+
+
+
+
+
+
+
+
                                 </div>
                         <div class="card-body">
 
@@ -124,9 +157,12 @@
                                                   data-toggle="modal"
                                                   data-target="#modalacao{{trabalho.id}}"
                                                   >
-                                              <img width="15" height="15"
-                                                    src={% static "assets/img/engrenagem.png" %} />
+
+                                              <img width="15" height="15" class="horario"
+                                                    src={% static "assets/img/engrenagem2.png" %} />
                                                 </a>
+
+
 <form method="POST" action="/enviaravaliador/">{% csrf_token %}
      <div class="col-sm-12 modal fade" id="modalacao{{trabalho.id}}"
      tabindex="-1" role="dialog"
@@ -226,7 +262,7 @@
                                              <td class="text-center">
 
 {% if trabalho.progresso == 0 %}
-<img width="15" height="15"
+<img width="15" height="15" class="horario"
      src={% static "assets/ampulheta.png" %} />
 {% else %}
 {% if trabalho.progresso == 100 %}
@@ -306,7 +342,6 @@
                 </footer>
             </div>
         </div>
-
 
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
