@@ -13,6 +13,258 @@
                             <li class="breadcrumb-item active">Avaliações</li>
                         </ol>
 
+
+
+
+                        <section>
+        <div class="container">
+            <div class="accordion" id="accordionExample">
+                <div class="steps">
+                    <progress id="progress" value=0 max=100 ></progress>
+                    <div class="step-item">
+                        <button class="step-button text-center" type="button" data-toggle="collapse"
+                            data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                           1
+                        </button>
+                        <div class="step-title">
+                            Evento
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <button class="step-button text-center collapsed" type="button" data-toggle="collapse"
+                            data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            2
+                        </button>
+                        <div class="step-title">
+                            Criar Sessão
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <button class="step-button text-center collapsed" type="button" data-toggle="collapse"
+                            data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            3
+                        </button>
+                        <div class="step-title">
+                           Folha de Rosto
+                        </div>
+                    </div>
+
+                      <div class="step-item">
+                        <button class="step-button text-center collapsed" type="button" data-toggle="collapse"
+                            data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            4
+                        </button>
+                        <div class="step-title">
+                           Formulários
+                        </div>
+                    </div>
+                </div>
+                <div align="center">
+                <div class="card col-md-8">
+                    <div  id="headingOne">
+                    </div>
+
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                        data-parent="#accordionExample">
+
+                        <div class="card-header text-center text-white"
+                    style="background:#4B5F83;">
+                      <h6 class="mb-0" >Alterando Evento </h6>
+                    </div>
+                      {% for evento in evento %}
+                    <form method="post" action="/alterarevento/?id={{evento.id}}"> {% csrf_token %}
+                  <div class="row mt-4">
+                    <div class="col-sm-3">
+
+
+                      <h6 class="mb-0 text-center ">Nome</h6>
+                    </div>
+                    <div class="col-sm-6 text-secondary ">
+                    <input class="form-control"
+                           name="nome"
+                           value="{{evento.nome}}">
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0 text-center">Cidade</h6>
+                    </div>
+                    <div class="col-sm-4 text-secondary">
+                    <input type="text"
+                           name="cidade"
+                           value="{{evento.cidade}}" class="form-control">
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0 text-center">Estado</h6>
+                    </div>
+                    <div class="col-sm-4 text-secondary">
+                    <input class="form-control"
+                           name="estado"
+                           value="{{evento.estado}}" type="text">
+
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0 text-center">Modalidade</h6>
+                    </div>
+                    <div class="col-sm-4 text-secondary">
+                     <input type="text" name="modalidade"
+                            value="{{evento.modalidade}}"
+                            class="form-control">
+                    </div>
+                  </div>
+
+                  <hr>
+
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0 text-center">Data e Hora</h6>
+                    </div>
+                    <div class="col-sm-3 text-secondary">
+                    {{evento.get_data_evento}} <input class="form-control col-5"
+                                                      name="datahora"
+                                                      type="datetime-local">
+                    </div>
+                  </div>
+
+                   <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0 text-center">Status</h6>
+                    </div>
+                    <div class="col-sm-2 text-secondary">
+                        {{evento.status}}
+
+                     </div>
+
+                      {% endfor %}
+                    </div>
+                        <hr>
+
+                 <div class="card-footer">
+                     <div align="right">
+                         <input type="submit" class="btn btn-primary" value="Salvar">
+                         </div>
+                     </div>
+                    </form>
+</div>
+
+                <div class="card" style="background:none;border:none;">
+                    <div  id="headingTwo">
+
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                        <div class="card-body">
+
+
+                  <div class="col-12 mb-3">
+                  <div class="card h-auto">
+                  <div class="card-header text-white text-center" style="background:#4B5F83;">
+                             Criando Sessão
+
+                  </div>
+
+                    <div class="card-body">
+
+                      {% if msg %}
+                      <div class="mt-2">
+                        <div class="btn-success text-white col-4 text-center">{{msg}}</div>
+                      </div>
+                      {% endif %}
+
+                      {% if msg2 %}
+                      <div class="mt-2">
+                        <div class="btn-danger text-white col-3 text-center">{{msg2}}</div>
+                      </div>
+                      {% endif %}
+
+                      {% for evento in evento %}
+                      <form method="POST" action="/criarsessao/?id={{evento.id}}">{% csrf_token %}
+                      {% endfor %}
+                      <div class="mt-2 align-items-center">
+                        <input class="form-control col-10" name="nome" type="text" placeholder="Nome da Sessão" required>
+                      </div>
+                      <div class="mt-2">
+                        <input class="form-control col-10" name="descricao" type="text" placeholder="Descrição" required>
+                      </div>
+                      <div class="mt-2">
+                       <select class="form-control col-10" name="lider" required>
+                         <option value="" selected>Selecione o Líder...</option>
+                         {% for candidato in candidato %}
+                         <option value="{{candidato.cpf}}" required>{{candidato.nome}} ({{candidato.instituicao}})</option>
+                         {% endfor %}
+                       </select>
+                      </div>
+                      <div class="mt-2">
+                          {% if formulario %}
+                          <select class="form-control col-10" name="formulario" required>
+                              {% for formulario in formulario %}
+                              <option value="{{formulario.id}}">{{formulario.nome_formulario}}</option>
+                              {% endfor %}
+                          </select>
+                           {% else %}
+                                Não existe formulário para este Evento!
+                          <a href="/editarevento/?id={{id}}" style="text-decoration:none; color:black;">
+                             <span class="btn btn-primary">Editar</span>
+                          </a>
+                           {% endif %}
+                      </div>
+                      <div class="mt-2">
+                        <input class="form-control col-8" name="tema"
+                               placeholder="Informe qual tema desta sessão">
+                      </div>
+                      <div class="mt-3" align="right">
+                        <input type="submit" class="btn btn-primary" value="Criar sessão">
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div  id="headingThree">
+
+                    </div>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
+                        data-parent="#accordionExample">
+                        <div class="card-body">
+                        Decidir...
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="card">
+                    <div  id="headingFour">
+
+                    </div>
+                    <div id="collapseFour" class="collapse" aria-labelledby="headingFour"
+                        data-parent="#accordionExample">
+                        <div class="card-body">
+                        Decidir...Denovo
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+                           <!--
+
                                 <p class="mb-0">
                                 <div class="row gutters-sm mt-4">
          <div class="col-md-6">
@@ -22,15 +274,18 @@
                     <div class="col-sm-12 text-center card-header text-center text-white"
                     style="background:#4B5F83;">
 
-                      <h6 class="mb-0" >Alterando Evento</h6>
+                      <h6 class="mb-0" >Alterando Evento </h6>
                     </div>
                   </div>
 
                   <div class="row mt-4">
                     <div class="col-sm-3" >
                     {% for evento in evento %}
+
+
                      <form method="post" action="/alterarevento/?id={{evento.id}}"> {% csrf_token %}
                       <h6 class="mb-0">Nome</h6>
+
                     </div>
                     <div class="col-sm-9 text-secondary">
                     <input class="form-control"
@@ -143,11 +398,7 @@
                     <div class="col-sm-9 text-secondary">
 
                     {{sessao.descricao}}
-                        <!-- - <a href="/editarsessao/?id={{sessao.id}}"
-                                              style="text-decoration:none;">
-                                           <img height="12" width="12"
-                                                   src={% static "assets/lapis.png" %} />
-                                           </a> -->
+
                     </div>
                   </div>
                   <hr>
@@ -191,6 +442,7 @@
               <input class="form-control col-8 mt-3" placeholder="Nome do Formulário"
                      name="nomeformulario" required>
           </div>
+          <input type="hidden" class="form-control col-8 mt-3" name="idevento" value="{{id}}">
           <div align="center">
               <input class="form-control col-8 mt-3" placeholder="Critério" name="criterio" required>
           </div>
@@ -252,9 +504,10 @@
                                 </p>
 
 
-                        <div style="height: 100vh"></div>
-                                     </div>
+
+                                     </div> -->
                 </main>
+    <br>
 
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">

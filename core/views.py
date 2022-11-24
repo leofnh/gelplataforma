@@ -434,6 +434,7 @@ def attperfil(request):
 
 def gerenciarevento(request):
     id = request.GET.get('id')
+
     meuid = User.objects.filter(username=request.user)
     for m in meuid:
         mid = m.id
@@ -457,20 +458,26 @@ def gerenciarevento(request):
 def editarevento(request):
 
     id = request.GET.get('id')
+
     # verificar se é gestor
     meuid = User.objects.filter(username=request.user)
     for m in meuid:
         mid = m.id
     usuarios = Usuariocd.objects.filter(id_usuario=mid)
     eventos = Evento.objects.filter(status='andamento')
-
+    formulario = Formulario.objects.filter(id_evento=id)
     evento = Evento.objects.filter(id=id)
     sessao = Sessoes.objects.filter(id_evento=id)
+    contar_formulario = Formulario.objects.filter(id_evento=id).aggregate(sum_total=Count('id'))
+    candidato = Usuariocd.objects.all()
     dados = {'evento':evento,
              'sessao':sessao,
              'eventos': eventos,
              'usuarios': usuarios,
-             'id':id
+             'id':id,
+             'formulario':formulario,
+             'contar_formulario':contar_formulario,
+             'candidato':candidato
              }
 
     return render(request, 'editarevento.html', dados)
@@ -518,13 +525,13 @@ def alterarevento(request):
 def addsessao(request):
 
     id = request.GET.get('id')
-    candidato = Usuariocd.objects.all()
     meuid = User.objects.filter(username=request.user)
     for m in meuid:
         mid = m.id
     usuarios = Usuariocd.objects.filter(id_usuario=mid)
     formulario = Formulario.objects.filter(id_evento=id)
     contar_formulario = Formulario.objects.filter(id_evento=id).aggregate(sum_total=Count('id'))
+    candidato = Usuariocd.objects.all()
 
     # filter lider = sim
     evento = Evento.objects.filter(id=id)
@@ -1308,3 +1315,6 @@ def deslogar(request):
 
     logout(request)
     return redirect('/login/')
+
+def verjs(request):
+    return render(request,'add.html')

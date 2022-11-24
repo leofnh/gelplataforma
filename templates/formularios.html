@@ -53,10 +53,11 @@
                                                                                  <tr>
                                              <td><font size="2px">{{eventos.id}}</font></td>
                                             <td><font size="2px">{{ eventos.nome }}  </font></td>
-                                            <!--<td>{{ eventos.get_data_evento}}</td>-->
                                             <td><font size="2px">{{eventos.cidade}}-{{eventos.estado}} </font></td>
                                             <td><font size="2px">{{eventos.modalidade}}  </font></td>
                                             <td><font size="2px">
+                                                <form method="POST" action="/editarevento/?id={{eventos.id}}">{% csrf_token %}
+                                                <input type="hidden" name="eventoid" value="{{eventos.id}}">
                                                 <div align="center">
                                                      <a href="/editarevento/?id={{eventos.id}}">
                                                     <img src={% static "assets/lapis.png" %}
@@ -68,6 +69,8 @@
                                                     <img src={% static "assets/editartrabalho.png" %}
                                                          width="15" height="15" />
                                                     </a>
+
+
 
       <div class="col-sm-12 modal fade" id="modalacao{{eventos.id}}"
      tabindex="-1" role="dialog"

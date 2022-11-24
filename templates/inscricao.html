@@ -1,3 +1,198 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  <div id="layoutSidenav_content" style="background:#e2e8f0;">
+
+    <main>
+
+     <div class="container-fluid px-4">
+                        <h1 class="mt-4" style="color:#4B5F83;">Gerenciar Eventos</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="#" style="text-decoration:none;">Eventos</a></li>
+                            <li class="breadcrumb-item active">Avaliações</li>
+                        </ol>
+
+<div align="center">
+    <div class="card" style="background:#e2e8f0;">
+  <div class="card-body">
+
+
+  <form class="form-inline col-6">
+   <div class="card">
+       <div class="card-header bg-primary text-white text-center">
+           <h6>Dados Pessoais</h6>
+           </div>
+           <div class="card-body">
+
+              <label class="sr-only" for="inlineFormInputName2">Nome Completo</label>
+  <input name="nome" type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Joao Augusto">
+  <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
+
+    <div class="input-group mb-2 mr-sm-2">
+    <div class="input-group-prepend">
+      <div class="input-group-text">
+          @
+      </div>
+    </div>
+    <input name="email" type="email" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Email">
+    </div>
+
+    <label class="sr-only" for="inlineFormInputGroupUsername3">Nome da instituição de vínculo</label>
+    <div class="input-group mb-2 mr-sm-2">
+    <div class="input-group-prepend">
+      <div class="input-group-text">
+          ?
+      </div>
+    </div>
+    <input name="instituicao" type="text" class="form-control"
+           id="inlineFormInputGroupUsername3" placeholder="Instituição">
+    </div>
+
+
+    <label class="sr-only" for="cidade">Cidade</label>
+    <div class="input-group mb-2 mr-sm-2">
+    <div class="input-group-prepend">
+      <div class="input-group-text">
+      cidade
+      </div>
+    </div>
+    <input name="cidade" type="text" class="form-control"
+           id="cidade" placeholder="São Paulo">
+    </div>
+
+    <label class="sr-only" for="estado">Estado</label>
+    <div class="input-group mb-2 mr-sm-2">
+    <div class="input-group-prepend">
+      <div class="input-group-text">
+      Estado
+      </div>
+    </div>
+    <input name="estado" type="text" class="form-control"
+           id="estado" placeholder="São Paulo">
+    </div>
+    <label class="sr-only" for="estado">CPF/PASSAPORTE</label>
+    <div class="input-group mb-2 mr-sm-2">
+    <div class="input-group-prepend">
+      <div class="input-group-text">
+      CPF/PASSAPORTE
+      </div>
+    </div>
+    <input name="doc" type="text" class="form-control"
+           id="doc">
+    </div>
+
+
+           </div>
+
+       </div>
+
+
+
+
+
+<div class="card mt-4">
+    <div class="card-header bg-primary text-white text-center">
+        <h6>Modalidade</h6>
+    </div>
+    <div class="card-body">
+        <div class="form-check">
+  <input class="form-check-input" type="radio" name="modalidade" id="flexRadioDefault1">
+  <label class="form-check-label" for="flexRadioDefault1">
+    Presencial
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="modalidade" id="flexRadioDefault2" checked>
+  <label class="form-check-label" for="flexRadioDefault2">
+    Virtual
+  </label>
+</div>
+
+    </div>
+</div>
+
+
+<div class="card mt-4">
+    <div class="card-header bg-primary text-center text-white">
+        <h6>Pagamento</h6>
+    </div>
+<div class="card-body">
+
+
+  <div class="form-check">
+  <input class="form-check-input" type="radio" name="pagamento" id="flexRadioDefault1">
+  <label class="form-check-label" for="flexRadioDefault1">
+    R$ 100,00 - Estudantes de graduação
+  </label>
+</div>
+<hr>
+<div class="form-check mt-2">
+  <input class="form-check-input" type="radio" name="pagamento" id="flexRadioDefault2" checked>
+  <label class="form-check-label" for="flexRadioDefault2">
+    R$ 145,00 - Associados Individuais ou pessoas vinculadas a Associados Institucionais
+  </label>
+</div>
+<hr>
+<div class="form-check mt-2">
+  <input class="form-check-input" type="radio" name="pagamento" id="flexRadioDefault2" checked>
+  <label class="form-check-label" for="flexRadioDefault2">
+    R$ 160,00 - Estudantes pós-graduandos
+  </label>
+</div>
+<hr>
+<div class="form-check mt-2">
+  <input class="form-check-input" type="radio" name="pagamento" id="flexRadioDefault2" checked>
+  <label class="form-check-label" for="flexRadioDefault2">
+   R$ 290,00 - Professores, práticos, pesquisadores
+  </label>
+</div>
+<hr>
+<label>Comprovante</label>
+<input type="file" class="form-control mt-2" name="comprovante">
+</div>
+</div>
+
+
+
+<div class="card-footer">
+    <div align="right">
+    <button type="submit" class="btn btn-primary mb-2">Inscrever</button>
+    </div>
+</div>
+
+
+</form>
+
+</div>
+    </div>
+ </div>
+   </div>
+    </main>
+
+
+
+   <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Desenvolvido por G&L Plataformas</div>
+                            <div>
+                                <a href="#">Politica de Privacidade</a>
+                                &middot;
+                                <a href="#">Termos e Condições</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+  </div>
+{% endblock %}
+
+
+
+
+
+
+<!--
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -86,3 +281,5 @@
 
 {% include 'footer.html' %}
 </html>
+
+-->

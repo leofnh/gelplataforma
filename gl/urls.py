@@ -42,7 +42,8 @@ urlpatterns = [
     path('editarformulario/', views.editarformulario),
     path('salvarformulario/', views.salvarformulario),
     path('arquivos/', views.arquivos),
-    path('deslogar/', views.deslogar)
+    path('deslogar/', views.deslogar),
+    path('verjs/', views.verjs)
 
 ]
 

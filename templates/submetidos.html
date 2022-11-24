@@ -4,24 +4,7 @@
 
 
 {% block content %}
-<style>
 
-
-@keyframes gira {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-.horario{
-   animation: gira 8s linear infinite;
-}
-
-.two{
-     position: relative;
-     top: -37px;
-}
-</style>
 
 
 <div id="layoutSidenav_content" style="background:#e2e8f0;">
@@ -202,38 +185,37 @@
                 </select>
                {% endif %}
                {% if trabalho.av1 != 'aguardando' and trabalho.av2 != 'aguardando' %}
-               {% if trabalho.av1 == 'aprovado' and trabalho.av2 == 'aprovado' %}
+               {% if trabalho.status == 'aprovado' %}
                Este trabalho foi aprovado!
                {% endif %}
-               {% if trabalho.av1 == 'reprovado' and trabalho.av2 == 'reprovado' %}
+               {% if trabalho.status == 'reprovado' %}
                Este trabalho foi reprovado!
                {% endif %}
-               {% if trabalho.av1 == 'reprovado' and trabalho.av2 == 'aprovado' %}
+               {% if trabalho.status == 'avaliacao' and trabalho.av2 != 'aguardando' and trabalho.av1 != 'aguardando' %}
                Escolher terceiro avaliador
                <select class="form-control mt-2" name="av3">
-
                     {% for avaliadores in avaliadores %}
                     <option value="{{avaliadores.id_usuario}}">{{avaliadores.nome}}</option>
                     {% endfor %}
                 </select>
                {% endif %}
-               {% if trabalho.av1 == 'aprovado' and trabalho.av2 == 'reprovado' %}
+            <!--   {% if trabalho.av1 == 'aprovado' and trabalho.av2 == 'reprovado' and trabalho.status == 'avaliacao'  %}
                 Escolher terceiro avaliador
                <select class="form-control mt-2" name="av3">
                     {% for avaliadores in avaliadores %}
                     <option value="{{avaliadores.id_usuario}}">{{avaliadores.nome}}</option>
                     {% endfor %}
                 </select>
-               {% endif %}
+               {% endif %} -->
                {% endif %}
                <input type="hidden" value="{{trabalho.id}}" name="id_trabalho">
 
           </div>
 
           <div class="mt-2">
-               <a class="dropdown-item" href="#">Definir ações</a>
-               <a class="dropdown-item" href="#">Definir ações</a>
-               <a class="dropdown-item" href="#">Definir Ações</a>
+               <a class="dropdown-item" href="#">Gerenciar Evento</a>
+               <a class="dropdown-item" href="#">Gerenciar Sessao</a>
+               <a class="dropdown-item" href="#">Gerenciar Formulários</a>
                <a class="dropdown-item" href="#">Definir ações</a>
           </div>
 
@@ -262,7 +244,7 @@
                                              <td class="text-center">
 
 {% if trabalho.progresso == 0 %}
-<img width="15" height="15" class="horario"
+<img width="15" height="15" class="antiHorario"
      src={% static "assets/ampulheta.png" %} />
 {% else %}
 {% if trabalho.progresso == 100 %}

@@ -1,0 +1,24 @@
+@keyframes gira {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.horario{
+   animation: gira 10s linear infinite;
+}
+
+.two{
+     position: relative;
+     top: -37px;
+}
+
+@keyframes giraAntihorario {
+    to {
+        transform: rotate(-360deg);
+    }
+}
+
+.antiHorario{
+   animation: giraAntihorario 8s linear infinite;
+ }

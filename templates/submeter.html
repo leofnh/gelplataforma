@@ -58,7 +58,7 @@
                         </div>
                     </div>  -->
                 </div>
-                 <form method="post"
+                 <form method="post" id="formautor"
                             enctype="multipart/form-data"
                             action="/submetertrabalho/?id={{id}}"> {% csrf_token %}
                 <div class="card">
@@ -221,9 +221,12 @@
                            Voltar
                         </button>
 
-                    <a href="#" class="btn mt-3 text-white"
-                            style="background:#4B5F83;">Adicionar Autor</a>
+                    <form id="formadd">
 
+                    <button type="submit"  class="btn mt-3 text-white"
+                            style="background:#4B5F83;">Adicionar Autor</button>
+
+                    </form>
                     <input type="submit" class="btn mt-3 text-white" value="Submeter"
                             style="background:#4B5F83;">
 
