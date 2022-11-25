@@ -36,7 +36,7 @@ form.onsubmit = function (e) {
 
 function addTask(description) {
 
-    if (criou < 5) {
+
 	const taskContainer = document.createElement('div');
 	const taskSubmit = document.createElement('div')
 	const newTask = document.createElement('input');
@@ -49,7 +49,7 @@ function addTask(description) {
         criado = criado + 1;
 	};
 
-
+    if (criou < 5) {
 
 	const taskDescriptionNode = document.createTextNode(description);
 	newTask.setAttribute('type', 'text');

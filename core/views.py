@@ -415,7 +415,7 @@ def attperfil(request):
         Usuariocd.objects.filter(id_usuario=meuid).update(
             nome = request.POST['nome'],
             email = request.POST['email'],
-            cotato = request.POST['contato'],
+            contato = request.POST['contato'],
             endereco = request.POST['endereco'],
             instituicao = request.POST['instituicao']
         )
