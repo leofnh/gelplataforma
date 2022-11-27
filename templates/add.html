@@ -25,9 +25,9 @@
 
         <form id="task-form">
         <input type="text" id="task-input" name="tarefa" />
-
         <button type="submit">Add</button>
         </form>
+
         <form method="POST" id="tasks" action="/teste/">{% csrf_token %}
             <input id="inputhidden" type="hidden" value="Cadastrar">
             <input id="inputcontagem" type="text" value="">
