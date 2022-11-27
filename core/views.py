@@ -3,7 +3,7 @@ import datetime
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
-from core.models import Evento,Submissao,Formulario, Usuariocd, cpfteste, Sessoes,Inscritos, Avaliadores,Criterios
+from core.models import Evento,Submissao,Formulario, Usuariocd, Sessoes,Inscritos, Avaliadores,Criterios
 from django.contrib.auth import authenticate, login, logout
 from django.db.models import Sum,Count
 
@@ -325,63 +325,6 @@ def submetertrabalho(request):
 
 
 
-def testecpf(request):
-
-    cpf = request.POST['cpf']
-    data = {}
-
-    if len(cpf) > 11 or len(cpf) < 11:
-        data['msg'] = 'CPF Inválido'
-        return render(request,'novocadastro.html', data)
-    else:
-        lista_numero = []
-        for i in cpf:
-            lista_numero.append(int(i))
-
-        if lista_numero[0] == lista_numero[1] and lista_numero[0] == lista_numero[2] and lista_numero[0] == lista_numero[3] and lista_numero[0] == lista_numero[4] and lista_numero[0] == lista_numero[5] and lista_numero[0] == lista_numero[6] and lista_numero[0] == lista_numero[7]:
-            data['msg'] = 'CPF inválido'
-            return render(request,'novocadastro.html', data)
-        else:
-            resultado = 0
-            acumulador = 0
-            controlador = 10
-
-            for numeros in lista_numero[0:9]:
-                resultado = numeros * controlador
-                acumulador += resultado
-                controlador = controlador -1
-            acumulador = (acumulador * 10) % 11
-
-            if acumulador == 10:
-                acumulador = 0
-            if acumulador == lista_numero[9]:
-                resultado2 = 0
-                acumulador2 = 0
-                controlador2 = 11
-                for numeros2 in lista_numero[0:10]:
-                    resultado2 = numeros2 * controlador2
-                    acumulador2 += resultado2
-                    controlador2 = controlador2 - 1
-
-                acumulador2 = (acumulador2 * 10) % 11
-
-                if acumulador2 == 10:
-                    acumulador2 = 0
-                if acumulador2 == lista_numero[10]:
-                    cpfteste.objects.create(
-                        cpf = cpf
-                    )
-                    data['msg'] = 'CPF cadastrado com sucesso!'
-                    return render(request,'novocadastro.html', data)
-
-                else:
-
-                    data['msg'] = 'CPF Inválido'
-                    return render(request, 'novocadastro.html', data)
-
-            else:
-                data['msg'] = 'CPF Inválido'
-                return render(request, 'novocadastro.html', data)
 
 
 @login_required(login_url='/login/')

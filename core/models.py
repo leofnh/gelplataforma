@@ -1,5 +1,5 @@
 from django.db import models
-from cpf_field.models import CPFField
+#from cpf_field.models import CPFField
 
 
 # Create your models here.
@@ -107,9 +107,7 @@ class Usuariocd(models.Model):
     contato = models.BigIntegerField(null=True)
     perfil = models.FileField(upload_to='')
 
-class cpfteste(models.Model):
 
-    cpf = CPFField('cpf')
 
 
 class Sessoes(models.Model):

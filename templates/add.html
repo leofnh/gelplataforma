@@ -1,3 +1,4 @@
+{% extends 'base.html' %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -9,7 +10,7 @@
 
 </head>
 <body>
-
+{% block content %}
     <h1>Olá, mundo!</h1>
     <p>Este é o meu primeiro projeto Javascript.</p>
     <div id="counter">
@@ -46,6 +47,6 @@
     </div>
 
 <script src={% static "js/adddiv.js" %}></script>
-
+{% endblock %}
 </body>
 </html>
