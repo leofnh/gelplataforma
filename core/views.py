@@ -1006,15 +1006,38 @@ def enviaravaliador(request):
         if request.POST['av1'] or request.POST['av2']:
             if request.POST['av1']:
                 av1 = request.POST['av1']
+                dados_avaliador = Usuariocd.objects.filter(id_usuario=av1)
+                for d in dados_avaliador:
+                    nomeav = d.nome
+                    emailav = d.email
+
+                mensagem = 'Olá, {} você recebeu um trabalho para avaliar, você pode acessar através do link abaixo:' \
+                           'http://gelplataforma2.herokuapp.com/pontuartrabalho/?id={}'.format(nomeav, id)
+                send_mail('G&L Plataforma de Eventos', mensagem, 'gelplataforma@gmail.com',
+                          recipient_list=[emailav, 'alex@gilbertodamata.com.br', 'leofnh@live.com',
+                                          'leonardobastos4@gmail.com'])
+
                 Submissao.objects.filter(id=id).update(
                     av1=av1
                 )
 
             if request.POST['av2']:
                 av2 = request.POST['av2']
+
+                dados_avaliador2 = Usuariocd.objects.filter(id_usuario=av2)
+                for d in dados_avaliador2:
+                    nomeav2 = d.nome
+                    emailav2 = d.email
+
                 Submissao.objects.filter(id=id).update(
                     av2=av2
                 )
+                mensagem = 'Olá, {} você recebeu um trabalho para avaliar, você pode acessar através do link abaixo:' \
+                           'http://gelplataforma2.herokuapp.com/pontuartrabalho/?id={}'.format(nomeav2, id)
+                send_mail('G&L Plataforma de Eventos', mensagem, 'gelplataforma@gmail.com',
+                          recipient_list=[emailav2, 'alex@gilbertodamata.com.br', 'leofnh@live.com',
+                                          'leonardobastos4@gmail.com'])
+
             return redirect('/submetidos/')
 
         else:
@@ -1286,5 +1309,4 @@ def eviaremail(request):
                   recipient_list=['alex@gilbertodamata.com.br', 'leofnh@live.com', 'leonardobastos4@gmail.com'])
         return HttpResponse('e-mail enviado')
     except:
-
         return HttpResponse('e-mail não enviado')
