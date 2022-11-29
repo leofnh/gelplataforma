@@ -43,7 +43,8 @@ urlpatterns = [
     path('salvarformulario/', views.salvarformulario),
     path('arquivos/', views.arquivos),
     path('deslogar/', views.deslogar),
-    path('verjs/', views.verjs)
+    path('verjs/', views.verjs),
+    path('eviaremail/', views.eviaremail)
 
 ]
 

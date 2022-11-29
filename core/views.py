@@ -2,11 +2,12 @@ import datetime
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
+from django.core.mail import send_mail
+from django.shortcuts import render, redirect, HttpResponse
 from core.models import Evento,Submissao,Formulario, Usuariocd, Sessoes,Inscritos, Avaliadores,Criterios
 from django.contrib.auth import authenticate, login, logout
 from django.db.models import Sum,Count
-
+from django.core.mail import send_mail
 
 
 # Create your views here.
@@ -264,6 +265,7 @@ def submetertrabalho(request):
         for m in meuid:
             mid = m.id
         usuarios = Usuariocd.objects.filter(id_usuario=mid)
+
         dados = {'id':id,
                'msg':msg,
                'evento':evento,
@@ -271,6 +273,14 @@ def submetertrabalho(request):
               'usuarios':usuarios}
         return render(request,'submeter.html', dados)
     else:
+
+        meuid = User.objects.filter(username=request.user)
+        for m in meuid:
+            mid = m.id
+        meunome = Usuariocd.objects.filter(id_usuario=mid)
+        for meu in meunome:
+            nome = meu.nome
+            email = meu.email
         id_da_sessao = request.POST['sessao']
         acharevento = Sessoes.objects.filter(id=id_da_sessao)
         meuid = User.objects.filter(username=request.user)
@@ -301,6 +311,12 @@ def submetertrabalho(request):
                     autor=autor1,
                     progresso=0
                 )
+
+            mensagem = 'Olá, {} você acabou de submeter um trabalho, aguarde até que ele seja avaliado, você será avisado por e-mail. Titulo do trabalho {}, autor {}'.format(nome, titulo, autor1)
+
+            send_mail('G&L Plataforma de Eventos', mensagem, 'gelplataforma@gmail.com',
+                      recipient_list=[email,'alex@gilbertodamata.com.br', 'leofnh@live.com', 'leonardobastos4@gmail.com'])
+            #return HttpResponse('e-mail enviado')
             msg2 = 'Você enviou seu trabalho com sucesso!'
             sessao = Sessoes.objects.filter(id_evento=id_evento)
             evento = Evento.objects.filter(id=id_evento)
@@ -1261,3 +1277,14 @@ def deslogar(request):
 
 def verjs(request):
     return render(request,'add.html')
+
+def eviaremail(request):
+
+    try:
+        mensagem = 'Email enviado com sucesso! Agora é só configurar cada envio.'
+        send_mail('G&L Plataforma de Eventos', mensagem, 'gelplataforma@gmail.com',
+                  recipient_list=['alex@gilbertodamata.com.br', 'leofnh@live.com', 'leonardobastos4@gmail.com'])
+        return HttpResponse('e-mail enviado')
+    except:
+
+        return HttpResponse('e-mail não enviado')

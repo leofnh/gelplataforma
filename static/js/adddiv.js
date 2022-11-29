@@ -73,7 +73,7 @@ function addTask(description) {
 	editType.setAttribute('type', 'hidden');
 	//criarContagem.setAttribute('type', 'text');
 	criarContagem.setAttribute('value', criou);
-	criarContagem.setAttribute('name', criou);
+	criarContagem.setAttribute('name', 'contagem');
 
 	criou = criou + 1;
 	//criarElemento.setAttribute('type', 'submit');
