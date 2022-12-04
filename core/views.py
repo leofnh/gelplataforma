@@ -1012,7 +1012,7 @@ def enviaravaliador(request):
                     emailav = d.email
 
                 mensagem = 'Olá, {} você recebeu um trabalho para avaliar, você pode acessar através do link abaixo:' \
-                           'http://gelplataforma2.herokuapp.com/pontuartrabalho/?id={}'.format(nomeav, id)
+                           ' http://gelplataforma2.herokuapp.com/pontuartrabalho/?id={}'.format(nomeav, id)
                 send_mail('G&L Plataforma de Eventos', mensagem, 'gelplataforma@gmail.com',
                           recipient_list=[emailav, 'alex@gilbertodamata.com.br', 'leofnh@live.com',
                                           'leonardobastos4@gmail.com'])
@@ -1033,7 +1033,7 @@ def enviaravaliador(request):
                     av2=av2
                 )
                 mensagem = 'Olá, {} você recebeu um trabalho para avaliar, você pode acessar através do link abaixo:' \
-                           'http://gelplataforma2.herokuapp.com/pontuartrabalho/?id={}'.format(nomeav2, id)
+                           ' http://gelplataforma2.herokuapp.com/pontuartrabalho/?id={}'.format(nomeav2, id)
                 send_mail('G&L Plataforma de Eventos', mensagem, 'gelplataforma@gmail.com',
                           recipient_list=[emailav2, 'alex@gilbertodamata.com.br', 'leofnh@live.com',
                                           'leonardobastos4@gmail.com'])
