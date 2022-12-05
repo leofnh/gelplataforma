@@ -1,6 +1,6 @@
 from pathlib import Path
 import os
-#import django_heroku
+import django_heroku
 #from whitenoise import middleware
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -18,6 +18,7 @@ SECRET_KEY = 'django-insecure-4dy!3ksc&cz#t8_@!)5-9-^=jpb(vg+fj6e4_my=053kuzois1
 DEBUG = True
 
 ALLOWED_HOSTS = ['gelplataforma.onrender.com']
+#ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -128,14 +129,24 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 
-EMAIL_BACKEND ='django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST_USER= 'gelplataforma@gmail.com'
-EMAIL_HOST_PASSWORD= 'wsjkntaqwkdjbery'
-EMAIL_USE_TLS=True
-EMAIL_PORT =587
-EMAIL_HOST='smtp.gmail.com'
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "gelplataforma@gmail.com"
+EMAIL_HOST_PASSWORD = "hziwhwosfxhplekh"
+
+
+#EMAIL_BACKEND ='django.core.mail.backends.smtp.EmailBackend'
+#EMAIL_HOST_USER= 'gelplataforma@gmail.com'
+#EMAIL_HOST_PASSWORD= 'wsjkntaqwkdjbery'
+#EMAIL_HOST_PASSWORD= 'hziwhwosfxhplekh'
+#EMAIL_USE_TLS=True
+#EMAIL_PORT =587
+#EMAIL_HOST='smtp.gmail.com'
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#django_heroku.settings(locals())
+django_heroku.settings(locals())

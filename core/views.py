@@ -2,7 +2,7 @@ import datetime
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.core.mail import send_mail
+from django.core.mail import send_mail, send_mass_mail
 from django.shortcuts import render, redirect, HttpResponse
 from core.models import Evento,Submissao,Formulario, Usuariocd, Sessoes,Inscritos, Avaliadores,Criterios
 from django.contrib.auth import authenticate, login, logout
@@ -1032,6 +1032,7 @@ def enviaravaliador(request):
                 Submissao.objects.filter(id=id).update(
                     av2=av2
                 )
+
                 mensagem = 'Olá, {} você recebeu um trabalho para avaliar, você pode acessar através do link abaixo:' \
                            ' http://gelplataforma2.herokuapp.com/pontuartrabalho/?id={}'.format(nomeav2, id)
                 send_mail('G&L Plataforma de Eventos', mensagem, 'gelplataforma@gmail.com',
@@ -1307,6 +1308,7 @@ def eviaremail(request):
         mensagem = 'Email enviado com sucesso! Agora é só configurar cada envio.'
         send_mail('G&L Plataforma de Eventos', mensagem, 'gelplataforma@gmail.com',
                   recipient_list=['alex@gilbertodamata.com.br', 'leofnh@live.com', 'leonardobastos4@gmail.com'])
+
         return HttpResponse('e-mail enviado')
     except:
         return HttpResponse('e-mail não enviado')
