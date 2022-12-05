@@ -44,7 +44,8 @@ urlpatterns = [
     path('arquivos/', views.arquivos),
     path('deslogar/', views.deslogar),
     path('verjs/', views.verjs),
-    path('eviaremail/', views.eviaremail)
+    path('eviaremail/', views.eviaremail),
+    path('usuarios/', views.usuarios)
 
 ]
 

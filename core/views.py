@@ -1310,3 +1310,19 @@ def eviaremail(request):
         return HttpResponse('e-mail enviado')
     except:
         return HttpResponse('e-mail não enviado')
+@login_required(login_url='/login/')
+def usuarios(request):
+    #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
+
+    meuid = User.objects.filter(username=request.user)
+    for m in meuid:
+        mid = m.id
+    todos = Usuariocd.objects.all()
+
+    usuarios = Usuariocd.objects.filter(id_usuario=mid)
+    eventos = Evento.objects.filter(status='andamento')
+    dados = {'eventos': eventos,
+             'usuarios': usuarios,
+             'todos':todos}
+
+    return render(request, 'usuarios.html', dados)
