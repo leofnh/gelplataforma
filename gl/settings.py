@@ -17,7 +17,7 @@ SECRET_KEY = 'django-insecure-4dy!3ksc&cz#t8_@!)5-9-^=jpb(vg+fj6e4_my=053kuzois1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['gelplataforma.onrender.com']
 
 
 # Application definition
