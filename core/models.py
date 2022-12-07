@@ -120,11 +120,11 @@ class Sessoes(models.Model):
     formulario = models.BigIntegerField()
     id_evento= models.BigIntegerField()
 
-class Inscritos(models.Model):
+#class Inscritos(models.Model):
 
-    nome = models.CharField(max_length=150)
-    cpf = models.BigIntegerField()
-    id_evento = models.BigIntegerField()
+#    nome = models.CharField(max_length=150)
+#    cpf = models.BigIntegerField()
+#    id_evento = models.BigIntegerField()
 
 class Avaliadores(models.Model):
 
@@ -141,5 +141,23 @@ class Criterios(models.Model):
     data_criacao = models.DateTimeField(auto_now=True)
 
 
+class Inscritos(models.Model):
 
 
+    nome = models.CharField(max_length=150)
+    cpf = models.CharField(max_length=15)
+    cidade = models.CharField(max_length=150)
+    email = models.EmailField(max_length=100)
+    instituicao = models.CharField(max_length=150)
+    doc = models.FileField(upload_to='')
+    modalidade = models.CharField(max_length=150)
+    pagamento = models.CharField(max_length=150)
+    evento = models.BigIntegerField()
+    id_user = models.BigIntegerField()
+    data = models.DateTimeField(auto_now=True)
+
+class Autores(models.Model):
+
+    data = models.DateTimeField(auto_now=True)
+    nome = models.CharField(max_length=300)
+    id_trabalho = models.BigIntegerField()

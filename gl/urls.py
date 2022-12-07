@@ -45,7 +45,14 @@ urlpatterns = [
     path('deslogar/', views.deslogar),
     path('verjs/', views.verjs),
     path('eviaremail/', views.eviaremail),
-    path('usuarios/', views.usuarios)
+    path('usuarios/', views.usuarios),
+    path('inscreveruser/', views.inscreveruser),
+    path('tainscrito/', views.tainscrito),
+    path('cformulario/', views.formularios),
+    path('criarformulario/', views.criarformulario),
+    path('eventos/', views.eventos),
+    path('atualizarsenha/', views.attsenha),
+    path('mudarsenha/', views.mudarsenha)
 
 ]
 

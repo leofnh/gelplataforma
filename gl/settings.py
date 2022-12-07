@@ -1,6 +1,6 @@
 from pathlib import Path
 import os
-import django_heroku
+#import django_heroku
 #from whitenoise import middleware
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -17,8 +17,8 @@ SECRET_KEY = 'django-insecure-4dy!3ksc&cz#t8_@!)5-9-^=jpb(vg+fj6e4_my=053kuzois1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['gelplataforma.onrender.com']
-#ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = ['gelplataforma.onrender.com']
+ALLOWED_HOSTS = ['181.215.134.211']
 
 
 # Application definition
@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
+    'cpf_field'
 
 ]
 
@@ -149,4 +150,4 @@ EMAIL_HOST_PASSWORD = "hziwhwosfxhplekh"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-django_heroku.settings(locals())
+#django_heroku.settings(locals())

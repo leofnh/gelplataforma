@@ -1,11 +1,12 @@
 import datetime
 
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
 from django.core.mail import send_mail, send_mass_mail
 from django.shortcuts import render, redirect, HttpResponse
-from core.models import Evento,Submissao,Formulario, Usuariocd, Sessoes,Inscritos, Avaliadores,Criterios
-from django.contrib.auth import authenticate, login, logout
+from core.models import Evento,Submissao,Formulario, Usuariocd, Sessoes,Inscritos, Avaliadores,Criterios,Autores
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.db.models import Sum,Count
 from django.core.mail import send_mail
 
@@ -257,6 +258,7 @@ def criarevento(request):
 
 def submetertrabalho(request):
 
+
     if request.POST['sessao'] == 'Selecione a sessão...':
         msg = 'Escolha uma sessão!'
         sessao = Sessoes.objects.all()
@@ -297,7 +299,9 @@ def submetertrabalho(request):
             titulo = request.POST['titulo']
             autor1 = request.POST['autor1']
 
-            Submissao.objects.create(
+
+
+            vsubmeter = Submissao.objects.create(
                     trabalho = trabalhoenviar,
                     sessao = id_da_sessao,
                     id_evento = id_evento,
@@ -311,6 +315,30 @@ def submetertrabalho(request):
                     autor=autor1,
                     progresso=0
                 )
+            vsubmeter.save()
+            achar_id_trabalho = Submissao.objects.filter(
+                sessao=id_da_sessao,
+                id_evento=id_evento,
+                id_usuario=mid,
+                titulo=titulo
+            )
+            for idn in achar_id_trabalho:
+                id_trabalho = idn.id
+
+            if request.POST['contagem'] != 'nada':
+                contagem = int(request.POST['contagem'])
+                if contagem > 3:
+                    contagem = 3
+                maisum = 0
+
+
+                while maisum <= contagem:
+
+                    Autores.objects.create(
+                        nome = request.POST['{}'.format(maisum)],
+                        id_trabalho = id_trabalho
+                    )
+                    maisum += 1
 
             mensagem = 'Olá, {} você acabou de submeter um trabalho, aguarde até que ele seja avaliado, você será avisado por e-mail. Titulo do trabalho {}, autor {}'.format(nome, titulo, autor1)
 
@@ -619,6 +647,7 @@ def submetidos(request):
     trabalho = Submissao.objects.all()
     avaliadores = Usuariocd.objects.all()
     teste = Submissao.objects.all()
+    autores = Autores.objects.all()
 
 
     for m in meuid:
@@ -630,7 +659,8 @@ def submetidos(request):
              'sessao':sessao,
              'trabalho':trabalho,
              'avaliadores':avaliadores,
-             'teste':teste}
+             'teste':teste,
+             'autores':autores}
     return render(request,'submetidos.html', dados)
 
 @login_required(login_url='/login/')
@@ -812,7 +842,7 @@ def addcriterio(request):
             c8=c8,
             c9=c9,
             c10=c10,
-            id_evento = id
+            id_evento = 0
         )
         return redirect('/editarevento/?id={}'.format(id))
     else:
@@ -1272,7 +1302,7 @@ def salvarformulario(request):
 
     )
 
-    return redirect('/editarformulario/?id={}'.format(id))
+    return redirect('/formularios/')
 
 @login_required(login_url='/login/')
 def arquivos(request):
@@ -1328,3 +1358,193 @@ def usuarios(request):
              'todos':todos}
 
     return render(request, 'usuarios.html', dados)
+
+@login_required(login_url='/logi/')
+def inscreveruser(request):
+
+    meuid = User.objects.filter(username=request.user)
+    for m in meuid:
+        mid = m.id
+
+    achei = Usuariocd.objects.filter(id_usuario=mid)
+    for a in achei:
+        anome = a.nome
+        aemail = a.email
+        ainst = a.instituicao
+        acidade = a.cidade
+        acpf = a.cpf
+
+
+    nome = anome
+    email = aemail
+    instituicao = ainst
+    cidade = acidade
+    #estado = request.POST['estado']
+    doc = request.FILES.get('doc')
+    modalidade = request.POST['modalidade']
+    pagamento = request.POST['pagamento']
+    cpf = acpf
+    evento = request.POST['evento']
+    vinscrito = Inscritos.objects.filter(cpf=cpf, evento=evento)
+    if vinscrito:
+        msg = 'Você já foi cadastrado neste evento!'
+        eventos = Evento.objects.filter(status='andamento')
+        usuarios = Usuariocd.objects.filter(id_usuario=mid)
+        dados = {'msg':msg,
+                 'eventos':eventos,
+                 'usuarios':usuarios}
+        return render(request,'inscricao.html', dados)
+    else:
+        Inscritos.objects.create(
+            nome= nome,
+            cpf = cpf,
+            cidade = cidade,
+            email = email,
+            instituicao = instituicao,
+            doc = doc,
+            modalidade = modalidade,
+            pagamento = pagamento,
+            evento = evento,
+            id_user = mid
+        )
+        acevento = Evento.objects.filter(id=evento)
+        for e in acevento:
+            nomeevento = e.nome
+        msg = 'Parabéns, você se inscreveu para o evento {}'.format(nomeevento)
+        eventos = Evento.objects.filter(status='andamento')
+        usuarios = Usuariocd.objects.filter(id_usuario=mid)
+        dados = {'msg': msg,
+                 'eventos': eventos,
+                 'usuarios': usuarios}
+        return render(request, 'inscricao.html', dados)
+
+
+@login_required(login_url='/login/')
+def tainscrito(request):
+
+    meuid = User.objects.filter(username=request.user)
+    for m in meuid:
+        mid = m.id
+    eventos = Evento.objects.filter(status='andamento')
+    inscritos = Inscritos.objects.all()
+    usuarios = Usuariocd.objects.filter(id_usuario=mid)
+    dados = {'eventos': eventos,
+             'usuarios': usuarios,
+             'inscritos':inscritos}
+
+    return render(request,'inscritos.html', dados)
+
+@login_required(login_url='/login/')
+def formularios(request):
+    meuid = User.objects.filter(username=request.user)
+    for m in meuid:
+        mid = m.id
+    eventos = Evento.objects.filter(status='andamento')
+    inscritos = Inscritos.objects.all()
+    usuarios = Usuariocd.objects.filter(id_usuario=mid)
+    dados = {'eventos': eventos,
+             'usuarios': usuarios,
+             'inscritos': inscritos}
+
+    return render(request, 'cformulario.html', dados)
+
+@login_required(login_url='/login/')
+def criarformulario(request):
+    meuid = User.objects.filter(username=request.user)
+    for m in meuid:
+        mid = m.id
+    eventos = Evento.objects.filter(status='andamento')
+    inscritos = Inscritos.objects.all()
+    usuarios = Usuariocd.objects.filter(id_usuario=mid)
+    if request.POST['nomeformulario'] and request.POST['c1'] and request.POST['c2'] and request.POST[
+        'c3'] and request.POST['c4'] and request.POST['c5'] and request.POST['c6'] and \
+            request.POST['c7'] and request.POST['c8'] and request.POST['c9'] and request.POST[
+        'c10']:
+        c1 = request.POST['c1']
+        c2 = request.POST['c2']
+        c3 = request.POST['c3']
+        c4 = request.POST['c4']
+        c5 = request.POST['c5']
+        c6 = request.POST['c6']
+        c7 = request.POST['c7']
+        c8 = request.POST['c8']
+        c9 = request.POST['c9']
+        c10 = request.POST['c10']
+        nome_formulario = request.POST['nomeformulario']
+        Formulario.objects.create(
+
+            nome_formulario=nome_formulario,
+            c1=c1,
+            c2=c2,
+            c3=c3,
+            c4=c4,
+            c5=c5,
+            c6=c6,
+            c7=c7,
+            c8=c8,
+            c9=c9,
+            c10=c10,
+            id_evento=0
+        )
+        msg = 'Formulario cadastrado com sucesso! Nome: {}'.format(nome_formulario)
+        dados = {'msg':msg,
+                 'usuarios':usuarios,
+                 }
+        return render(request,'cformulario.html', dados)
+    else:
+        msg = 'Aconteceu algum erro e não cadastrou seu formulário!'
+        dados = {'msg': msg,
+                 'usuarios':usuarios}
+        return render(request, 'cformulario.html', dados)
+@login_required(login_url='/login/')
+def eventos(request):
+    meuid = User.objects.filter(username=request.user)
+    for m in meuid:
+        mid = m.id
+    eventos = Evento.objects.filter(status='andamento')
+    inscritos = Inscritos.objects.all()
+    usuarios = Usuariocd.objects.filter(id_usuario=mid)
+
+    dados = {'eventos':eventos,
+             'inscritos':inscritos,
+             'usuarios':usuarios}
+
+    return render(request,'eventos.html', dados)
+
+@login_required(login_url='/login/')
+def attsenha(request):
+
+    meuid = User.objects.filter(username=request.user)
+    for m in meuid:
+        mid = m.id
+    eventos = Evento.objects.filter(status='andamento')
+    inscritos = Inscritos.objects.all()
+    usuarios = Usuariocd.objects.filter(id_usuario=mid)
+    form_senha = PasswordChangeForm(request.user)
+    dados = {'form_senha':form_senha,
+             'usuarios':usuarios}
+    return render(request, 'atualizarsenha.html', dados)
+
+@login_required(login_url='/login/')
+def mudarsenha(request):
+    data = {}
+    meuid = User.objects.filter(username=request.user)
+    for m in meuid:
+        mid = m.id
+    usuarios = Usuariocd.objects.filter(id_usuario=mid)
+    form_senha = PasswordChangeForm(request.user)
+
+    if request.method == "POST":
+        form_senha = PasswordChangeForm(request.user, request.POST)
+        if form_senha.is_valid():
+            user = form_senha.save()
+            update_session_auth_hash(request, user)
+            msg = 'Senha alterada com sucesso!'
+            data = {'usuarios':usuarios,
+                    'msg':msg,
+                    'form_senha':form_senha}
+            return render(request,'atualizarsenha.html', data)
+    else:
+        data = {'usuarios': usuarios,
+                'form_senha': form_senha}
+    return render(request, 'atualizarsenha.html', data)

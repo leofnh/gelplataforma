@@ -64,7 +64,7 @@ function addTask(description) {
 	newTask.setAttribute('name', criou);
 	newTask.setAttribute('id', description);
 	newTask.setAttribute('value', description);
-	newTask.setAttribute('class', 'form-control mt-2 ');
+	newTask.setAttribute('class', 'form-control mt-2');
 	taskContainer.setAttribute('class', 'text-center')
 	if (criou >= 4){
 	newTask.setAttribute('value', '');

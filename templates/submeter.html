@@ -16,7 +16,12 @@
                     </div>
 
         <div class="container-fluid px-4">
+            <form method="post" id="formautor"
+                            enctype="multipart/form-data"
+                            action="/submetertrabalho/"> {% csrf_token %}
+
             <div class="accordion" id="accordionExample">
+
                 <div class="steps">
                  <progress id="progress" value=0 max=100></progress>
                     <div class="step-item">
@@ -46,15 +51,7 @@
                            Autores
                         </div>
                     </div>
-                  <!--    <div class="step-item">
-                        <button class="step-button text-center collapsed" type="button" data-toggle="collapse"
-                            data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                            4
-                        </button>
-                        <div class="step-title">
-                           Líder
-                        </div>
-                    </div>  -->
+
                 </div>
 
 
@@ -83,11 +80,9 @@
 
 
 
-                 <form method="post" id="formautor"
-                            enctype="multipart/form-data"
-                            action="/submetertrabalho/?id={{id}}"> {% csrf_token %}
 
 
+                     <input id="inputcontagem" name="contagem" type="hidden" value="nada">
                   <div class="d-flex flex-column align-items-center mt-2 text-center">
 
                     <div class="form-group col-4">
@@ -109,13 +104,7 @@
                  <div class="card-footer">
 
                     <div align="right">
-                        <!--
-                        <button  class="btn text-center text-white" type="button" data-toggle="collapse"
-                            data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
-                                   style="background:#ff4040;"
-                         >
-                           Voltar
-                        </button> -->
+
 
                          <button  class="btn text-center text-white"
                                   type="button" data-toggle="collapse"
@@ -233,35 +222,27 @@
                          <input type="submit" class="btn mt-3 text-white" value="Submeter"
                             style="background:#4B5F83;">
 
-                     </form>
+                    </form>
 
-       <!--
-        <div id="list">
 
-        <form id="task-form">
-        <input type="text" id="task-input" name="tarefa" />
-        <button type="submit">Add</button>
-        </form>
-        <form method="POST" id="tasks" action="/teste/">{% csrf_token %}
-            <input id="inputhidden" type="hidden" value="Cadastrar">
-            <input id="inputcontagem" type="hidden" value="">
-        </form>
-        </div>    -->
 
 
                     <div id="list">
                     <form id="task-form">
                      <input class="form-control mt-3" placeholder="Nome do Autor"
                              type="text" id="task-input" name="tarefa" required />
-                    <button type="submit"  class="btn mt-3 text-white"
+                    <button type="submit" for="task-form" class="btn mt-3 text-white"
                             style="background:#4B5F83;">Adicionar Autor</button>
 
                     </form>
 
+
         <form method="POST" id="tasks" action="/teste/">{% csrf_token %}
             <input id="inputhidden" type="hidden" value="Cadastrar">
-            <input id="inputcontagem" type="hidden" value="">
+
         </form>
+
+
 
 
                     </div>

@@ -87,6 +87,7 @@
 
                                             {% for trabalho in trabalho %}
 
+
                                          <tr class="text-center">
                                              <td><font size="2px">{{trabalho.id}}</font></td>
 
@@ -97,7 +98,14 @@
                                             <td>
                                              <!-- aqui tava certo   {% for sessao in sessao %}
                                                  {% if trabalho.sessao == sessao.id %} -->
-                                                <font size="2px">{{trabalho.autor}}</font>
+                                                <font size="2px">{{trabalho.autor}}
+                                                    {% for autores in autores %}
+                                                    {% if autores.id_trabalho == trabalho.id %}
+                                                    -{{autores.nome}}
+                                                    {% endif %}
+                                                    {% endfor %}
+
+                                                </font>
                                              <!--   {% endif %}
                                                 {% endfor %} -->
                                             </td>

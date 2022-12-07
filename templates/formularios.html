@@ -27,14 +27,28 @@
                                       <div class="card-header" style="background:#4B5F83;color:#e2e8f0;">
                                           Eventos
                                       </div>
+
+                                 <div class="card-body">
+
+                              <div align="left">
+
+                                   <a href="/cformulario/" style="text-decoration:none;">
+                                       &nbsp;&nbsp;&nbsp;
+                                       <button class="btn text-white mt-4"
+                                               style="background:#4B5F83;">Criar Formulário</button>
+                                    </a>
+
+                              </div>
+
+
                                 <div class="card-body">
                                   <table class="table" id="datatablesSimple">
                                     <thead>
                                         <tr>
                                              <th><font size="2px">ID</font></th>
-                                            <th><font size="2px">Evento</font></th>
-                                            <th><font size="2px">Local</font></th>
-                                            <th><font size="2px">Área</font></th>
+                                            <th><font size="2px">Nome</font></th>
+                                        <!--    <th><font size="2px">Local</font></th>
+                                            <th><font size="2px">Área</font></th> -->
                                             <th><font size="2px">Ações</font></th>
 
                                         </tr>
@@ -42,35 +56,38 @@
                                     <tfoot>
                                         <tr>
                                             <th><font size="2px">ID</font></th>
-                                            <th><font size="2px">Evento</font></th>
-                                            <th><font size="2px">Local</font></th>
-                                            <th><font size="2px">Modalidade</font></th>
+                                            <th><font size="2px">Nome</font></th>
+                                           <!-- <th><font size="2px">Local</font></th>
+                                            <th><font size="2px">Modalidade</font></th> -->
                                             <th><font size="2px">Ações</font></th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                            {% for eventos in eventos %}
+                                            {% for formulario in formulario %}
                                                                                  <tr>
-                                             <td><font size="2px">{{eventos.id}}</font></td>
-                                            <td><font size="2px">{{ eventos.nome }}  </font></td>
-                                            <td><font size="2px">{{eventos.cidade}}-{{eventos.estado}} </font></td>
-                                            <td><font size="2px">{{eventos.modalidade}}  </font></td>
+                                             <td><font size="2px">{{formulario.id}}</font></td>
+                                            <td><font size="2px">{{formulario.nome_formulario }}  </font></td>
+
+                                          <!--  <td><font size="2px">{{eventos.cidade}}-{{eventos.estado}} </font></td>
+                                            <td><font size="2px">{{eventos.modalidade}}  </font></td> -->
+
                                             <td><font size="2px">
                                                 <form method="POST" action="/editarevento/?id={{eventos.id}}">{% csrf_token %}
                                                 <input type="hidden" name="eventoid" value="{{eventos.id}}">
                                                 <div align="center">
-                                                     <a href="/editarevento/?id={{eventos.id}}">
+                                                     <a href="/editarformulario/?id={{formulario.id}}">
                                                     <img src={% static "assets/lapis.png" %}
                                                          width="15" height="15" /></a>
-
+                                                    <!--
                                                     <a type="button"
                                                        data-toggle="modal"
                                                        data-target="#modalacao{{eventos.id}}">
                                                     <img src={% static "assets/editartrabalho.png" %}
                                                          width="15" height="15" />
                                                     </a>
+                                                    -->
 
-
+<!--
 
       <div class="col-sm-12 modal fade" id="modalacao{{eventos.id}}"
      tabindex="-1" role="dialog"
@@ -91,16 +108,15 @@
       <div class="modal-body">
            <div class="container-fluid" align="center">
 
-               {% for formulario in formulario %}
-               {% if formulario.id_evento == eventos.id %}
+
+
                <div class="mt-1" align="left">
                 {{formulario.nome_formulario}} -
                    <a href="/editarformulario/?id={{formulario.id}}" style="text-decoration:none;">
                        Editar
                    </a>
                </div>
-               {% endif %}
-               {% endfor %}
+
 
           </div>
            <div align="left" class="mt-2 text-secondary mb-0">
@@ -118,7 +134,7 @@
   </div>
 </div>
 
-
+-->
                                                 </div>
                                             </font></td>
                                         </tr>

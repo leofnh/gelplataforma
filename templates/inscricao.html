@@ -18,15 +18,17 @@
   <div class="card-body">
 
 
-  <form class="form-inline col-6">
+  <form class="form-inline col-6" action="/inscreveruser/" method="POST"> {% csrf_token %}
+
+ <!--
    <div class="card">
-       <div class="card-header bg-primary text-white text-center">
+       <div class="card-header text-white text-center" style="background:#4B5F83;">
            <h6>Dados Pessoais</h6>
            </div>
            <div class="card-body">
 
               <label class="sr-only" for="inlineFormInputName2">Nome Completo</label>
-  <input name="nome" type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Joao Augusto">
+  <input name="nome" type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Joao Augusto" required>
   <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
 
     <div class="input-group mb-2 mr-sm-2">
@@ -35,7 +37,7 @@
           @
       </div>
     </div>
-    <input name="email" type="email" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Email">
+    <input name="email" type="email" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Email" required>
     </div>
 
     <label class="sr-only" for="inlineFormInputGroupUsername3">Nome da instituição de vínculo</label>
@@ -46,7 +48,7 @@
       </div>
     </div>
     <input name="instituicao" type="text" class="form-control"
-           id="inlineFormInputGroupUsername3" placeholder="Instituição">
+           id="inlineFormInputGroupUsername3" placeholder="Instituição" required>
     </div>
 
 
@@ -58,7 +60,7 @@
       </div>
     </div>
     <input name="cidade" type="text" class="form-control"
-           id="cidade" placeholder="São Paulo">
+           id="cidade" placeholder="São Paulo" required>
     </div>
 
     <label class="sr-only" for="estado">Estado</label>
@@ -69,17 +71,18 @@
       </div>
     </div>
     <input name="estado" type="text" class="form-control"
-           id="estado" placeholder="São Paulo">
+           id="estado" placeholder="São Paulo" required>
     </div>
-    <label class="sr-only" for="estado">CPF/PASSAPORTE</label>
+
+    <label class="sr-only" for="cpf">CPF/PASSAPORTE</label>
     <div class="input-group mb-2 mr-sm-2">
     <div class="input-group-prepend">
       <div class="input-group-text">
       CPF/PASSAPORTE
       </div>
     </div>
-    <input name="doc" type="text" class="form-control"
-           id="doc">
+    <input name="cpf"  class="form-control"
+           id="cpf" required>
     </div>
 
 
@@ -87,69 +90,87 @@
 
        </div>
 
-
+-->
 
 
 
 <div class="card mt-4">
-    <div class="card-header bg-primary text-white text-center">
+    <div class="card-header text-white text-center" style="background:#4B5F83;">
         <h6>Modalidade</h6>
     </div>
     <div class="card-body">
         <div class="form-check">
-  <input class="form-check-input" type="radio" name="modalidade" id="flexRadioDefault1">
+  <input class="form-check-input" type="radio" value="presencial"
+         name="modalidade" id="flexRadioDefault1">
   <label class="form-check-label" for="flexRadioDefault1">
     Presencial
   </label>
 </div>
 <div class="form-check">
-  <input class="form-check-input" type="radio" name="modalidade" id="flexRadioDefault2" checked>
+  <input class="form-check-input" type="radio" value="virtual"
+         name="modalidade" id="flexRadioDefault2" checked>
   <label class="form-check-label" for="flexRadioDefault2">
     Virtual
   </label>
 </div>
+        <div class="form-group mt-2 col-10">
+
+        <select class="form-control" id="eventos" name="evento">
+            {% for eventos in eventos %}
+            <option value="{{eventos.id}}">{{eventos.nome}}</option>
+            {% endfor %}
+        </select>
+        </div>
+
+
 
     </div>
+
+
 </div>
 
 
 <div class="card mt-4">
-    <div class="card-header bg-primary text-center text-white">
+    <div class="card-header text-center text-white" style="background:#4B5F83;">
         <h6>Pagamento</h6>
     </div>
 <div class="card-body">
 
 
   <div class="form-check">
-  <input class="form-check-input" type="radio" name="pagamento" id="flexRadioDefault1">
+  <input class="form-check-input" type="radio"
+         name="pagamento" id="flexRadioDefault1" value="100">
   <label class="form-check-label" for="flexRadioDefault1">
     R$ 100,00 - Estudantes de graduação
   </label>
 </div>
 <hr>
 <div class="form-check mt-2">
-  <input class="form-check-input" type="radio" name="pagamento" id="flexRadioDefault2" checked>
+  <input class="form-check-input" type="radio" name="pagamento"
+         id="flexRadioDefault2" value="145" checked>
   <label class="form-check-label" for="flexRadioDefault2">
     R$ 145,00 - Associados Individuais ou pessoas vinculadas a Associados Institucionais
   </label>
 </div>
 <hr>
 <div class="form-check mt-2">
-  <input class="form-check-input" type="radio" name="pagamento" id="flexRadioDefault2" checked>
+  <input class="form-check-input" value="160"
+         type="radio" name="pagamento" id="flexRadioDefault2" checked>
   <label class="form-check-label" for="flexRadioDefault2">
     R$ 160,00 - Estudantes pós-graduandos
   </label>
 </div>
 <hr>
 <div class="form-check mt-2">
-  <input class="form-check-input" type="radio" name="pagamento" id="flexRadioDefault2" checked>
+  <input class="form-check-input" type="radio" value="290"
+         name="pagamento" id="flexRadioDefault2" checked>
   <label class="form-check-label" for="flexRadioDefault2">
    R$ 290,00 - Professores, práticos, pesquisadores
   </label>
 </div>
 <hr>
 <label>Comprovante</label>
-<input type="file" class="form-control mt-2" name="comprovante">
+<input type="file" class="form-control mt-2" name="comprovante" required>
 </div>
 </div>
 
@@ -157,7 +178,7 @@
 
 <div class="card-footer">
     <div align="right">
-    <button type="submit" class="btn btn-primary mb-2">Inscrever</button>
+    <button type="submit" class="btn mb-2 text-white" style="background:#4B5F83;">Inscrever</button>
     </div>
 </div>
 
