@@ -66,7 +66,11 @@
                                             <th class="text-center"><font size="2px">Sessão</font></th>
                                             <th class="text-center"><font size="2px">Trabalho</font></th>
                                             <th class="text-center"><font size="2px">Nota</font></th>
+                                            {% for usuarios in usuarios %}
+                                            {% if usuarios.gestor_plataform == 'sim' %}
                                             <th class="text-center"><font size="2px">Ações</font></th>
+                                            {% endif %}
+                                            {% endfor %}
                                              <th class="text-center"><font size="2px">Situação</font></th>
 
                                         </tr>
@@ -142,15 +146,14 @@
 
 
                                               </td>
+                                             {% for usuarios in usuarios %}
+                                            {% if usuarios.gestor_plataforma == 'sim' %}
                                             <td align="center">
 
                                                <a type="button"
                                                   data-toggle="modal"
                                                   data-target="#modalacao{{trabalho.id}}"
                                                   >
-                                                    <!--
-                                              <img width="15" height="15" class="horario"
-                                                    src={% static "assets/img/engrenagem2.png" %} /> -->
 
                                                    <img class="horario"
                                                         src={% static "assets/enggira.png" %} width="15" height="15" />
@@ -251,6 +254,8 @@
 </form>
 
                                             </td>
+                                             {% endif %}
+                                             {% endfor %}
 
                                              <td class="text-center">
 
