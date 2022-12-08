@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div id="layoutSidenav_content" style="background:#e2e8f0;">
+
+                <main>
+
+                    <div class="container-fluid px-4">
+
+                        <h1 class="mt-4" style="color:#4B5F83;">Usuários inscritos</h1>
+                        {% if msg %}
+                        <font color="red">Alerta:</font>{{msg}}
+                        {% endif %}
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="#" style="text-decoration:none;">Eventos</a></li>
+                            <li class="breadcrumb-item active">Avaliações</li>
+                        </ol>
+
+
+                                <p class="mb-0">
+
+
+
+
+                                 <!-- tabelas iniciando aqui -->
+                                <div class="card">
+                                <div class="card-header text-white" style="background:#4B5F83;">
+                                   Lista de inscritos
+
+
+                                </div>
+                        <div class="card-body">
+
+                              <div class="mt-2" align="right">
+
+                                   <a href="/submeter/">
+                                       <button class="btn text-white mt-4" style="background:#4B5F83;">Submeter</button>
+                                    </a>
+
+                              </div>
+                        </div>
+
+                        <div class="card-body">
+
+
+                                  <table class="table " id="datatablesSimple">
+                                    <thead class="text-center">
+                                        <tr>
+                                             <th class="text-center"><font size="2px">ID</font></th>
+                                            <th class="text-center"><font size="2px">Nome</font></th>
+                                            <th class="text-center"><font size="2px">Cidade</font></th>
+                                          <th class="text-center"><font size="2px">Modalidade</font></th>
+                                          <th class="text-center"><font size="2px">Instituicao</font></th>
+                                          <th class="text-center"><font size="2px">Evento</font></th>
+
+
+
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                             <th class="text-center"><font size="2px">ID</font></th>
+                                            <th class="text-center"><font size="2px">Nome</font></th>
+                                            <th class="text-center"><font size="2px">Cidade</font></th>
+                                          <th class="text-center"><font size="2px">Modalidade</font></th>
+                                          <th class="text-center"><font size="2px">Instituicao</font></th>
+                                          <th class="text-center"><font size="2px">Evento</font></th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+
+                                            {% for eventos in eventos %}
+                                            {% for inscritos in inscritos %}
+                                            {% if inscritos.evento == eventos.id %}
+
+                                         <tr class="text-center">
+                                             <td><font size="2px">{{inscritos.id_user}}</font></td>
+
+                                            <td>
+                                                <font size="2px">{{inscritos.nome}}</font>
+                                            </td>
+
+                                             <td>
+                                                <font size="2px">{{inscritos.cidade}}</font>
+                                            </td>
+
+                                             <td>
+                                                <font size="2px">{{inscritos.modalidade}}</font>
+                                            </td>
+
+                                             <td>
+                                                <font size="2px">{{inscritos.instituicao}}</font>
+                                            </td>
+
+                                             <td>
+                                                <font size="2px">{{eventos.nome}}</font>
+                                            </td>
+
+                                        </tr>
+                                            {% endif %}
+                                            {% endfor %}
+                                            {% endfor %}
+
+                                    </tbody>
+                                </table>
+
+
+                                    <div align="right">
+
+                                    <a href="/submeter/">
+                                       <button class="btn text-white mt-4" style="background:#4B5F83;">Submeter</button>
+                                    </a>
+
+                                    </div>
+
+                        </div>
+                    </div>
+
+
+                                <!-- tabela terminando aqui -->
+                                </p>
+                    </div>
+
+
+
+
+
+                </main>
+
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Desenvolvido por G&L Plataformas</div>
+                            <div>
+                                <a href="#">Politica de Privacidade</a>
+                                &middot;
+                                <a href="#">Termos e Condições</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+
+
+{% endblock %}

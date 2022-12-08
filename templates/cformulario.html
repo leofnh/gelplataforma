@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div id="layoutSidenav_content" style="background:#e2e8f0;">
+                <main>
+
+<div class="container-fluid">
+   <div class="row">
+     <div class="col-sm-12 mb-3 mt-4">
+       <div class="card h-100">
+                  <div class="card-header text-center text-white" style="background:#4B5F83;">
+                        Formulário
+                    </div>
+           {% if msg %}
+           <div class="card-body" align="center">
+               <div class="bg-warning text-center col-8 text-white">
+                   <h6 class="mb-0">{{msg}}</h6>
+               </div>
+           </div>
+           {% endif %}
+               <form method="POST" action="/criarformulario/">{% csrf_token %}
+
+                <div class="card-body">
+
+                  <div class="d-flex flex-column align-items-center text-center col-12">
+
+                        <p class="text-secondary col-12">
+
+
+                                                <label>Nome do Formulário</label>
+                                                <input name="nomeformulario" class="form-control col-12" required>
+                                                <hr>
+                                                <label class="text-secondary">Critérios</label>
+                                                <input name="c1" class="form-control col-12 mt-2" required>
+                                                <input name="c2" class="form-control col-12 mt-2" required>
+                                                <input name="c3" class="form-control col-12 mt-2" required>
+                                                <input name="c4" class="form-control col-12 mt-2" required>
+                                                <input name="c5" class="form-control col-12 mt-2" required>
+                                                <input name="c6" class="form-control col-12 mt-2" required>
+                                                <input name="c7" class="form-control col-12 mt-2" required>
+                                                <input name="c8" class="form-control col-12 mt-2" required>
+                                                <input name="c9" class="form-control col-12 mt-2" required>
+                                                <input name="c10" class="form-control col-12 mt-2" required>
+
+
+
+
+                        </p>
+                  </div>
+                </div>
+                   <div class="card-footer" align="right" style="background:#e2e8f0;">
+                       <input type="submit"
+                              class="btn text-white"
+                              value="Criar"
+                       style="background:#4B5F83;">
+                   </div>
+
+                     </form>
+              </div>
+      </div>
+
+                </div>
+            </div>
+             </form>
+                </main>
+
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Desenvolvido por G&L Plataformas</div>
+                            <div>
+                                <a href="#">Politica de Privacidade</a>
+                                &middot;
+                                <a href="#">Termos e Condições</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+
+{% endblock %}
