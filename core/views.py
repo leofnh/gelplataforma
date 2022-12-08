@@ -452,7 +452,7 @@ def editarevento(request):
         mid = m.id
     usuarios = Usuariocd.objects.filter(id_usuario=mid)
     eventos = Evento.objects.filter(status='andamento')
-    formulario = Formulario.objects.filter(id_evento=id)
+    formulario = Formulario.objects.all()
     evento = Evento.objects.filter(id=id)
     sessao = Sessoes.objects.filter(id_evento=id)
     contar_formulario = Formulario.objects.filter(id_evento=id).aggregate(sum_total=Count('id'))
@@ -556,7 +556,7 @@ def criarsessao(request):
                   'msg':msg,
                   'usuarios':usuarios}
 
-        return render(request,'addsessao.html', dados)
+        return render(request,'editarevento.html', dados)
 
     else:
         msg2 = 'Escolha um líder!'
@@ -565,7 +565,7 @@ def criarsessao(request):
                  'msg2': msg2,
                  'usuarios':usuarios}
 
-        return render(request, 'addsessao.html', dados)
+        return render(request, 'editarevento.html', dados)
 
 @login_required(login_url='/login/')
 def inscrever(request):
@@ -1310,17 +1310,21 @@ def arquivos(request):
     meuid = User.objects.filter(username=request.user)
     for m in meuid:
         mid = m.id
+
     usuarios = Usuariocd.objects.filter(id_usuario=mid)
     avaliados = Submissao.objects.filter(a1=mid)
     avaliados2 = Submissao.objects.filter(a2=mid)
     avaliados3 = Submissao.objects.filter(a3=mid)
     sessao = Sessoes.objects.all()
-    arquivos = avaliados and avaliados2 and avaliados3
+    #arquivos = avaliados and avaliados2 and avaliados3
 
     dados = {'usuarios': usuarios,
               'arquivos':arquivos,
-             'sessao':sessao
-                     }
+             'sessao':sessao,
+             'avaliados':avaliados,
+             'avaliados2':avaliados2,
+             'avaliados3':avaliados3
+             }
     return render(request, 'arquivos.html', dados)
 
 @login_required(login_url='/login/')
@@ -1548,3 +1552,24 @@ def mudarsenha(request):
         data = {'usuarios': usuarios,
                 'form_senha': form_senha}
     return render(request, 'atualizarsenha.html', data)
+
+@login_required(login_url='/login/')
+
+def editsessao(request):
+
+    nome = request.POST['nomesessao']
+    descricao = request.POST['sessaodescricao']
+    sessaotema = request.POST['sessaotema']
+    sessaoform = request.POST['sessaoform']
+    idsessao = request.POST['idsessao']
+
+    Sessoes.objects.filter(id=idsessao).update(
+
+        nome=nome,
+        descricao=descricao,
+        tema=sessaotema,
+        formulario=sessaoform,
+    )
+
+    return redirect('/editarevento/?id={}'.format(idsessao))
+

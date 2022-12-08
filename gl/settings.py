@@ -19,7 +19,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['gelplataforma.onrender.com']
 #ALLOWED_HOSTS = ['181.215.134.211']
-#ALLOWED_HOSTS = []
+ALLOWED_HOSTS = []
 
 
 # Application definition

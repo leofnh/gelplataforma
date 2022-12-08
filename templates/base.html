@@ -144,8 +144,15 @@
                             <a class="nav-link" href="/submetidos/" style="color:#e2e8f0;">
                                 <div class="sb-nav-link-icon" style="color:#e2e8f0;"><i class="bi bi-archive"></i></div>
                                 <div style="color:#e2e8f0;">Submissões</div>
-
-                                </a>
+                            </a>
+                            {% for usuarios in usuarios %}
+                            {% if usuarios.avaliador == 'sim' %}
+                            <a class="nav-link" href="/avaliartrabalho/" style="color:#e2e8f0;">
+                                <div class="sb-nav-link-icon" style="color:#e2e8f0;"><i class="bi bi-file-font"></i></div>
+                                <div style="color:#e2e8f0;">Avaliações</div>
+                            </a>
+                            {% endif %}
+                            {% endfor %}
                            <!--  <div class="sb-sidenav-menu-heading" style="color:#e2e8f0;">
                                 GESTÃO
                             </div> -->

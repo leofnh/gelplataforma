@@ -14,7 +14,7 @@
 
 
 
-                        <section>
+
         <div class="container">
             <div class="accordion" id="accordionExample">
                 <div class="steps">
@@ -43,7 +43,7 @@
                             3
                         </button>
                         <div class="step-title">
-                           Folha de Rosto
+                           Sessões
                         </div>
                     </div>
 
@@ -200,18 +200,13 @@
                        </select>
                       </div>
                       <div class="mt-2">
-                          {% if formulario %}
+
                           <select class="form-control col-10" name="formulario" required>
                               {% for formulario in formulario %}
                               <option value="{{formulario.id}}">{{formulario.nome_formulario}}</option>
                               {% endfor %}
                           </select>
-                           {% else %}
-                                Não existe formulário para este Evento!
-                          <a href="/editarevento/?id={{id}}" style="text-decoration:none; color:black;">
-                             <span class="btn btn-primary">Editar</span>
-                          </a>
-                           {% endif %}
+
                       </div>
                       <div class="mt-2">
                         <input class="form-control col-8" name="tema"
@@ -220,8 +215,8 @@
                       <div class="mt-3" align="right">
                         <input type="submit" class="btn btn-primary" value="Criar sessão">
                       </div>
+                      </form>
 
-                    </div>
                   </div>
                 </div>
 
@@ -234,13 +229,163 @@
                     </div>
                 </div>
                 <div class="card">
-                    <div  id="headingThree">
+                    <div  id="headingThree col-12">
 
                     </div>
                     <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
                         data-parent="#accordionExample">
                         <div class="card-body">
-                        Manutenção...
+                           <div class="card">
+
+                                      <div class="card-header" style="background:#4B5F83;color:#e2e8f0;">
+                                         Sessões
+                                      </div>
+
+                                <div class="card-body">
+                                  <table  class="table" id="datatablesSimple">
+                                    <thead >
+                                        <tr >
+                                            <th class="text-center"><font size="2px">Nome</font></th>
+                                          <!--
+                                            <th><font size="2px">Descricao</font></th>
+                                            <th><font size="2px">Tema</font></th>
+                                            <th><font size="2px">Líder</font></th>
+                                          -->
+                                            <th class="text-center"><font size="2px">Ações</font></th>
+
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th><font size="2px">Nome</font></th>
+                                            <th><font size="2px">Descricao</font></th>
+                                            <th><font size="2px">Tema</font></th>
+                                            <th><font size="2px">Líder</font></th>
+                                            <th><font size="2px">Ações</font></th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                      {% for sessao in sessao %}
+                                      <tr>
+                                      <td class="text-center">
+                                          {{sessao.nome}}
+                                      </td>
+                                      <!--
+                                      <td>
+                                          {{sessao.descricao}}
+                                      </td>
+                                     <td>
+                                         {{sessao.tema}}
+                                     </td>
+                                    <td>
+                                        {{sessao.lider}}
+                                    </td>
+                                    -->
+                                    <td class="text-center">
+
+                                         <a type="button"
+                                                  data-toggle="modal"
+                                                  data-target="#modalacao{{sessao.id}}"
+                                                  >
+
+                                                   <img class="horario"
+                                                        src={% static "assets/enggira.png" %} width="15" height="15" />
+                                                </a>
+
+
+<form action="/editsessao/" method="post">
+
+      <div class="col-sm-12 modal fade" id="modalacao{{sessao.id}}"
+     tabindex="-1" role="dialog"
+     aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-white" style="background:#4B5F83;">
+
+        <h5 class="modal-title"
+            id="TituloModalCentralizado">
+            Ações
+        </h5>
+        <a type="button" class="close" data-dismiss="modal" aria-label="Fechar"
+           style="background:#4B5F83;text-decoration:none;">
+          <span  aria-hidden="true" class="text-white">&times;</span>
+        </a>
+      </div>
+      <div class="modal-body text-center">
+
+        <div class="form-group col-12 text-center">
+
+
+            <label>Nome:</label>
+            <input class="form-control col-5 mt-2"
+                   name="nomesessao" value="{{sessao.nome}}" required>
+            <label class="mt-2">Descrição</label>
+            <input class="form-control col-4 mt-2"
+                   name="sessaodescricao"
+                   value="{{sessao.descricao}}" required>
+
+            <label class="mt-2">Tema</label>
+            <input class="form-control col-4 mt-2" name="sessaotema"
+                   value="{{sessao.tema}}" required>
+
+            <label class="mt-2">Formulario</label>
+            <select class="form-control" name="sessaoform" required>
+
+                <option value="{{sessao.formulario}}" selected>
+                    {% for formulario in formulario %}
+                    {% if formulario.id == sessao.formulario %}
+                    {{formulario.nome_formulario}}
+                    {% endif %}
+                    {% endfor %}
+
+                </option>
+                {% for formulario in formulario %}
+                <option value="{{formulario.id}}">
+                    {{formulario.nome_formulario}}
+                </option>
+                {% endfor %}
+            </select>
+            <input value="{{sessao.id}}" name="idsessao">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <input type="submit" class="btn text-white" style="background:#4B5F83;" value="Atualizar">
+      </div>
+
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+
+
+
+      </div>
+
+</form>
+
+
+
+</td>
+
+
+                                    </tr>
+                                    {% endfor %}
+
+
+                                    </tbody>
+                                  </table>
+
+
+
+
+
                         </div>
                     </div>
                 </div>
@@ -258,252 +403,10 @@
                 </div>
             </div>
         </div>
-    </section>
-
-
-                           <!--
-
-                                <p class="mb-0">
-                                <div class="row gutters-sm mt-4">
-         <div class="col-md-6">
-              <div class="card mb-3">
-                <div class="card-body">
-                 <div class="row" >
-                    <div class="col-sm-12 text-center card-header text-center text-white"
-                    style="background:#4B5F83;">
-
-                      <h6 class="mb-0" >Alterando Evento </h6>
-                    </div>
-                  </div>
-
-                  <div class="row mt-4">
-                    <div class="col-sm-3" >
-                    {% for evento in evento %}
-
-
-                     <form method="post" action="/alterarevento/?id={{evento.id}}"> {% csrf_token %}
-                      <h6 class="mb-0">Nome</h6>
-
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                    <input class="form-control"
-                           name="nome"
-                           value="{{evento.nome}}">
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Cidade</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                    <input type="text"
-                           name="cidade"
-                           value="{{evento.cidade}}" class="form-control">
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Estado</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                    <input class="form-control"
-                           name="estado"
-                           value="{{evento.estado}}" type="text">
-
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Modalidade</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                     <input type="text" name="modalidade"
-                            value="{{evento.modalidade}}"
-                            class="form-control">
-                    </div>
-                  </div>
-
-                  <hr>
-
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Data e Hora</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                    {{evento.get_data_evento}} <input class="form-control col-5"
-                                                      name="datahora"
-                                                      type="datetime-local">
-                    </div>
-                  </div>
-
-                   <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Status</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                        {{evento.status}}
-                     </div>
-                    </div>
-                    <hr>
-
-
-                    <div class="row">
-                    <div class="col-sm-3">
-
-                    </div>
-                    <div class="col-sm-9 text-secondary" align="right">
-                          <a class="btn btn-warning text-white" href="#"
-                                 data-toggle="modal"
-                                  data-target="#modalcriterio">
-                                 Criar Formulário
-                          </a>
-                          <input type="submit" class="btn btn-primary" value="Salvar">
-                     </div>
-                    </div>
-                      {% endfor %}
-                </div>
-              </div>
-
-
- </form>
 
 
 
 
-        </div>
-
-
-
-                         <div class="col-md-6">
-         <div class="card mb-2 col-sm-12">
-                <div class="card-body">
-                  <div class="row" >
-                    <div class="col-sm-12 text-white card-header text-center"
-                         style="background:#4B5F83;">
-                      <h6 class="mb-0" >Sessões deste Evento</h6>
-                    </div>
-                  </div>
-                    <hr>
-                 {% for sessao in sessao %}
-                 <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">{{sessao.tema}}</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-
-                    {{sessao.descricao}}
-
-                    </div>
-                  </div>
-                  <hr>
-                {% endfor %}
-         </div>
-     </div>
-    </div>
-
-</div>
-
-
-
-
-<form action="/addcriterio/?id={{id}}" method="post">{% csrf_token %}
-<div class="col-sm-12 modal fade" id="modalcriterio"
-     tabindex="-1" role="dialog"
-     aria-labelledby="TituloModalCentralizado" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-white" style="background:#4B5F83;">
-
-        <h5 class="modal-title"
-            >
-           Criando Formulário
-        </h5>
-        <a type="button" class="close" data-dismiss="modal" aria-label="Fechar"
-        style="text-decoration:none;">
-          <span aria-hidden="true" class="text-white">&times;</span>
-        </a>
-      </div>
-      <div class="modal-body">
-           <div class="container-fluid" align="center">
-
-
-              <div class="text-secondary mb-1">
-                  <h6 class="mb-3">Formule 10 Critérios</h6>
-                  <font size="2px">Cada critério equivale à 10 pontos</font>
-              </div>
-          </div>
-          <div align="center">
-              <input class="form-control col-8 mt-3" placeholder="Nome do Formulário"
-                     name="nomeformulario" required>
-          </div>
-          <input type="hidden" class="form-control col-8 mt-3" name="idevento" value="{{id}}">
-          <div align="center">
-              <input class="form-control col-8 mt-3" placeholder="Critério" name="criterio" required>
-          </div>
-
-          <div align="center">
-              <input class="form-control col-8 mt-3" placeholder="Critério" name="criterio1" required>
-          </div>
-
-          <div align="center">
-              <input class="form-control col-8 mt-3" placeholder="Critério" name="criterio2" required>
-          </div>
-
-          <div align="center">
-              <input class="form-control col-8 mt-3" placeholder="Critério" name="criterio3" required>
-          </div>
-
-          <div align="center">
-              <input class="form-control col-8 mt-3" placeholder="Critério" name="criterio4" required>
-          </div>
-          <div align="center">
-              <input class="form-control col-8 mt-3" placeholder="Critério" name="criterio5" required>
-          </div>
-
-          <div align="center">
-              <input class="form-control col-8 mt-3" placeholder="Critério" name="criterio6" required>
-          </div>
-
-          <div align="center">
-              <input class="form-control col-8 mt-3" placeholder="Critério" name="criterio7" required>
-          </div>
-
-          <div align="center">
-              <input class="form-control col-8 mt-3" placeholder="Critério" name="criterio8" required>
-          </div>
-
-          <div align="center">
-              <input class="form-control col-8 mt-3" placeholder="Critério" name="criterio9" required>
-          </div>
-          <input type="hidden" class="form-control col-8 mt-3" name="idevento" value="{{id}}">
-
-
-          <div align="left" class="mt-2 text-secondary mb-0">
-              {% for evento in evento %}
-              <font size="2px">Evento:</font> <font size="1px">{{evento.nome}}
-          - {{evento.get_data_evento}}</font>
-              {% endfor %}
-          </div>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-        <input type="submit" class="btn text-white" style="background:#4B5F83;" value="Adicionar">
-      </div>
-    </div>
-  </div>
-</div>
-</form>
-
-                                </p>
-
-
-
-                                     </div> -->
                 </main>
     <br>
 

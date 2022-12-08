@@ -29,6 +29,7 @@
                                       <div class="card-header" style="background:#4B5F83;color:#e2e8f0;">
                                           Suas avaliações
                                       </div>
+
                                 <div class="card-body">
                                   <table  class="table" id="datatablesSimple">
                                     <thead >
@@ -53,17 +54,18 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                            {% for arquivos in arquivos %}
+                                            {% for avaliados in avaliados %}
+
                                              <tr class="text-center">
-                                             <td><font size="2px">{{arquivos.id}}</font></td>
+                                             <td><font size="2px">{{avaliados.id}}</font></td>
 
                                                  <td>
-                                                {{arquivos.titulo}}
+                                                {{avaliados.titulo}}
                                                  </td>
 
                                             <td>
                                                 {% for sessao in sessao %}
-                                                {% if sessao.id == arquivos.sessao %}
+                                                {% if sessao.id == avaliados.sessao %}
                                                 <font size="2px">
                                                 {{ sessao.nome }}
                                                 </font></td>
@@ -74,7 +76,7 @@
 
                                                 <font size="2px">
                                                 <font size="2px">
-                                                <a href="/media/{{arquivos.trabalho}}"
+                                                <a href="/media/{{avaliados.trabalho}}"
                                                 style="text-decoration:none;"
                                                 target="_blank" rel="noopener noreferrer">
                                                     <img height="15" width="15"
@@ -84,25 +86,112 @@
 
                                                 </font></td>
                                           <td>
-                                              {% if arquivos.status == 'aprovado' %}
+                                              {% if avaliados.status == 'aprovado' %}
                                               <img width="15" height="15"
                                                    src={% static "assets/aprovado.png" %}>
-                                              {% elif arquivos.status == 'reprovado' %}
+                                              {% elif avaliados.status == 'reprovado' %}
                                               <img width="20" height="20"
                                                    src={% static "assets/reprovado.png" %}>
-                                              {% elif arquivos.status == 'avaliacao' %}
+                                              {% elif avaliados.status == 'avaliacao' %}
                                               <img width="15" height="15"
                                                    src={% static "assets/ampulheta.png" %}>
                                               {% endif %}
                                         </td>
 
                                         </tr>
+                                                {% endfor %}
+
+                                    {% for avaliados2 in avaliados2 %}
+                                    <tr class="text-center">
+                                             <td><font size="2px">{{avaliados2.id}}</font></td>
+
+                                                 <td>
+                                                {{avaliados2.titulo}}
+                                                 </td>
+
+                                            <td>
+                                                {% for sessao in sessao %}
+                                                {% if sessao.id == avaliados2.sessao %}
+                                                <font size="2px">
+                                                {{ sessao.nome }}
+                                                </font></td>
+                                                 {% endif %}
+                                                 {% endfor %}
+
+                                            <td>
+
+                                                <font size="2px">
+                                                <font size="2px">
+                                                <a href="/media/{{avaliados2.trabalho}}"
+                                                style="text-decoration:none;"
+                                                target="_blank" rel="noopener noreferrer">
+                                                    <img height="15" width="15"
+                                                            src={% static "assets/pdficon.png" %}>
+                                                </a>
+                                            </font>
+
+                                                </font></td>
+                                          <td>
+                                              {% if avaliados2.status == 'aprovado' %}
+                                              <img width="15" height="15"
+                                                   src={% static "assets/aprovado.png" %}>
+                                              {% elif avaliados2.status == 'reprovado' %}
+                                              <img width="20" height="20"
+                                                   src={% static "assets/reprovado.png" %}>
+                                              {% elif avaliados2.status == 'avaliacao' %}
+                                              <img width="15" height="15"
+                                                   src={% static "assets/ampulheta.png" %}>
+                                              {% endif %}
+                                        </td>
+
+                                        </tr>
+                                                {% endfor %}
 
 
+                                    {% for avaliados3 in avaliados3 %}
+                                    <tr class="text-center">
+                                             <td><font size="2px">{{avaliados3.id}}</font></td>
 
+                                                 <td>
+                                                {{avaliados3.titulo}}
+                                                 </td>
 
+                                            <td>
+                                                {% for sessao in sessao %}
+                                                {% if sessao.id == avaliados3.sessao %}
+                                                <font size="2px">
+                                                {{ sessao.nome }}
+                                                </font></td>
+                                                 {% endif %}
+                                                 {% endfor %}
 
+                                            <td>
 
+                                                <font size="2px">
+                                                <font size="2px">
+                                                <a href="/media/{{avaliados3.trabalho}}"
+                                                style="text-decoration:none;"
+                                                target="_blank" rel="noopener noreferrer">
+                                                    <img height="15" width="15"
+                                                            src={% static "assets/pdficon.png" %}>
+                                                </a>
+                                            </font>
+
+                                                </font></td>
+                                          <td>
+                                              {% if avaliados3.status == 'aprovado' %}
+                                              <img width="15" height="15"
+                                                   src={% static "assets/aprovado.png" %}>
+                                              {% elif avaliados3.status == 'reprovado' %}
+                                              <img width="20" height="20"
+                                                   src={% static "assets/reprovado.png" %}>
+                                              {% elif avaliados3.status == 'avaliacao' %}
+                                              <img width="15" height="15"
+                                                   src={% static "assets/ampulheta.png" %}>
+                                              {% endif %}
+                                        </td>
+
+                                        </tr>
                                                 {% endfor %}
 
 
