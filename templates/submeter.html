@@ -198,13 +198,24 @@
                            <label>Autores:</label>
                            {% if usuarios %}
                            {% for usuarios in usuarios %}
+
                            <input class="mt-2 form-control" name="autor1"
                                   placeholder="Autor" value="{{usuarios.nome}}">
+                           <input class="mt-2 form-control mt-2" name="emaila1"
+                                  placeholder="Autor" value="{{usuarios.email}}">
+                           <input class="mt-2 form-control mt-2" name="insta1"
+                                  placeholder="Autor" value="{{usuarios.instituicao}}">
+
+
+
                            {% endfor %}
                            {% else %}
                            <input class="mt-2 form-control" name="autor1"
                                   placeholder="Autor" aria-placeholder="Preencha um nome!" required>
+
                            {% endif %}
+
+
 
                        </div>
                    </div>
@@ -229,8 +240,16 @@
 
                     <div id="list">
                     <form id="task-form">
+
                      <input class="form-control mt-3" placeholder="Nome do Autor"
                              type="text" id="task-input" name="tarefa" required />
+
+                     <input class="form-control mt-3" placeholder="Email do Autor"
+                             type="text" id="task-email" name="email" required />
+
+                     <input class="form-control mt-3" placeholder="Instituição do Autor"
+                             type="text" id="task-instituicao" name="instituicao" required />
+
                     <button type="submit" for="task-form" class="btn mt-3 text-white"
                             style="background:#4B5F83;">Adicionar Autor</button>
 

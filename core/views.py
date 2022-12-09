@@ -33,8 +33,10 @@ def logar(request):
 
 def novocadastrar(request):
     data = {}
-    data['msg'] = 'Algo deu errado, por favor tente outra vez!'
+
+
     if request.method == "GET":
+        data['msg'] = 'Algo deu errado, por favor tente outra vez!'
         return render(request,'novocadastro.html', data)
     else:
 
@@ -330,15 +332,18 @@ def submetertrabalho(request):
                 if contagem > 3:
                     contagem = 3
                 maisum = 0
-
+                ummais = 1
 
                 while maisum <= contagem:
 
                     Autores.objects.create(
                         nome = request.POST['{}'.format(maisum)],
+                        email = request.POST['email{}'.format(ummais)],
+                        instituicao = request.POST['inst{}'.format(ummais)],
                         id_trabalho = id_trabalho
                     )
                     maisum += 1
+                    ummais += 1
 
             mensagem = 'Olá, {} você acabou de submeter um trabalho, aguarde até que ele seja avaliado, você será avisado por e-mail. Titulo do trabalho {}, autor {}'.format(nome, titulo, autor1)
 
@@ -354,7 +359,7 @@ def submetertrabalho(request):
                          'evento':evento,
                          'sessao':sessao,
                      'usuarios':usuarios}
-            return render(request,'submeter.html', dados)
+            return redirect('/submetidos/')
         else:
             msg = 'Selecione seu trabalho para enviar!'
             sessao = Sessoes.objects.filter(id_evento=id_evento)

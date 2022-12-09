@@ -160,4 +160,6 @@ class Autores(models.Model):
 
     data = models.DateTimeField(auto_now=True)
     nome = models.CharField(max_length=300)
+    instituicao = models.CharField(max_length=150)
+    email = models.EmailField()
     id_trabalho = models.BigIntegerField()

@@ -30,16 +30,61 @@ form.onsubmit = function (e) {
 
 	e.preventDefault();
 	const inputField = document.getElementById('task-input');
+	const inputField2 = document.getElementById('task-email');
+	const inputField3 = document.getElementById('task-instituicao');
 	addTask(inputField.value);
+	addTask2(inputField2.value);
+	addTask3(inputField3.value);
 	form.reset();
 };
 
-function addTask(description) {
 
+function addTask2(description) {
+const taskContainer = document.createElement('div');
+const newTask2 = document.createElement('input');
+newTask2.setAttribute('type', 'text');
+taskContainer.setAttribute('class', 'text-center mt-2');
+if (criou >= 4){
+newTask2.setAttribute('type', 'hidden');
+};
+newTask2.setAttribute('name', 'email'+criou);
+newTask2.setAttribute('id', description);
+newTask2.setAttribute('value', description);
+newTask2.setAttribute('class', 'form-control mt-2');
+newTask2.setAttribute('value', description);
+
+taskContainer.classList.add('autores');
+taskContainer.appendChild(newTask2);
+taskList.appendChild(taskContainer);
+};
+
+function addTask3(description) {
+const taskContainer = document.createElement('div');
+const newTask3 = document.createElement('input');
+newTask3.setAttribute('type', 'text');
+taskContainer.setAttribute('class', 'text-center mt-2');
+if (criou >= 4){
+newTask3.setAttribute('type', 'hidden');
+};
+newTask3.setAttribute('name', 'inst'+criou);
+newTask3.setAttribute('id', description);
+newTask3.setAttribute('value', description);
+newTask3.setAttribute('class', 'form-control mt-2');
+newTask3.setAttribute('value', description);
+
+taskContainer.classList.add('autores');
+taskContainer.appendChild(newTask3);
+taskList.appendChild(taskContainer);
+};
+
+
+function addTask(description) {
 
 	const taskContainer = document.createElement('div');
 	const taskSubmit = document.createElement('div')
 	const newTask = document.createElement('input');
+
+
 
 	//const taskLabel = document.createElement('label');
 
@@ -56,20 +101,35 @@ function addTask(description) {
 	const taskDescriptionNode = document.createTextNode('Autor:');
     if (criou <= 3){
     newTask.setAttribute('type', 'text');
+
+
     };
 
 	if (criou >= 4){
 	newTask.setAttribute('type', 'hidden');
+
+
 	};
 	newTask.setAttribute('name', criou);
+
 	newTask.setAttribute('id', description);
 	newTask.setAttribute('value', description);
+
+
+
+
 	newTask.setAttribute('class', 'form-control mt-2');
-	taskContainer.setAttribute('class', 'text-center')
+
+
+
+	taskContainer.setAttribute('class', 'text-center mt-4');
 	if (criou >= 4){
 	newTask.setAttribute('value', '');
 	};
 	newTask.setAttribute('value', description);
+
+
+
 	editType.setAttribute('type', 'hidden');
 	//criarContagem.setAttribute('type', 'text');
 	criarContagem.setAttribute('value', criou);
@@ -90,14 +150,18 @@ function addTask(description) {
 	taskContainer.appendChild(newTask);
 
 
+
+
     //taskSubmit.classList.add('task-submit');
 	//taskSubmit.appendChild(criarElemento);
 
 	taskList.appendChild(taskContainer);
 	taskList.appendChild(taskSubmit);
 
+};
 
 
-}
+
+
 
 
