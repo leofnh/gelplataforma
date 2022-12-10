@@ -541,6 +541,7 @@ def addsessao(request):
 def criarsessao(request):
     id = request.GET.get('id')
     evento = Evento.objects.filter(id=id)
+    sessao = Sessoes.objects.filter(id_evento=id)
     meuid = User.objects.filter(username=request.user)
     for m in meuid:
         mid = m.id
@@ -559,7 +560,8 @@ def criarsessao(request):
         dados  = {'id':id,
                   'evento':evento,
                   'msg':msg,
-                  'usuarios':usuarios}
+                  'usuarios':usuarios,
+                  'sessao':sessao}
 
         return render(request,'editarevento.html', dados)
 
@@ -1441,7 +1443,7 @@ def inscreveruser(request):
                  'eventos': eventos,
                  'usuarios': usuarios}
         #return render(request, 'inscricao.html', dados)
-        return redirect('/tainscritos/')
+        return redirect('/tainscrito/')
 
 
 @login_required(login_url='/login/')

@@ -62,10 +62,50 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
+                                            {% for usuarios in usuarios %}
+                                            {% if usuarios.gestor_plataforma == 'sim' %}
 
                                             {% for eventos in eventos %}
                                             {% for inscritos in inscritos %}
+
                                             {% if inscritos.evento == eventos.id %}
+
+                                         <tr class="text-center">
+                                             <td><font size="2px">{{inscritos.id_user}} </font></td>
+
+                                            <td>
+                                                <font size="2px">{{inscritos.nome}}</font>
+                                            </td>
+
+                                             <td>
+                                                <font size="2px">{{inscritos.cidade}}</font>
+                                            </td>
+
+                                             <td>
+                                                <font size="2px">{{inscritos.modalidade}}</font>
+                                            </td>
+
+                                             <td>
+                                                <font size="2px">{{inscritos.instituicao}}</font>
+                                            </td>
+
+                                             <td>
+                                                <font size="2px">{{eventos.nome}}</font>
+                                            </td>
+
+                                        </tr>
+
+
+
+                                            {% endif %}
+                                            {% endfor %}
+                                            {% endfor %}
+
+                                            {% else %}
+
+                                             {% for eventos in eventos %}
+                                            {% for inscritos in inscritos %}
+                                            {% if inscritos.evento == eventos.id and inscritos.id_user == usuarios.id_usuario %}
 
                                          <tr class="text-center">
                                              <td><font size="2px">{{inscritos.id_user}}</font></td>
@@ -91,16 +131,17 @@
                                             </td>
 
                                         </tr>
+
+
+
                                             {% endif %}
                                             {% endfor %}
+                                            {% endfor %}
+                                            {% endif %}
                                             {% endfor %}
 
                                     </tbody>
                                 </table>
-
-
-
-
                         </div>
                     </div>
 
