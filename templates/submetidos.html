@@ -22,17 +22,11 @@
                             <li class="breadcrumb-item active">Avaliações</li>
                         </ol>
 
-
                                 <p class="mb-0">
-
-
-
-
                                  <!-- tabelas iniciando aqui -->
                                 <div class="card">
                                 <div class="card-header text-white" style="background:#4B5F83;">
                                    Submissões
-
                                 </div>
                         <div class="card-body">
 
@@ -58,7 +52,7 @@
                                             <th class="text-center"><font size="2px">Trabalho</font></th>
                                             <th class="text-center"><font size="2px">Nota</font></th>
                                             {% for usuarios in usuarios %}
-                                            {% if usuarios.gestor_plataform == 'sim' %}
+                                            {% if usuarios.gestor_plataforma == 'sim' %}
                                             <th class="text-center"><font size="2px">Ações</font></th>
                                             {% endif %}
                                             {% endfor %}
@@ -68,27 +62,33 @@
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th><font size="2px">ID</font></th>
-                                            <th><font size="2px">Titulo</font></th>
-                                            <th><font size="2px">Autores</font></th>
-                                            <th><font size="2px">Sessão</font></th>
-                                            <th><font size="2px">Trabalho</font></th>
-                                            <th><font size="2px">Nota</font></th>
-                                            <th><font size="2px">Ações</font></th>
-                                            <th><font size="2px">Situação</font></th>
+                                             <th class="text-center"><font size="2px">ID</font></th>
+                                            <th class="text-center"><font size="2px">Titulo</font></th>
+                                            <th class="text-center"><font size="2px">Autores</font></th>
+                                            <th class="text-center"><font size="2px">Sessão</font></th>
+                                            <th class="text-center"><font size="2px">Trabalho</font></th>
+                                            <th class="text-center"><font size="2px">Nota</font></th>
+                                            {% for usuarios in usuarios %}
+                                            {% if usuarios.gestor_plataforma == 'sim' %}
+                                            <th class="text-center"><font size="2px">Ações</font></th>
+                                            {% endif %}
+                                            {% endfor %}
+                                             <th class="text-center"><font size="2px">Situação</font></th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
 
-                                            {% for trabalho in trabalho %}
 
+
+                                            {% for usuarios in usuarios %}
+                                            {% for trabalho in trabalho %}
+                                            {% if usuarios.gestor_plataforma == 'sim' %}
 
                                          <tr class="text-center">
                                              <td><font size="2px">{{trabalho.id}}</font></td>
-
-                                            <td>
-                                                <font size="2px">{{trabalho.titulo}}</font>
-                                            </td>
+                                         <td>
+                                             <font size="2px">{{trabalho.titulo}}</font>
+                                         </td>
                                             <!--<td>{{ eventos.get_data_evento}}</td>-->
                                             <td>
                                              <!-- aqui tava certo   {% for sessao in sessao %}
@@ -137,9 +137,9 @@
 
 
                                               </td>
-                                             {% for usuarios in usuarios %}
-                                            {% if usuarios.gestor_plataforma == 'sim' %}
+
                                             <td align="center">
+
 
                                                <a type="button"
                                                   data-toggle="modal"
@@ -204,14 +204,7 @@
                     {% endfor %}
                 </select>
                {% endif %}
-            <!--   {% if trabalho.av1 == 'aprovado' and trabalho.av2 == 'reprovado' and trabalho.status == 'avaliacao'  %}
-                Escolher terceiro avaliador
-               <select class="form-control mt-2" name="av3">
-                    {% for avaliadores in avaliadores %}
-                    <option value="{{avaliadores.id_usuario}}">{{avaliadores.nome}}</option>
-                    {% endfor %}
-                </select>
-               {% endif %} -->
+
                {% endif %}
                <input type="hidden" value="{{trabalho.id}}" name="id_trabalho">
 
@@ -245,8 +238,8 @@
 </form>
 
                                             </td>
-                                             {% endif %}
-                                             {% endfor %}
+
+
 
                                              <td class="text-center">
 
@@ -285,9 +278,121 @@
 
 
 
+
                                         </tr>
 
+
+                                            {% elif usuarios.gestor_plataforma == 'nao' %}
+                                            {% if usuarios.id_usuario == trabalho.id_usuario %}
+
+                                              <tr class="text-center">
+                                             <td><font size="2px">{{trabalho.id}}</font></td>
+                                         <td>
+                                             <font size="2px">{{trabalho.titulo}}</font>
+                                         </td>
+                                            <!--<td>{{ eventos.get_data_evento}}</td>-->
+                                            <td>
+
+                                             <!-- aqui tava certo   {% for sessao in sessao %}
+                                                 {% if trabalho.sessao == sessao.id %} -->
+
+                                                <font size="2px">{{trabalho.autor}}
+                                                    {% for autores in autores %}
+                                                    {% if autores.id_trabalho == trabalho.id %}
+                                                    -{{autores.nome}}
+                                                    {% endif %}
+                                                    {% endfor %}
+
+                                                </font>
+                                             <!--   {% endif %}
+                                                {% endfor %} -->
+                                            </td>
+
+                                            <td>
+                                                {% for sessao in sessao %}
+                                                 {% if trabalho.sessao == sessao.id %}
+                                                <font size="2px">{{sessao.nome}}</font>
+                                                {% endif %}
+                                                {% endfor %}
+                                            </td>
+
+
+
+                                            <td align="center"><font size="2px">
+                                            <a href="/media/{{trabalho.trabalho}}" target="_blank" rel="noopener noreferrer">
+                                                 <img width="15" height="15"
+                                                      src={% static "assets/pdficon.png" %}>
+                                            </a>
+
+                                            </font></td>
+                                              <td>
+
+                                                  {% if trabalho.nota1 or trabalho.nota2 %}
+                                                  {% if trabalho.nota1 %}
+                                                  {{trabalho.nota1}}
+                                                  &nbsp;
+                                                  {% endif %}
+                                                  {% if trabalho.nota2 %}
+                                                  <i class="bi bi-2-square"></i>{{trabalho.nota2}}
+                                                  {% endif %}
+
+                                                  {% endif %}
+
+
+                                              </td>
+
+
+
+
+
+                                             <td class="text-center">
+
+{% if trabalho.progresso == 0 %}
+<img width="15" height="15" class="antiHorario"
+     src={% static "assets/ampulheta.png" %} />
+{% else %}
+{% if trabalho.progresso == 100 %}
+{% if trabalho.status == 'aprovado' %}
+<div class="progress">
+  <div class="progress-bar bg-success progress-bar-striped progress-bar-animated"
+       role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+      {{trabalho.progresso}}%</div>
+</div>
+{% endif %}
+{% if trabalho.status == 'reprovado' %}
+<div class="progress">
+  <div class="progress-bar bg-danger progress-bar-striped progress-bar-animated"
+       role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+      {{trabalho.progresso}}%</div>
+</div>
+{% endif %}
+{% else %}
+<div class="progress">
+  <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated"
+       role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: {{trabalho.progresso}}%">
+      {{trabalho.progresso}}%</div>
+</div>
+{% endif %}
+{% endif %}
+
+
+
+
+                                            </td>
+
+
+
+
+                                        </tr>
+
+
+
+                                            {% endif %}
+                                            {% endif %}
                                             {% endfor %}
+                                            {% endfor %}
+
+
 
                                     </tbody>
                                 </table>

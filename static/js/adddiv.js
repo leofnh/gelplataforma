@@ -88,7 +88,7 @@ function addTask(description) {
 
 	//const taskLabel = document.createElement('label');
 
-	editType = document.getElementById('inputhidden');
+	//editType = document.getElementById('inputhidden');
 	criarContagem = document.getElementById('inputcontagem');
 
 	if (criado < 1) {
@@ -130,7 +130,7 @@ function addTask(description) {
 
 
 
-	editType.setAttribute('type', 'hidden');
+	//editType.setAttribute('type', 'hidden');
 	//criarContagem.setAttribute('type', 'text');
 	criarContagem.setAttribute('value', criou);
 	criarContagem.setAttribute('name', 'contagem');

@@ -138,7 +138,7 @@ def novocadastrar(request):
                                         )
 
                                         data['cadastrou'] = 'Bem vindo {} você foi cadastrado com sucesso!'.format(nome)
-                                        return render(request, 'novocadastro.html', data)
+                                        return render(request, 'login.html', data)
 
                                     else:
                                         data['msg'] = 'Algo deu errado, tente outra vez!'
@@ -248,7 +248,7 @@ def criarevento(request):
         dados = {'msg':msg,
                  'id':id,
                  'usuarios':usuarios}
-        return render(request,'criarevento.html', dados)
+        return redirect('/eventos/')
 
 
     else:
@@ -653,6 +653,7 @@ def submetidos(request):
     avaliadores = Usuariocd.objects.all()
     teste = Submissao.objects.all()
     autores = Autores.objects.all()
+    verificar = Usuariocd.objects.all()
 
 
     for m in meuid:
@@ -665,7 +666,9 @@ def submetidos(request):
              'trabalho':trabalho,
              'avaliadores':avaliadores,
              'teste':teste,
-             'autores':autores}
+             'autores':autores,
+             'verificar':verificar}
+
     return render(request,'submetidos.html', dados)
 
 @login_required(login_url='/login/')
@@ -1425,7 +1428,8 @@ def inscreveruser(request):
         dados = {'msg': msg,
                  'eventos': eventos,
                  'usuarios': usuarios}
-        return render(request, 'inscricao.html', dados)
+        #return render(request, 'inscricao.html', dados)
+        return redirect('/inscritos/')
 
 
 @login_required(login_url='/login/')

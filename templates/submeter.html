@@ -223,6 +223,13 @@
                   <div class="card-footer">
                     <div class="form-group" align="right">
 
+                        <a data-toggle="modal" data-target="#modalacaoautores"
+                                class="btn btn-success mt-3"
+                           type="btn">
+                            Adicionar Autores
+                        </a>
+
+
                         <button  class="btn mt-3 text-center text-white" type="button" data-toggle="collapse"
                             data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"
                                    style="background:#ff4040;"
@@ -233,8 +240,30 @@
                          <input type="submit" class="btn mt-3 text-white" value="Submeter"
                             style="background:#4B5F83;">
 
+
+
                     </form>
 
+
+
+                    <div class="col-sm-12 modal fade" id="modalacaoautores"
+     tabindex="-1" role="dialog"
+     aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-white" style="background:#4B5F83;">
+
+        <h5 class="modal-title"
+            id="TituloModalCentralizado">
+            Ações
+        </h5>
+        <a type="button" class="close" data-dismiss="modal" aria-label="Fechar"
+           style="background:#4B5F83;text-decoration:none;">
+          <span  aria-hidden="true" class="text-white">&times;</span>
+        </a>
+      </div>
+      <div class="modal-body">
+           <div class="container-fluid" align="center">
 
 
 
@@ -245,26 +274,32 @@
                              type="text" id="task-input" name="tarefa" required />
 
                      <input class="form-control mt-3" placeholder="Email do Autor"
-                             type="text" id="task-email" name="email" required />
+                             type="email" id="task-email" name="email" required />
 
                      <input class="form-control mt-3" placeholder="Instituição do Autor"
                              type="text" id="task-instituicao" name="instituicao" required />
 
-                    <button type="submit" for="task-form" class="btn mt-3 text-white"
+
+
+                   <div class="modal-footer">
+
+                        <button type="submit" for="task-form" class="btn text-white"
                             style="background:#4B5F83;">Adicionar Autor</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+
+                   </div>
 
                     </form>
-
-
-        <form method="POST" id="tasks" action="/teste/">{% csrf_token %}
-            <input id="inputhidden" type="hidden" value="Cadastrar">
-
-        </form>
-
-
-
-
                     </div>
+
+
+
+           </div>
+
+    </div>
+  </div>
+</div>
+
 
 
 
@@ -297,6 +332,7 @@
                     </div>
                 </footer>
             </div>
+
         </div>
 
 
@@ -307,3 +343,4 @@
     height: 100%!important;
 }
 </style>
+
