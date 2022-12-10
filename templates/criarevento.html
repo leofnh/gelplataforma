@@ -7,12 +7,9 @@
                 <main>
 
                 <div class="container-fluid px-4">
-                    <h1 class="mt-4" style="color:#4B5F83;">Gerenciar Eventos</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="#" style="text-decoration:none;">Formulários</a></li>
-                            <li class="breadcrumb-item active">Sessões</li>
-                        </ol>
+                    <h1 class="mt-4" style="color:#4B5F83;">Criando Eventos</h1>
 
+<!--
 
 <section>
         <div class="container">
@@ -195,8 +192,102 @@
             </div>
         </div>
     </section>
+
+-->
+
+
+                    <div class="card mt-3">
+                     <div class="card-header col-12 text-white text-center" style="background:#4B5F83;">
+
+                            <h6 class="mb-0">{% if msg %}{{msg}} {% else %} EVENTOS {% endif %}</h6>
+
+                        </div>
+                        <div class="card-body">
+
+                     {% for usuarios in usuarios %}
+                     <form method="POST" action="/criarevento/" enctype="multipart/form-data">{% csrf_token %}
+                     {% endfor %}
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Nome do Evento</h6>
+                    </div>
+                    <div class="col-sm-8 text-secondary">
+                      <input class="form-control col-10" name="nomeevento">
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">CEP Evento</h6>
+                    </div>
+                    <div class="col-sm-2 text-secondary">
+                      <input class="form-control col-6"  name="cepevento" id="cep">
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Cidade</h6>
+                    </div>
+                    <div class="col-sm-2 text-secondary">
+                      <input class="form-control col-6" type="text" name="cidadeevento" id="cidade">
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Estado</h6>
+                    </div>
+                    <div class="col-sm-3 text-secondary">
+                     <input class="form-control col-6" type="text" name="estadoevento" id="estado">
+
+                    </div>
+                  </div>
+                   <hr>
+                    <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Modalidade</h6>
+                    </div>
+                    <div class="col-sm-8 text-secondary">
+                     <input class="form-control col-6" type="text" name="modalidadeevento">
+                    </div>
+                  </div>
+                   <hr>
+
+                       <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Logo</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                    <input type="file" name="logoevento">
+                    </div>
+                  </div>
+                   <hr>
+
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Inicio</h6>
                     </div>
 
+                    <div class="col-sm-4 text-secondary">
+                     <input class="form-control col-5" type="datetime-local"  name="inicioevento">
+                        <div align="right">
+                          <input type="submit" value="Criar Evento" class="btn text-white mt-4"
+                                 style="background:#4B5F83;">
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                     </form>
+
+
+
+
+                    </div>
+                    </div>
               <!--   <div class="container-fluid px-4">
                         <h1 class="mt-4" style="color:#4B5F83;">Gerenciar Eventos</h1>
                         <ol class="breadcrumb mb-4">

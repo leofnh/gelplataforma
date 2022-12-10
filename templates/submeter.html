@@ -8,14 +8,11 @@
                 <main>
 
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4" style="color:#4B5F83;">Gerenciar Eventos</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="#" style="text-decoration:none;">Eventos</a></li>
-                            <li class="breadcrumb-item active">Avaliações</li>
-                        </ol>
+                        <h1 class="mt-4" style="color:#4B5F83;">Submissão de trabalho</h1>
                     </div>
 
-        <div class="container-fluid px-4">
+
+        <div class="container-fluid px-4 mt-3">
             <form method="post" id="formautor"
                             enctype="multipart/form-data"
                             action="/submetertrabalho/"> {% csrf_token %}
@@ -91,7 +88,7 @@
                            placeholder="Titulo do Trabalho" required>
                     </div>
 
-                    <textarea class="form-control mt-2" name="resumo" placeholder="resumo"
+                    <textarea class="form-control mt-2" name="resumo" placeholder="Resumo"
                               style="height:250px;"
                               required></textarea>
 
