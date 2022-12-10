@@ -650,8 +650,8 @@ def submetidos(request):
     eventos = Evento.objects.all()
     sessao = Sessoes.objects.all()
     trabalho = Submissao.objects.all()
-    avaliadores = Usuariocd.objects.all()
-    teste = Submissao.objects.filter(cinfo='sim')
+    avaliadores = Usuariocd.objects.filter(cinfo='sim')
+    #teste = Submissao.objects.filter(cinfo='sim')
     autores = Autores.objects.all()
     verificar = Usuariocd.objects.all()
 
@@ -665,7 +665,6 @@ def submetidos(request):
              'sessao':sessao,
              'trabalho':trabalho,
              'avaliadores':avaliadores,
-             'teste':teste,
              'autores':autores,
              'verificar':verificar}
 
