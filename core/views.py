@@ -651,7 +651,7 @@ def submetidos(request):
     sessao = Sessoes.objects.all()
     trabalho = Submissao.objects.all()
     avaliadores = Usuariocd.objects.all()
-    teste = Submissao.objects.all()
+    teste = Submissao.objects.filter(cinfo='sim')
     autores = Autores.objects.all()
     verificar = Usuariocd.objects.all()
 
@@ -1035,9 +1035,14 @@ def enviaravaliador(request):
 
     if request.POST['av3']:
         av3 = request.POST['av3']
+        Usuariocd.objects.filter(id=av3).update(
+            avaliador='sim'
+        )
+
         Submissao.objects.filter(id=id).update(
             av3=av3
         )
+
         return redirect('/submetidos/')
     else:
 
@@ -1059,6 +1064,10 @@ def enviaravaliador(request):
                     av1=av1
                 )
 
+                Usuariocd.objects.filter(id=av1).update(
+                    avaliador='sim'
+                )
+
             if request.POST['av2']:
                 av2 = request.POST['av2']
 
@@ -1069,6 +1078,10 @@ def enviaravaliador(request):
 
                 Submissao.objects.filter(id=id).update(
                     av2=av2
+                )
+
+                Usuariocd.objects.filter(id=av2).update(
+                    avaliador='sim'
                 )
 
                 mensagem = 'Olá, {} você recebeu um trabalho para avaliar, você pode acessar através do link abaixo:' \
@@ -1429,7 +1442,7 @@ def inscreveruser(request):
                  'eventos': eventos,
                  'usuarios': usuarios}
         #return render(request, 'inscricao.html', dados)
-        return redirect('/inscritos/')
+        return redirect('/tainscritos/')
 
 
 @login_required(login_url='/login/')
