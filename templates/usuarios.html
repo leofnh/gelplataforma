@@ -28,16 +28,7 @@
 
 
                                 </div>
-                        <div class="card-body">
 
-                              <div class="mt-2" align="right">
-
-                                   <a href="/submeter/">
-                                       <button class="btn text-white mt-4" style="background:#4B5F83;">Submeter</button>
-                                    </a>
-
-                              </div>
-                        </div>
 
                         <div class="card-body">
 
@@ -82,6 +73,109 @@
                                                 <font size="2px">{{todos.instituicao}}</font>
                                             </td>
 
+                                            <td>
+                                                <a type="button"
+                                                  data-toggle="modal"
+                                                  data-target="#modalacao{{todos.id_usuario}}"
+                                                  >
+
+                                                   <img class="horario"
+                                                        src={% static "assets/enggira.png" %} width="15" height="15" />
+                                                </a>
+
+<form method="POST" action="/editaruser/?id={{todos.id_usuario}}"> {% csrf_token %}
+<div class="col-sm-12 modal fade" id="modalacao{{todos.id_usuario}}"
+     tabindex="-1" role="dialog"
+     aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-white" style="background:#4B5F83;">
+
+        <h5 class="modal-title"
+            id="TituloModalCentralizado">
+            Ações
+        </h5>
+        <a type="button" class="close" data-dismiss="modal" aria-label="Fechar"
+           style="background:#4B5F83;text-decoration:none;">
+          <span  aria-hidden="true" class="text-white">&times;</span>
+        </a>
+      </div>
+      <div class="modal-body text-center">
+
+        <div class="form-group col-12 text-center">
+
+
+            <label>Nome:</label>
+            <input class="form-control col-5 mt-2"
+                   name="nomeuser" value="{{todos.nome}}" required>
+            <label class="mt-2">CPF:</label>
+            <input class="form-control col-4 mt-2"
+                   name="cpfuser"
+                   value="{{todos.cpf}}" required>
+
+            <label class="mt-2">Nascimento</label>
+            {{todos.nascimento}}
+            <input class="form-control col-4 mt-2" type="date"
+                   name="nascimentouser" value="{{todos.nascimento}}"
+                   >
+
+            <label class="mt-2">E-mail</label>
+            <input name="emailuser" type="email"
+            value="{{todos.email}}" class="form-control col-4 mt-2">
+
+            <label class="mt-2">Endereço</label>
+            <input name="enderecouser" type="text"
+            value="{{todos.endereco}}" class="form-control col-4 mt-2">
+
+            <label class="mt-2">Cidade</label>
+            <input name="cidadeuser" type="text"
+            value="{{todos.cidade}}" class="form-control col-4 mt-2">
+
+            <label class="mt-2">Bairro</label>
+            <input name="bairrouser" type="text"
+            value="{{todos.bairro}}" class="form-control col-4 mt-2">
+
+            <label class="mt-2">País</label>
+            <input name="paisuser" type="text"
+            value="{{todos.pais}}" class="form-control col-4 mt-2">
+
+            <label class="mt-2">Instituição</label>
+            <input name="instuser" type="text"
+            value="{{todos.instituicao}}" class="form-control col-4 mt-2">
+
+            <label class="mt-2">Contato</label>
+            <input name="contatouser" type="text"
+            value="{{todos.contato}}" class="form-control col-4 mt-2">
+
+
+
+            <input type="hidden" value="{{sessao.id}}" name="idsessao">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <input type="submit" class="btn text-white" style="background:#4B5F83;" value="Atualizar">
+      </div>
+
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+
+
+
+      </div>
+</form>
+
+
+                                            </td>
+
                                         </tr>
 
                                             {% endfor %}
@@ -90,13 +184,7 @@
                                 </table>
 
 
-                                    <div align="right">
 
-                                    <a href="/submeter/">
-                                       <button class="btn text-white mt-4" style="background:#4B5F83;">Submeter</button>
-                                    </a>
-
-                                    </div>
 
                         </div>
                     </div>

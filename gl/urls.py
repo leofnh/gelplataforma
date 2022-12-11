@@ -54,7 +54,8 @@ urlpatterns = [
     path('atualizarsenha/', views.attsenha),
     path('mudarsenha/', views.mudarsenha),
     path('editsessao/', views.editsessao),
-    path('formavaliado/', views.formavaliado)
+    path('formavaliado/', views.formavaliado),
+    path('editaruser/', views.edituser)
 
 ]
 

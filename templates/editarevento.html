@@ -287,7 +287,7 @@
                                                 </a>
 
 
-<form action="/editsessao/" method="post">
+<form action="/editsessao/" method="post"> {% csrf_token %}
 
       <div class="col-sm-12 modal fade" id="modalacao{{sessao.id}}"
      tabindex="-1" role="dialog"
@@ -306,6 +306,8 @@
         </a>
       </div>
       <div class="modal-body text-center">
+
+
 
         <div class="form-group col-12 text-center">
 
@@ -339,6 +341,42 @@
                 </option>
                 {% endfor %}
             </select>
+            {% for lideres in lideres %}
+            {% if lideres.sessao == sessao.id %}
+            <p class="mb-0 mt-4">
+                <h6>
+                    Líder: {{lideres.nome}}
+
+                <a href="#" style="text-decoration:none;">
+
+                    <img width="15" height="15"
+                            src={% static "assets/lapis.png" %} />
+                </a>
+             </h6>
+            </p>
+            <!--
+            <label class="mt-2">Líder</label>
+
+            <select name="lider{{lideres.id}}" class="form-control">
+
+                <option value="{{lideres.id_usuario}}" selected>{{lideres.nome}}</option>
+                {% for candidato in candidato %}
+                 <option value="{{candidato.id_usuario}}" required>
+                     {{candidato.nome}} ({{candidato.instituicao}})
+                 </option>
+                {% endfor %}
+
+            </select>
+
+            <a href="?id={{lideres.id}}" class="btn btn-success mt-2">
+                Salvar lider
+            </a>
+
+            -->
+
+            {% endif %}
+            {% endfor %}
+
 
 
 
@@ -370,6 +408,7 @@
 
 
 </td>
+
 
 
                                     </tr>

@@ -313,8 +313,6 @@ def submetertrabalho(request):
             titulo = request.POST['titulo']
             autor1 = request.POST['autor1']
 
-
-
             vsubmeter = Submissao.objects.create(
                     trabalho = trabalhoenviar,
                     sessao = id_da_sessao,
@@ -364,7 +362,7 @@ def submetertrabalho(request):
                 nome_sessao = n.nome
             ult_dia = dia_evento.strftime('%d/%m/%Y 23H59')
             mensagem = 'Estimado, {} '\
-            ' Recebemos o trabalho intitulado {} na sessão {}. Acompanhe o resultado da avaliação pela plataforma '\
+            ' Recebemos o trabalho intitulado [{}] na sessão [{}]. Acompanhe o resultado da avaliação pela plataforma '\
             ' que será divulgado até dia {}.'.format(nome, titulo, nome_sessao, ult_dia)
 
             send_mail('G&L Plataforma de Eventos', mensagem, 'gelplataforma@gmail.com',
@@ -483,6 +481,7 @@ def editarevento(request):
     sessao = Sessoes.objects.filter(id_evento=id)
     contar_formulario = Formulario.objects.filter(id_evento=id).aggregate(sum_total=Count('id'))
     candidato = Usuariocd.objects.all()
+    lideres = Lideres.objects.all()
     dados = {'evento':evento,
              'sessao':sessao,
              'eventos': eventos,
@@ -490,7 +489,8 @@ def editarevento(request):
              'id':id,
              'formulario':formulario,
              'contar_formulario':contar_formulario,
-             'candidato':candidato
+             'candidato':candidato,
+             'lideres':lideres
              }
 
     return render(request, 'editarevento.html', dados)
@@ -773,6 +773,7 @@ def editarsessao(request):
     total_submetidos = Submissao.objects.filter(sessao=id).aggregate(sum_total=Count('id'))
     candidato = Usuariocd.objects.all()
     avaliadores = Avaliadores.objects.filter(id_sessao=id)
+    lideres = Lideres.objects.all()
     for av in avaliadores:
         nome1 = av.av1
         nome2 = av.av2
@@ -788,7 +789,8 @@ def editarsessao(request):
             'candidato':candidato,
             'avaliadores':avaliadores,
             'criterios':criterios,
-            'total_criterios':total_criterios
+            'total_criterios':total_criterios,
+             'lideres':lideres
              }
 
     return render(request,'editarsessao.html', dados)
@@ -1175,7 +1177,7 @@ def enviaravaliador(request):
                     emailav = d.email
 
                 mensagem = 'Olá, {} você recebeu um trabalho para avaliar, você pode acessar através do link abaixo: ' \
-                           ' http://gelplataforma2.herokuapp.com/pontuartrabalho/?id={}'.format(nomeav, id)
+                           ' https://gelplataforma.onrender.com/pontuartrabalho/?id={}'.format(nomeav, id)
                 send_mail('G&L Plataforma de Eventos', mensagem, 'gelplataforma@gmail.com',
                           recipient_list=[emailav, 'alex@gilbertodamata.com.br', 'leofnh@live.com',
                                           'leonardobastos4@gmail.com'])
@@ -1205,7 +1207,7 @@ def enviaravaliador(request):
                 )
 
                 mensagem = 'Olá, {} você recebeu um trabalho para avaliar, você pode acessar através do link abaixo:' \
-                           ' http://gelplataforma2.herokuapp.com/pontuartrabalho/?id={}'.format(nomeav2, id)
+                           ' https://gelplataforma.onrender.com/pontuartrabalho/?id={}'.format(nomeav2, id)
                 send_mail('G&L Plataforma de Eventos', mensagem, 'gelplataforma@gmail.com',
                           recipient_list=[emailav2, 'alex@gilbertodamata.com.br', 'leofnh@live.com',
                                           'leonardobastos4@gmail.com'])
@@ -1866,6 +1868,8 @@ def editsessao(request):
     sessaoform = request.POST['sessaoform']
     idsessao = request.POST['idsessao']
 
+
+
     Sessoes.objects.filter(id=idsessao).update(
 
         nome=nome,
@@ -1898,5 +1902,58 @@ def formavaliado(request):
 
 
     return render(request,'formavaliado.html', dados)
+
+@login_required(login_url='/login/')
+def edituser(request):
+    id = request.GET.get('id')
+
+    meuid = User.objects.filter(username=request.user)
+    for m in meuid:
+        mid = m.id
+    usuarios = Usuariocd.objects.filter(id_usuario=mid)
+    for u in usuarios:
+        gestor = u.gestor_plataforma
+
+    if gestor == 'sim':
+
+        fisca = Usuariocd.objects.filter(id_usuario=id)
+        if fisca:
+            Usuariocd.objects.filter(id_usuario=id).update(
+                nome=request.POST['nomeuser'],
+                cpf = request.POST['cpfuser'],
+                email= request.POST['emailuser'],
+                endereco = request.POST['enderecouser'],
+                cidade = request.POST['cidadeuser'],
+                bairro = request.POST['bairrouser'],
+                pais = request.POST['paisuser'],
+                instituicao = request.POST['instuser'],
+                contato = request.POST['contatouser'],
+            )
+            if request.POST['nascimentouser']:
+                Usuariocd.objects.filter(id_usuario=id).update(
+                    nascimento = request.PSOT['nascimentouser']
+                )
+
+        return redirect('/usuarios/')
+
+    else:
+        msg = 'Você não tem autorização para gerir o sistema!'
+        todos = Usuariocd.objects.all()
+        usuarios = Usuariocd.objects.filter(id_usuario=mid)
+        eventos = Evento.objects.filter(status='andamento')
+        dados = {'eventos': eventos,
+                 'usuarios': usuarios,
+                 'todos': todos,
+                 'msg':msg}
+
+        return render(request, 'usuarios.html', dados)
+
+
+
+
+
+
+
+
 
 
