@@ -22,29 +22,33 @@
                <form method="POST" action="/criarformulario/">{% csrf_token %}
 
                 <div class="card-body">
-
+                 <div class="row" id="linha">
                   <div class="d-flex flex-column align-items-center text-center col-12">
 
-                        <p class="text-secondary col-12">
+                        <p class="text-secondary col-12" id="criterios">
+                            <input name="ccriterios" value="5" id="ccriterios" type="hidden">
 
 
                                                 <label>Nome do Formulário</label>
+                                                <input type="hidden" name="inputcontagem" id="inputcontagem">
                                                 <input name="nomeformulario" class="form-control col-12" required>
                                                 <hr>
-                                                <label class="text-secondary">Critérios</label>
+                                                <label class="text-secondary">Adicione até 10 critérios</label>
+
                                                 <input name="c1" class="form-control col-12 mt-2" required>
+
                                                 <input name="c2" class="form-control col-12 mt-2" required>
                                                 <input name="c3" class="form-control col-12 mt-2" required>
                                                 <input name="c4" class="form-control col-12 mt-2" required>
                                                 <input name="c5" class="form-control col-12 mt-2" required>
+                                                <!--
                                                 <input name="c6" class="form-control col-12 mt-2" required>
                                                 <input name="c7" class="form-control col-12 mt-2" required>
                                                 <input name="c8" class="form-control col-12 mt-2" required>
                                                 <input name="c9" class="form-control col-12 mt-2" required>
                                                 <input name="c10" class="form-control col-12 mt-2" required>
+                                                -->
 
-                                                <textarea name="comentario" class="form-control col-12 mt-4"
-                                                placeholder="Comentários:"></textarea>
 
 
 
@@ -52,14 +56,87 @@
                         </p>
                   </div>
                 </div>
+                     <textarea name="comentario" class="form-control col-12 mt-4"
+                                                placeholder="Comentários:"></textarea>
+                </div>
+
                    <div class="card-footer" align="right" style="background:#e2e8f0;">
+
+                       <a data-toggle="modal" data-target="#modalcriterios"
+                                class="btn btn-success"
+                           type="btn">
+                            Adicionar Critérios
+                        </a>
+
                        <input type="submit"
                               class="btn text-white"
                               value="Criar"
                        style="background:#4B5F83;">
+
                    </div>
 
                      </form>
+
+
+            <div class="col-sm-12 modal fade" id="modalcriterios"
+     tabindex="-1" role="dialog"
+     aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-white" style="background:#4B5F83;">
+
+        <h5 class="modal-title"
+            id="TituloModalCentralizado">
+            Ações
+        </h5>
+        <a type="button" class="close" data-dismiss="modal" aria-label="Fechar"
+           style="background:#4B5F83;text-decoration:none;">
+          <span  aria-hidden="true" class="text-white">&times;</span>
+        </a>
+      </div>
+      <div class="modal-body">
+           <div class="container-fluid" align="center">
+
+
+
+                    <div id="list">
+                    <form id="task-form">
+
+                        <label>
+                            <h5>Critério:</h5>
+                        </label>
+
+                     <input class="form-control mt-2" placeholder="Exemplo: texto objetivo"
+                             type="text" id="task-icriterio" name="tarefa" required />
+
+
+                   <div class="modal-footer">
+
+                        <button type="submit" for="task-criterio" class="btn text-white"
+                            style="background:#4B5F83;">Adicionar</button>
+
+                       <button type="button"
+                                class="btn btn-danger" data-dismiss="modal">Fechar</button>
+
+                   </div>
+
+                    </form>
+                    </div>
+
+
+
+           </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+                    </div>
+
               </div>
       </div>
 

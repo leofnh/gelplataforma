@@ -1,4 +1,4 @@
-
+/*
 var currentNumberWrapper = document.getElementById('currentNumber')
 var currentNumber = 0;
 
@@ -14,7 +14,7 @@ function decrement() {
         currentNumber = currentNumber - 1;
         currentNumberWrapper.innerHTML = currentNumber;
 
-}
+} */
 
 
 
@@ -24,6 +24,7 @@ const taskList = document.getElementById('linha');
 const inputtype = document.getElementById('inputhidden');
 var criou = 0;
 var criado = 0;
+var ncontagem = 5;
 
 
 form.onsubmit = function (e) {
@@ -32,6 +33,8 @@ form.onsubmit = function (e) {
 	const inputField = document.getElementById('task-input');
 	const inputField2 = document.getElementById('task-email');
 	const inputField3 = document.getElementById('task-instituicao');
+	const inputField4 = document.getElementById('task-icriterio');
+	addTask4(inputField4.value);
 	addTask(inputField.value);
 	addTask2(inputField2.value);
 	addTask3(inputField3.value);
@@ -134,29 +137,51 @@ function addTask(description) {
 	//criarContagem.setAttribute('type', 'text');
 	criarContagem.setAttribute('value', criou);
 	criarContagem.setAttribute('name', 'contagem');
-
 	criou = criou + 1;
 	//criarElemento.setAttribute('type', 'submit');
 	//criarElemento.setAttribute('value', 'submit');
-
-
 	//taskLabel.setAttribute('for', description);
 	//taskLabel.setAttribute('class', 'mt-2 text-center');
-
 	//taskLabel.appendChild(taskDescriptionNode);
-
 	taskContainer.classList.add('autores');
 	//taskContainer.appendChild(taskLabel);
 	taskContainer.appendChild(newTask);
-
-
-
-
     //taskSubmit.classList.add('task-submit');
 	//taskSubmit.appendChild(criarElemento);
 
 	taskList.appendChild(taskContainer);
 	taskList.appendChild(taskSubmit);
+
+};
+
+function addTask4(description) {
+
+cCriterio = document.getElementById('ccriterios');
+const taskContainer = document.createElement('div');
+const newTask4 = document.createElement('input');
+newTask4.setAttribute('type', 'text');
+taskContainer.setAttribute('class', 'text-center');
+criarContagem = document.getElementById('inputcontagem');
+tacriado = ncontagem + 1;
+cCriterio.setAttribute('value', tacriado);
+if (criou >= 4){
+newTask2.setAttribute('type', 'hidden');
+cCriterio.setAttribute('value', 10);
+};
+newTask4.setAttribute('name', criou);
+newTask4.setAttribute('id', description);
+newTask4.setAttribute('value', description);
+newTask4.setAttribute('class', 'form-control mt-2');
+newTask4.setAttribute('value', description);
+
+criarContagem.setAttribute('value', criou);
+criarContagem.setAttribute('name', 'contagem');
+criou = criou + 1;
+ncontagem = ncontagem + 1;
+
+taskContainer.classList.add('criterios');
+taskContainer.appendChild(newTask4);
+taskList.appendChild(taskContainer);
 
 };
 

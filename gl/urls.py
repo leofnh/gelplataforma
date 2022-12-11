@@ -52,7 +52,9 @@ urlpatterns = [
     path('criarformulario/', views.criarformulario),
     path('eventos/', views.eventos),
     path('atualizarsenha/', views.attsenha),
-    path('mudarsenha/', views.mudarsenha)
+    path('mudarsenha/', views.mudarsenha),
+    path('editsessao/', views.editsessao),
+    path('formavaliado/', views.formavaliado)
 
 ]
 

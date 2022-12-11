@@ -40,6 +40,8 @@ class Formulario(models.Model):
     c8 = models.CharField(max_length=500)
     c9 = models.CharField(max_length=500)
     c10 = models.CharField(max_length=500)
+    ccriterios = models.BigIntegerField()
+    comentario = models.TextField(null=True)
     id_evento = models.BigIntegerField()
     nome_formulario = models.CharField(max_length=150)
     data_cadastro = models.DateTimeField(auto_now=True)
@@ -119,6 +121,7 @@ class Sessoes(models.Model):
     tema = models.CharField(max_length=150)
     formulario = models.BigIntegerField()
     id_evento= models.BigIntegerField()
+    identificador = models.CharField(max_length=150)
 
 #class Inscritos(models.Model):
 
@@ -163,3 +166,18 @@ class Autores(models.Model):
     instituicao = models.CharField(max_length=150)
     email = models.EmailField()
     id_trabalho = models.BigIntegerField()
+
+class Lideres(models.Model):
+
+    nome = models.CharField(max_length=150)
+    id_usuario = models.BigIntegerField()
+    sessao = models.BigIntegerField()
+
+class Salvarform(models.Model):
+
+    criterio = models.CharField(max_length=150)
+    nota = models.BigIntegerField()
+    id_avaliado = models.BigIntegerField()
+    data_avaliado = models.DateTimeField(auto_now=True)
+    def get_data(self):
+        return self.data_avaliado.strftime('%d/%m/%Y às %H:%M')

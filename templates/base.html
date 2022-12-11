@@ -107,7 +107,9 @@
                                             {% for usuarios in usuarios %}
                                             {% if usuarios.gestor_plataforma == 'sim' %}
                                             <a class="nav-link" href="/tainscrito/" style="color:#e2e8f0;">Inscritos</a>
+                                            <!--
                                             <a class="nav-link" href="#" style="color:#e2e8f0;">Formulário de Inscrição</a>
+                                            -->
                                             {% else %}
                                              <a class="nav-link" href="/tainscrito/" style="color:#e2e8f0;">Minhas Inscrições</a>
                                             {% endif %}
@@ -269,6 +271,7 @@
         <script src={% static "js/tabela.js" %} ></script>
         <script src={% static "js/datatables-simple-demo.js" %} ></script>
         <script src={% static "js/adddiv.js" %}></script>
+
 
 
 </html>

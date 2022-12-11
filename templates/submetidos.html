@@ -15,14 +15,21 @@
 
                         <h1 class="mt-4" style="color:#4B5F83;">Trabalhos submetidos</h1>
                         {% if msg %}
-                        <font color="red">Alerta:</font>{{msg}}
+                        <div class="btn btn-danger col-12">
+
+                            {{msg}}
+
+                        </div>
+
                         {% endif %}
+                        <!--
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="#" style="text-decoration:none;">Eventos</a></li>
                             <li class="breadcrumb-item active">Avaliações</li>
                         </ol>
+                        -->
 
-                                <p class="mb-0">
+                                <p class="mb-0 mt-3">
                                  <!-- tabelas iniciando aqui -->
                                 <div class="card">
                                 <div class="card-header text-white" style="background:#4B5F83;">
@@ -52,7 +59,7 @@
                                             <th class="text-center"><font size="2px">Trabalho</font></th>
                                             <th class="text-center"><font size="2px">Nota</font></th>
                                             {% for usuarios in usuarios %}
-                                            {% if usuarios.gestor_plataforma == 'sim' %}
+                                            {% if usuarios.gestor_plataforma == 'sim' or usuarios.lider == 'sim' %}
                                             <th class="text-center"><font size="2px">Ações</font></th>
                                             {% endif %}
                                             {% endfor %}
@@ -69,7 +76,7 @@
                                             <th class="text-center"><font size="2px">Trabalho</font></th>
                                             <th class="text-center"><font size="2px">Nota</font></th>
                                             {% for usuarios in usuarios %}
-                                            {% if usuarios.gestor_plataforma == 'sim' %}
+                                            {% if usuarios.gestor_plataforma == 'sim' or usuarios.lider == 'sim' %}
                                             <th class="text-center"><font size="2px">Ações</font></th>
                                             {% endif %}
                                             {% endfor %}
@@ -85,8 +92,10 @@
                                             {% if usuarios.gestor_plataforma == 'sim' %}
 
                                          <tr class="text-center">
-                                             <td><font size="2px">{{trabalho.id}}</font></td>
-                                         <td>
+                                              <td><font size="2px">{{trabalho.id}}</font>
+                                              </td>
+
+                                           <td>
                                              <font size="2px">{{trabalho.titulo}}</font>
                                          </td>
                                             <!--<td>{{ eventos.get_data_evento}}</td>-->
@@ -96,7 +105,7 @@
                                                 <font size="2px">{{trabalho.autor}}
                                                     {% for autores in autores %}
                                                     {% if autores.id_trabalho == trabalho.id %}
-                                                    -{{autores.nome}}
+                                                    ,{{autores.nome}}
                                                     {% endif %}
                                                     {% endfor %}
 
@@ -121,7 +130,213 @@
                                                       src={% static "assets/pdficon.png" %}>
                                             </a>
 
-                                            </font></td>
+                                            </font>
+                                            </td>
+
+
+                                              <td>{% if trabalho.nota1 or trabalho.nota2 %} {% if trabalho.nota1 %}<a href="/formavaliado/?id={{trabalho.id}}" style="text-decoration:none;">{{trabalho.nota1}}</a>                                                                                                                                               &nbsp;
+                                                  {% endif %}
+                                                  {% if trabalho.nota2 %}
+                                                  <a href="/formavaliado/?id={{trabalho.id}}"
+                                                  style="text-decoration:none;">{{trabalho.nota2}}</a>
+                                                  {% endif %}
+                                                  {% if trabalho.nota3 %}
+                                                  <a type="button" href="/formavaliado/?id={{trabalho.id}}"
+                                                  style="text-decoration:none;">{{trabalho.nota3}}</a>
+
+                                                  {% endif %}
+                                                  {% endif %}
+
+
+                                              </td>
+
+                                             <td align="center">
+
+
+                                               <a type="button"
+                                                  data-toggle="modal"
+                                                  data-target="#modalacao{{trabalho.id}}"
+                                                  >
+
+                                                   <img class="horario"
+                                                        src={% static "assets/enggira.png" %} width="15" height="15" />
+                                                </a>
+
+
+<form method="POST" action="/enviaravaliador/">{% csrf_token %}
+     <div class="col-sm-12 modal fade" id="modalacao{{trabalho.id}}"
+     tabindex="-1" role="dialog"
+     aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-white" style="background:#4B5F83;">
+
+        <h5 class="modal-title"
+            id="TituloModalCentralizado">
+            Ações
+        </h5>
+        <a type="button" class="close" data-dismiss="modal" aria-label="Fechar"
+           style="background:#4B5F83;text-decoration:none;">
+          <span  aria-hidden="true" class="text-white">&times;</span>
+        </a>
+      </div>
+      <div class="modal-body">
+           <div class="container-fluid" align="center">
+
+               {% if trabalho.av1 == 'aguardando' %}
+                Escolher Avaliador
+                <input name="av3" type="hidden">
+                <select class="form-control mt-2" name="av1" required>
+                    {% for avaliadores in avaliadores %}
+                    {% if avaliadores.id_usuario != usuarios.id_usuario %}
+                    <option value="{{avaliadores.id_usuario}}">{{avaliadores.nome}}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+
+               <br>
+               {% endif %}
+               {% if trabalho.av2 == 'aguardando' %}
+               Escolher segundo avaliador
+               <select class="form-control mt-2" name="av2">
+                    {% for avaliadores in avaliadores %}
+                    {% if avaliadores.id_usuario != usuarios.id_usuario %}
+                    <option value="{{avaliadores.id_usuario}}">{{avaliadores.nome}}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+               {% endif %}
+               {% if trabalho.av1 != 'aguardando' and trabalho.av2 != 'aguardando' %}
+               {% if trabalho.status == 'aprovado' %}
+               Este trabalho foi aprovado!
+               {% endif %}
+               {% if trabalho.status == 'reprovado' %}
+               Este trabalho foi reprovado!
+               {% endif %}
+               {% if trabalho.status == 'avaliacao' and trabalho.av2 != 'aguardando' and trabalho.av1 != 'aguardando' %}
+               Escolher terceiro avaliador
+               <select class="form-control mt-2" name="av3">
+                    {% for avaliadores in avaliadores %}
+                    {% if avaliadores.id_usuario != usuarios.id_usuario %}
+                    <option value="{{avaliadores.id_usuario}}">{{avaliadores.nome}}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+               {% endif %}
+
+               {% endif %}
+               <input type="hidden" value="{{trabalho.id}}" name="id_trabalho">
+
+          </div>
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+
+          {% if trabalho.status == 'avaliacao' or trabalho.status == 'aguardando' %}
+        <input type="submit" class="btn text-white" style="background:#4B5F83;" value="Enviar">
+          {% endif %}
+
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+
+                                            </td>
+                                             <td class="text-center">
+
+{% if trabalho.progresso == 0 %}
+<img width="15" height="15" class="antiHorario"
+     src={% static "assets/ampulheta.png" %} />
+{% else %}
+{% if trabalho.progresso == 100 %}
+{% if trabalho.status == 'aprovado' %}
+<div class="progress">
+  <div class="progress-bar bg-success progress-bar-striped progress-bar-animated"
+       role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+      {{trabalho.progresso}}%</div>
+</div>
+{% endif %}
+{% if trabalho.status == 'reprovado' %}
+<div class="progress">
+  <div class="progress-bar bg-danger progress-bar-striped progress-bar-animated"
+       role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+      {{trabalho.progresso}}%</div>
+</div>
+{% endif %}
+{% else %}
+<div class="progress">
+  <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated"
+       role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: {{trabalho.progresso}}%">
+      {{trabalho.progresso}}%</div>
+</div>
+{% endif %}
+{% endif %}
+
+
+
+
+                                            </td>
+
+                                        </tr>
+
+
+                                            {% elif usuarios.gestor_plataforma == 'nao' %}
+                                            {% if usuarios.id_usuario == trabalho.id_usuario %}
+
+                                              <tr class="text-center">
+
+                                             <td>
+                                                 <font size="2px">{{trabalho.id}}
+                                                </font>
+                                             </td>
+                                         <td>
+
+                                             <font size="2px">{{trabalho.titulo}}
+                                             </font>
+                                         </td>
+                                            <!--<td>{{ eventos.get_data_evento}}</td>-->
+                                            <td>
+
+                                             <!-- aqui tava certo   {% for sessao in sessao %}
+                                                 {% if trabalho.sessao == sessao.id %} -->
+
+                                                <font size="2px">{{trabalho.autor}}
+                                                    {% for autores in autores %}
+                                                    {% if autores.id_trabalho == trabalho.id %}
+                                                    ,{{autores.nome}}
+                                                    {% endif %}
+                                                    {% endfor %}
+
+                                                </font>
+
+                                             <!--   {% endif %}
+                                                {% endfor %} -->
+                                            </td>
+
+                                            <td>
+                                                {% for sessao in sessao %}
+                                                {% if trabalho.sessao == sessao.id %}
+                                                <font size="2px">{{sessao.nome}}</font>
+                                                {% endif %}
+                                                {% endfor %}
+                                            </td>
+
+
+
+                                            <td align="center"><font size="2px">
+                                            <a href="/media/{{trabalho.trabalho}}" target="_blank" rel="noopener noreferrer">
+                                                 <img width="15" height="15"
+                                                      src={% static "assets/pdficon.png" %}>
+                                            </a>
+
+                                            </font>
+                                            </td>
+
+
                                               <td>
 
                                                   {% if trabalho.nota1 or trabalho.nota2 %}
@@ -138,10 +353,10 @@
 
                                               </td>
 
-                                            <td align="center">
+                                            {% if usuarios.lider == 'sim' and trabalho.id_usuario != usuarios.id_usuario %}
+                                                  <td>
 
-
-                                               <a type="button"
+                                                       <a type="button"
                                                   data-toggle="modal"
                                                   data-target="#modalacao{{trabalho.id}}"
                                                   >
@@ -151,7 +366,7 @@
                                                 </a>
 
 
-<form method="POST" action="/enviaravaliador/">{% csrf_token %}
+                                        <form method="POST" action="/enviaravaliador/">{% csrf_token %}
      <div class="col-sm-12 modal fade" id="modalacao{{trabalho.id}}"
      tabindex="-1" role="dialog"
      aria-labelledby="TituloModalCentralizado" aria-hidden="true">
@@ -210,18 +425,9 @@
 
           </div>
 
-          <div class="mt-2">
-               <a class="dropdown-item" href="#">Gerenciar Evento</a>
-               <a class="dropdown-item" href="#">Gerenciar Sessao</a>
-               <a class="dropdown-item" href="#">Gerenciar Formulários</a>
-               <a class="dropdown-item" href="#">Definir ações</a>
-          </div>
 
-           <div align="left" class="mt-2 text-secondary mb-0">
 
-              <font size="2px">Evento:</font> <font size="1px">{{eventos.nome}} / {{sessao.tema}}</font>
 
-          </div>
 
       </div>
       <div class="modal-footer">
@@ -237,9 +443,15 @@
 </div>
 </form>
 
-                                            </td>
+                                                  </td>
 
-
+                                              {% else %}
+                                                  <td>
+                                                      <img width="15" height="15"
+                                                      src="https://cdn-icons-png.flaticon.com/512/3208/3208742.png"
+                                                      >
+                                                  </td>
+                                             {% endif %}
 
                                              <td class="text-center">
 
@@ -278,54 +490,65 @@
 
 
 
-
                                         </tr>
 
+                                            {% endif %}
+                                            {% endif %}
+                                            {% endfor %}
+                                            {% endfor %}
 
-                                            {% elif usuarios.gestor_plataforma == 'nao' %}
-                                            {% if usuarios.id_usuario == trabalho.id_usuario %}
+                                    {% for usuarios in usuarios %}
+                                    {% if usuarios.lider == 'sim' and usuarios.gestor_plataforma == 'nao' %}
+                                    {% for sessaolider in sessaolider %}
+                                    {% for trabalho in trabalho %}
+                                    {% if sessaolider.sessao == trabalho.sessao and trabalho.id_usuario != usuarios.id_usuario %}
 
-                                              <tr class="text-center">
-                                             <td><font size="2px">{{trabalho.id}}</font></td>
-                                         <td>
-                                             <font size="2px">{{trabalho.titulo}}</font>
+
+                                            <tr>
+                                               <td><font size="2px">{{trabalho.id}}</font>
+                                              </td>
+
+                                                <td>
+
+                                             <font size="2px">{{trabalho.titulo}}
+                                             </font>
                                          </td>
-                                            <!--<td>{{ eventos.get_data_evento}}</td>-->
-                                            <td>
 
-                                             <!-- aqui tava certo   {% for sessao in sessao %}
-                                                 {% if trabalho.sessao == sessao.id %} -->
+                                               <td>
+
 
                                                 <font size="2px">{{trabalho.autor}}
                                                     {% for autores in autores %}
                                                     {% if autores.id_trabalho == trabalho.id %}
-                                                    -{{autores.nome}}
+                                                    ,{{autores.nome}}
                                                     {% endif %}
                                                     {% endfor %}
-
                                                 </font>
-                                             <!--   {% endif %}
-                                                {% endfor %} -->
+
                                             </td>
 
-                                            <td>
+                                                <td>
                                                 {% for sessao in sessao %}
-                                                 {% if trabalho.sessao == sessao.id %}
+                                                {% if trabalho.sessao == sessao.id %}
                                                 <font size="2px">{{sessao.nome}}</font>
                                                 {% endif %}
                                                 {% endfor %}
                                             </td>
 
 
-
-                                            <td align="center"><font size="2px">
+                                                <td align="center"><font size="2px">
                                             <a href="/media/{{trabalho.trabalho}}" target="_blank" rel="noopener noreferrer">
                                                  <img width="15" height="15"
                                                       src={% static "assets/pdficon.png" %}>
                                             </a>
 
-                                            </font></td>
-                                              <td>
+                                            </font>
+                                            </td>
+
+
+
+
+                                                 <td>
 
                                                   {% if trabalho.nota1 or trabalho.nota2 %}
                                                   {% if trabalho.nota1 %}
@@ -343,9 +566,99 @@
 
 
 
+                                                 <td class="text-center">
+
+                                                       <a type="button"
+                                                  data-toggle="modal"
+                                                  data-target="#modalacao{{trabalho.id}}"
+                                                  >
+
+                                                   <img class="horario"
+                                                        src={% static "assets/enggira.png" %} width="15" height="15" />
+                                                </a>
 
 
-                                             <td class="text-center">
+                                        <form method="POST" action="/enviaravaliador/">{% csrf_token %}
+     <div class="col-sm-12 modal fade" id="modalacao{{trabalho.id}}"
+     tabindex="-1" role="dialog"
+     aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-white" style="background:#4B5F83;">
+
+        <h5 class="modal-title"
+            id="TituloModalCentralizado">
+            Ações
+        </h5>
+        <a type="button" class="close" data-dismiss="modal" aria-label="Fechar"
+           style="background:#4B5F83;text-decoration:none;">
+          <span  aria-hidden="true" class="text-white">&times;</span>
+        </a>
+      </div>
+      <div class="modal-body">
+           <div class="container-fluid" align="center">
+
+               {% if trabalho.av1 == 'aguardando' %}
+                Escolher Avaliador
+                <input name="av3" type="hidden">
+                <select class="form-control mt-2" name="av1" required>
+                    {% for avaliadores in avaliadores %}
+                    <option value="{{avaliadores.id_usuario}}">{{avaliadores.nome}}</option>
+                    {% endfor %}
+                </select>
+               <br>
+               {% endif %}
+               {% if trabalho.av2 == 'aguardando' %}
+               Escolher segundo avaliador
+               <select class="form-control mt-2" name="av2">
+                    {% for avaliadores in avaliadores %}
+                    <option value="{{avaliadores.id_usuario}}">{{avaliadores.nome}} ({{avaliadores.id}})</option>
+                    {% endfor %}
+                </select>
+               {% endif %}
+               {% if trabalho.av1 != 'aguardando' and trabalho.av2 != 'aguardando' %}
+               {% if trabalho.status == 'aprovado' %}
+               Este trabalho foi aprovado!
+               {% endif %}
+               {% if trabalho.status == 'reprovado' %}
+               Este trabalho foi reprovado!
+               {% endif %}
+               {% if trabalho.status == 'avaliacao' and trabalho.av2 != 'aguardando' and trabalho.av1 != 'aguardando' %}
+               Escolher terceiro avaliador
+               <select class="form-control mt-2" name="av3">
+                    {% for avaliadores in avaliadores %}
+                    <option value="{{avaliadores.id_usuario}}">{{avaliadores.nome}}</option>
+                    {% endfor %}
+                </select>
+               {% endif %}
+
+               {% endif %}
+               <input type="hidden" value="{{trabalho.id}}" name="id_trabalho">
+
+          </div>
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+
+          {% if trabalho.status == 'avaliacao' or trabalho.status == 'aguardando' %}
+        <input type="submit" class="btn text-white" style="background:#4B5F83;" value="Enviar">
+          {% endif %}
+
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+
+                                                  </td>
+
+
+
+
+                                               <td class="text-center">
 
 {% if trabalho.progresso == 0 %}
 <img width="15" height="15" class="antiHorario"
@@ -380,17 +693,16 @@
 
                                             </td>
 
+                                            </tr>
 
-
-
-                                        </tr>
-
-
-
-                                            {% endif %}
                                             {% endif %}
                                             {% endfor %}
                                             {% endfor %}
+                                            {% endif %}
+                                            {% endfor %}
+
+
+
 
 
 

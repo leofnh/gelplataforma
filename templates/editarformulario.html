@@ -30,11 +30,36 @@
                                                 <input name="c3" class="form-control col-12 mt-2" value="{{formulario.c3}}">
                                                 <input name="c4" class="form-control col-12 mt-2" value="{{formulario.c4}}">
                                                 <input name="c5" class="form-control col-12 mt-2" value="{{formulario.c5}}">
+                                                {% if formulario.c6 %}
                                                 <input name="c6" class="form-control col-12 mt-2" value="{{formulario.c6}}">
+                                                {% else %}
+                                                <input name="c6" class="form-control col-12 mt-2" value="" type="hidden">
+                                                {% endif %}
+
+                                                {% if formulario.c7 %}
                                                 <input name="c7" class="form-control col-12 mt-2" value="{{formulario.c7}}">
+                                                {% else %}
+                                                <input name="c7" class="form-control col-12 mt-2" value="" type="hidden">
+                                                {% endif %}
+                                                {% if formulario.c8 %}
                                                 <input name="c8" class="form-control col-12 mt-2" value="{{formulario.c8}}">
+                                                {% else %}
+                                                <input name="c8" class="form-control col-12 mt-2" value="" type="hidden">
+                                                {% endif %}
+                                                {% if formulario.c9 %}
                                                 <input name="c9" class="form-control col-12 mt-2" value="{{formulario.c9}}">
-                                                <input name="c10" class="form-control col-12 mt-2" value="{{formulario.c10}}">
+                                                {% else %}
+                                                <input name="c9" class="form-control col-12 mt-2" value="" type="hidden">
+                                                {% endif %}
+                                                {% if formulario.c10 %}
+                                                <input name="c10" class="form-control col-12 mt-2"
+                                                        value="{{formulario.c10}}">
+                                                {% else %}
+                                                <input name="c10" class="form-control col-12 mt-2" value="" type="hidden">
+                                                {% endif %}
+                                                {% if formulario.comentario %}
+                                                <textarea name="comentario" class="form-control col-12 mt-4">{{formulario.comentario}}</textarea>
+                                                {% endif %}
                                                 {% endfor %}
 
 

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from core.models import Autores,Evento, Formulario, Submissao, Usuariocd,Sessoes,Inscritos,Avaliadores,Criterios
+from core.models import Salvarform,Lideres,Autores,Evento, Formulario, Submissao, Usuariocd,Sessoes,Inscritos,Avaliadores,Criterios
 
 # Register your models here.
 
@@ -12,3 +12,5 @@ admin.site.register(Sessoes)
 admin.site.register(Inscritos)
 admin.site.register(Avaliadores)
 admin.site.register(Criterios)
+admin.site.register(Lideres)
+admin.site.register(Salvarform)
