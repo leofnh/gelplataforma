@@ -298,11 +298,10 @@
                                              <font size="2px">{{trabalho.titulo}}
                                              </font>
                                          </td>
-                                            <!--<td>{{ eventos.get_data_evento}}</td>-->
+
                                             <td>
 
-                                             <!-- aqui tava certo   {% for sessao in sessao %}
-                                                 {% if trabalho.sessao == sessao.id %} -->
+
 
                                                 <font size="2px">{{trabalho.autor}}
                                                     {% for autores in autores %}
@@ -313,8 +312,7 @@
 
                                                 </font>
 
-                                             <!--   {% endif %}
-                                                {% endfor %} -->
+
                                             </td>
 
                                             <td>
@@ -337,17 +335,17 @@
                                             </td>
 
 
-                                              <td>
-
-                                                  {% if trabalho.nota1 or trabalho.nota2 %}
-                                                  {% if trabalho.nota1 %}
-                                                  {{trabalho.nota1}}
-                                                  &nbsp;
+                                             <td>{% if trabalho.nota1 or trabalho.nota2 %} {% if trabalho.nota1 %}<a href="/formavaliado/?id={{trabalho.id}}" style="text-decoration:none;">{{trabalho.nota1}}</a>                                                                                                                                               &nbsp;
                                                   {% endif %}
                                                   {% if trabalho.nota2 %}
-                                                  <i class="bi bi-2-square"></i>{{trabalho.nota2}}
+                                                  <a href="/formavaliado/?id={{trabalho.id}}"
+                                                  style="text-decoration:none;">{{trabalho.nota2}}</a>
                                                   {% endif %}
+                                                  {% if trabalho.nota3 %}
+                                                  <a type="button" href="/formavaliado/?id={{trabalho.id}}"
+                                                  style="text-decoration:none;">{{trabalho.nota3}}</a>
 
+                                                  {% endif %}
                                                   {% endif %}
 
 
@@ -444,8 +442,8 @@
 </form>
 
                                                   </td>
-
-                                              {% else %}
+                                            {% endif %}
+                                            {% if usuarios.lider == 'sim' and trabalho.id_usuario == usuarios.id_usuario %}
                                                   <td>
                                                       <img width="15" height="15"
                                                       src="https://cdn-icons-png.flaticon.com/512/3208/3208742.png"

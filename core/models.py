@@ -42,7 +42,7 @@ class Formulario(models.Model):
     c10 = models.CharField(max_length=500)
     ccriterios = models.BigIntegerField()
     comentario = models.TextField(null=True)
-    id_evento = models.BigIntegerField()
+    id_evento = models.CharField(max_length=600)
     nome_formulario = models.CharField(max_length=150)
     data_cadastro = models.DateTimeField(auto_now=True)
 

@@ -1,9 +1,9 @@
 import datetime
+from datetime import timedelta
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
-from django.core.mail import send_mail, send_mass_mail
 from django.shortcuts import render, redirect, HttpResponse
 from core.models import Salvarform,Lideres,Evento,Submissao,Formulario, Usuariocd, Sessoes,Inscritos, Avaliadores,Criterios,Autores
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
@@ -136,6 +136,18 @@ def novocadastrar(request):
                                             perfil='avatarp.png',
                                             id_usuario=id
                                         )
+
+                                        mensagem = 'Estimado {}, ' \
+                                                   ' Você concluiu seu cadastro na G&L Plataforma com as seguintes informações, ' \
+                                                   ' Usuário: {} ' \
+                                                   ' Senha: {} ' \
+                                                   ' País: {} - {} ' \
+                                                   ' Atenciosamente, G&L Plataforma'.format(nome,cpf,senha,cidade,pais)
+
+
+                                        send_mail('G&L Plataforma de Eventos', mensagem, 'gelplataforma@gmail.com',
+                                                  recipient_list=[email, 'alex@gilbertodamata.com.br',
+                                                                  'leofnh@live.com', 'leonardobastos4@gmail.com'])
 
                                         data['cadastrou'] = 'Bem vindo {} você foi cadastrado com sucesso!'.format(nome)
                                         return render(request, 'login.html', data)
@@ -344,15 +356,23 @@ def submetertrabalho(request):
                     )
                     maisum += 1
                     ummais += 1
-
-            mensagem = 'Olá, {} você acabou de submeter um trabalho, aguarde até que ele seja avaliado, você será avisado por e-mail. Titulo do trabalho {}, autor {}'.format(nome, titulo, autor1)
+            nomesessao = Sessoes.objects.filter(id=id_da_sessao)
+            evento = Evento.objects.filter(id=id_evento)
+            for e in evento:
+                dia_evento = e.data_criacao
+            for n in nomesessao:
+                nome_sessao = n.nome
+            ult_dia = dia_evento.strftime('%d/%m/%Y 23H59')
+            mensagem = 'Estimado, {} '\
+            ' Recebemos o trabalho intitulado {} na sessão {}. Acompanhe o resultado da avaliação pela plataforma '\
+            ' que será divulgado até dia {}.'.format(nome, titulo, nome_sessao, ult_dia)
 
             send_mail('G&L Plataforma de Eventos', mensagem, 'gelplataforma@gmail.com',
                       recipient_list=[email,'alex@gilbertodamata.com.br', 'leofnh@live.com', 'leonardobastos4@gmail.com'])
-            #return HttpResponse('e-mail enviado')
+
             msg2 = 'Você enviou seu trabalho com sucesso!'
             sessao = Sessoes.objects.filter(id_evento=id_evento)
-            evento = Evento.objects.filter(id=id_evento)
+
             dados = {'id':id,
                          'msg2':msg2,
                          'eventos':eventos,
@@ -360,6 +380,7 @@ def submetertrabalho(request):
                          'sessao':sessao,
                      'usuarios':usuarios}
             return redirect('/submetidos/')
+        # se alterar o return lembrar de alterar os "dados"
         else:
             msg = 'Selecione seu trabalho para enviar!'
             sessao = Sessoes.objects.filter(id_evento=id_evento)
@@ -1153,7 +1174,7 @@ def enviaravaliador(request):
                     nomeav = d.nome
                     emailav = d.email
 
-                mensagem = 'Olá, {} você recebeu um trabalho para avaliar, você pode acessar através do link abaixo:' \
+                mensagem = 'Olá, {} você recebeu um trabalho para avaliar, você pode acessar através do link abaixo: ' \
                            ' http://gelplataforma2.herokuapp.com/pontuartrabalho/?id={}'.format(nomeav, id)
                 send_mail('G&L Plataforma de Eventos', mensagem, 'gelplataforma@gmail.com',
                           recipient_list=[emailav, 'alex@gilbertodamata.com.br', 'leofnh@live.com',
@@ -1630,6 +1651,17 @@ def inscreveruser(request):
             evento = evento,
             id_user = mid
         )
+        hoje = datetime.datetime.now()
+        prazo = hoje + datetime.timedelta(days=7)
+        prazo_exibir = prazo.strftime('%d/%m/%Y às 23h59')
+        mensagem = 'Estimado {},' \
+                   ' Recebemos a inscrição na categoria {}, no valor de R${},00' \
+                   ' acompanhe a plataforma a situação da inscrição. As inscrições são validadas até o dia {}. ' \
+                   'Atenciosamente, G&L Plataforma'.format(nome, modalidade, pagamento,prazo_exibir)
+
+        send_mail('G&L Plataforma de Eventos', mensagem, 'gelplataforma@gmail.com',
+                  recipient_list=[email, 'alex@gilbertodamata.com.br', 'leofnh@live.com', 'leonardobastos4@gmail.com'])
+        # return HttpResponse('e-mail enviado')
         acevento = Evento.objects.filter(id=evento)
         for e in acevento:
             nomeevento = e.nome
